@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    $data['user'] = "M Hafidz M";
+    return view('admin.dashboard.index', $data);
 });
 
 Auth::routes();
@@ -23,7 +24,5 @@ Auth::routes();
 Route::match(['GET', 'POST'], '/register', function () {
     return redirect('/login');
 })->name('register');
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource("users", "UserController");
