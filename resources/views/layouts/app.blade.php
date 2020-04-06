@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{asset('polished/polished.min.css')}}">
 <link rel="stylesheet" href="{{asset('polished/iconic/css/open-iconic-bootstrap.min.css')}}">
 
+
 <style>
 .grid-highlight {
 padding-top: 1rem;
@@ -74,6 +75,18 @@ mb-4" type="text" placeholder="Search" aria-label="Search" />
 <li><a href="/home"><span class="oi oi-home"></span>
     Home</a></li>
 
+<li><a href="{{route('users.index')}}"><span class="oi oi-people"></span>
+ Manage  Users</a></li>
+
+   <li><a href="{{route('categories.index')}}"><span class="oi oi-tag">
+</span> Manage Categories</a></li>
+
+   <li><a href="{{route('books.index')}}"><span class="oi oi-book">
+</span> Manage Books</a></li>
+
+<li><a href="{{route('orders.index')}}"><span class="oi oi-inbox"></span>
+   Manage Orders</a></li>
+
 <div class="d-block d-md-none">
 <div class="dropdown-divider"></div>
 <li><a href="#"> Profile</a></li>
@@ -106,8 +119,13 @@ style="bottom: 0px">
 </div>
 </div>
 </div>
-<script src="{{ asset('polished/bootstrap/js/jquery.min.js') }}"></script>
+<script src="{{ asset('polished/bootstrap/js/jquery-3.4.1.min.js') }}"></script>
 <script src="{{ asset('polished/bootstrap/js/popper.min.js') }}"></script>
 <script src="{{ asset('polished/bootstrap/js/bootstrap.min.js') }}"></script>
+
+
+
+@yield('footer-scripts')
+
 </body>
 </html>
