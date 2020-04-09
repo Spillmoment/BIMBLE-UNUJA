@@ -14,4 +14,6 @@
 <script src="{{asset('stisla-assets/js/scripts.js')}}"></script>
 <script src="{{asset('stisla-assets/js/custom.js')}}"></script>
 
+{{-- Javascript --}}
+
 <!-- Page Specific JS File -->
