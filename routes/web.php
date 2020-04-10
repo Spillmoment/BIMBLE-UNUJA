@@ -14,15 +14,19 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
+Auth::routes();
+Route::get('/admin', function () {
     $data['user'] = "M Hafidz M";
     return view('admin.dashboard.index', $data);
 });
-
-Auth::routes();
 
 Route::match(['GET', 'POST'], '/register', function () {
     return redirect('/login');
 })->name('register');
 
 Route::resource("users", "UserController");
+
+
+// Landing
+
+Route::get('/', 'Web\FrontController@index')->name('front.home');
