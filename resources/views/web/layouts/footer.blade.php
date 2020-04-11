@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-5 mb-lg-0">
-                    <img src="assets/img/logo.png" class="mb-3" alt="Directory logo" style="width: 150px;"></a>
+                    <img src="{{asset('assets/frontend/img/logo.png') }}" class="mb-3" alt="Directory logo" style="width: 150px;"></a>
                     <p>Dapatkan "Info Bimbel murah" hanya di EH - BIMBEL App.
                         Mau "Bimbel Kost Murah"?</p>
                     <ul class="list-inline">
