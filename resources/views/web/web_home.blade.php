@@ -18,12 +18,12 @@
                     <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
-                                <img src="assets/img/photo/photo-1426122402199-be02db90eb90.jpg"
+                                <img src="{{asset('assets/frontend/img/photo/photo-1426122402199-be02db90eb90.jpg') }}"
                                     alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
                                     href="detail-rooms.html" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
-                                        <img src="assets/img/avatar/avatar-0.png" alt="John"
+                                        <img src="{{asset('assets/frontend/img/avatar/avatar-0.png') }}" alt="John"
                                             class="avatar-profile avatar-border-white mr-2" />
                                         <div class="media-body">Dzun</div>
                                     </div>
@@ -53,12 +53,12 @@
                     <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
-                                <img src="assets/img/photo/photo-1426122402199-be02db90eb90.jpg"
+                                <img src="{{asset('assets/frontend/img/photo/photo-1426122402199-be02db90eb90.jpg') }}"
                                     alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
                                     href="detail-rooms.html" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
-                                        <img src="assets/img/avatar/avatar-0.png" alt="John"
+                                        <img src="{{asset('assets/frontend/img/avatar/avatar-0.png') }}" alt="John"
                                             class="avatar-profile avatar-border-white mr-2" />
                                         <div class="media-body">Dzun</div>
                                     </div>
@@ -88,12 +88,12 @@
                     <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
-                                <img src="assets/img/photo/photo-1426122402199-be02db90eb90.jpg"
+                                <img src="{{asset('assets/frontend/img/photo/photo-1426122402199-be02db90eb90.jpg') }}"
                                     alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
                                     href="detail-rooms.html" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
-                                        <img src="assets/img/avatar/avatar-0.png" alt="John"
+                                        <img src="{{asset('assets/frontend/img/avatar/avatar-0.png') }}" alt="John"
                                             class="avatar-profile avatar-border-white mr-2" />
                                         <div class="media-body">Dzun</div>
                                     </div>
@@ -123,12 +123,12 @@
                     <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
-                                <img src="assets/img/photo/photo-1426122402199-be02db90eb90.jpg"
+                                <img src="{{asset('assets/frontend/img/photo/photo-1426122402199-be02db90eb90.jpg') }}"
                                     alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
                                     href="detail-rooms.html" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
-                                        <img src="assets/img/avatar/avatar-0.png" alt="John"
+                                        <img src="{{asset('assets/frontend/img/avatar/avatar-0.png') }}" alt="John"
                                             class="avatar-profile avatar-border-white mr-2" />
                                         <div class="media-body">Dzun</div>
                                     </div>
@@ -158,12 +158,12 @@
                     <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
-                                <img src="assets/img/photo/photo-1426122402199-be02db90eb90.jpg"
+                                <img src="{{asset('assets/frontend/img/photo/photo-1426122402199-be02db90eb90.jpg') }}"
                                     alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
                                     href="detail-rooms.html" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
-                                        <img src="assets/img/avatar/avatar-0.png" alt="John"
+                                        <img src="{{asset('assets/frontend/img/avatar/avatar-0.png') }}" alt="John"
                                             class="avatar-profile avatar-border-white mr-2" />
                                         <div class="media-body">Dzun</div>
                                     </div>
@@ -193,12 +193,12 @@
                     <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
-                                <img src="assets/img/photo/photo-1426122402199-be02db90eb90.jpg"
+                                <img src="{{asset('assets/frontend/img/photo/photo-1426122402199-be02db90eb90.jpg') }}"
                                     alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
                                     href="detail-rooms.html" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
-                                        <img src="assets/img/avatar/avatar-0.png" alt="John"
+                                        <img src="{{asset('assets/frontend/img/avatar/avatar-0.png') }}" alt="John"
                                             class="avatar-profile avatar-border-white mr-2" />
                                         <div class="media-body">Dzun</div>
                                     </div>
