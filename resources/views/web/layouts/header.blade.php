@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
         <div class="container-fluid">
             <div class="d-flex align-items-center"><a href="index.html" class="navbar-brand py-1">
-                    <img src="assets/img/logo.png" alt="Directory logo" style="width: 150px;"></a>
+                    <img src="{{asset('assets/frontend/img/logo.png') }}" alt="Directory logo" style="width: 150px;"></a>
                 <form action="#" id="search" class="form-inline d-none d-sm-flex">
                     <div
                         class="input-label-absolute input-label-absolute-left input-reset input-expand ml-lg-2 ml-xl-3">
