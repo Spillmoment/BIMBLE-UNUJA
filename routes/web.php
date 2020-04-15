@@ -20,9 +20,9 @@ Route::get('/admin', function () {
     return view('admin.dashboard.index', $data);
 });
 
-Route::match(['GET', 'POST'], '/register', function () {
-    return redirect('/login');
-})->name('register');
+// Route::match(['GET', 'POST'], '/register', function () {
+//     return redirect('/login');
+// })->name('register');
 
 Route::resource("users", "UserController");
 
@@ -30,3 +30,5 @@ Route::resource("users", "UserController");
 // Landing
 
 Route::get('/', 'Web\FrontController@index')->name('front.home');
+
+Route::get('/home', 'HomeController@index')->name('home');
