@@ -16,9 +16,9 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::match(['GET', 'POST'], '/register', function () {
-    return redirect('/login');
-})->name('register');
+// Route::match(['GET', 'POST'], '/register', function () {
+//     return redirect('/login');
+// })->name('register');
 
 // Ajax Kategori Search
 Route::get('/ajax/kategori/search', 'KategoriController@ajaxSearch');
@@ -38,12 +38,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('kategori', 'KategoriController');
 
 
-    // Route Tutor
-    Route::resource('tutor', 'TutorController');
+Route::get('/', 'Web\FrontController@index')->name('front.home');
 
-    // Route Kursus
-    Route::resource('kursus', 'KursusController');
-});
-
-// Landing
-Route::get('/', 'Web\FrontController@index')->name('front.index');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');

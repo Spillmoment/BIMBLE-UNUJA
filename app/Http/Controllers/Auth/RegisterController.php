@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Pendaftar;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -49,10 +51,14 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        return Validator::make($data, [            
+            'nama_pendaftar' => ['required', 'string', 'max:100'],
+            'jenis_kelamin' => ['required', 'in:L,P'],
+            'alamat' => ['required', 'string', 'max:255'],
+            'foto' => ['nullable', 'file', 'image', 'mimes:jpeg,jpg,png', 'max:2048'],
+            'email' => ['required', 'string', 'email', 'max:100', 'unique:pendaftar'],
+            'username' => ['required', 'string', 'max:100', 'unique:pendaftar'],
+            'password' => ['required', 'string', 'min:3', 'confirmed'],
         ]);
     }
 
@@ -64,10 +70,23 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $file = $data['foto'];
+        $file_name = 'pendaftar-'.time().'.'.$file->getClientOriginalExtension();
+        $file->storeAs('uploads/pendaftar/profile', $file_name);
+
+        return Pendaftar::create([
+            'nama_pendaftar' => $data['nama_pendaftar'],
+            'jenis_kelamin' => $data['jenis_kelamin'],
+            'alamat' => $data['alamat'],
+            'foto' => $file_name,
             'email' => $data['email'],
+            'username' => $data['username'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function showRegistrationForm()
+    {
+        return view('auth_pendaftar.register');
     }
 }
