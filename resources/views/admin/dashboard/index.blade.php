@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>Guru</h4>
+                                        <h4>Tutor</h4>
                                     </div>
                                     <div class="card-body">
                                        100
@@ -48,7 +48,7 @@
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>Materi</h4>
+                                        <h4>Manajer</h4>
                                     </div>
                                     <div class="card-body">
                                        200
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>Kelas</h4>
+                                        <h4>Pendaftar</h4>
                                     </div>
                                     <div class="card-body">
                                         3
@@ -76,8 +76,8 @@
                         <div class="hero text-white hero-bg-image" data-background="#">
                             <div class=" hero-inner">
                             <h1>Selamat Datang, {{ $user }}</h1>
-                                <p class="lead">Di halaman admin Learnify - Web Edukasi Sekolah Menengah Kejuruan Satu
-                                    Ciamis.<br></p>
+                                <p class="lead">Di halaman Admin Bimble - Web Bimble
+                                    Probolinggo<br></p>
                                 <div class="mt-4">
                                     <a href="#" class="btn btn-outline-white btn-lg btn-icon icon-left"><i class="far fa-user"></i>
                                         Data Siswa</a>
