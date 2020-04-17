@@ -36,9 +36,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('kategori/{id}/restore', 'KategoriController@restore')->name('kategori.restore');
     Route::get('kategori/trash', 'KategoriController@trash')->name('kategori.trash');
     Route::resource('kategori', 'KategoriController');
-
+});
 
 Route::get('/', 'Web\FrontController@index')->name('front.home');
 
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
