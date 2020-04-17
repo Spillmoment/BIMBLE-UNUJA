@@ -14,6 +14,7 @@
 <script src="{{asset('assets/backend/js/scripts.js')}}"></script>
 <script src="{{asset('assets/backend/js/custom.js')}}"></script>
 
+
 {{-- Javascript --}}
 
 <!-- Page Specific JS File -->
