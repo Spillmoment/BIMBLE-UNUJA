@@ -15,18 +15,35 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Auth::routes();
-Route::get('/admin', function () {
-    $data['user'] = "M Hafidz M";
-    return view('admin.dashboard.index', $data);
-});
 
 Route::match(['GET', 'POST'], '/register', function () {
     return redirect('/login');
 })->name('register');
 
-Route::resource("users", "UserController");
+// Ajax Kategori Search
+Route::get('/ajax/kategori/search', 'KategoriController@ajaxSearch');
 
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::get('/', 'DashboardController@index')->name('dashboard.index');
+
+    // Route Users
+    Route::resource("users", "UserController");
+
+    // Route Kategori
+    Route::delete('kategori/{id}/delete-permanent', 'KategoriController@deletePermanent')
+        ->name('kategori.delete-permanent');
+    Route::get('kategori/{id}/restore', 'KategoriController@restore')->name('kategori.restore');
+    Route::get('kategori/trash', 'KategoriController@trash')->name('kategori.trash');
+    Route::resource('kategori', 'KategoriController');
+
+
+    // Route Tutor
+    Route::resource('tutor', 'TutorController');
+
+    // Route Kursus
+    Route::resource('kursus', 'KursusController');
+});
 
 // Landing
-
-Route::get('/', 'Web\FrontController@index')->name('front.home');
+Route::get('/', 'Web\FrontController@index')->name('front.index');
