@@ -26,7 +26,7 @@ class KursusRequest extends FormRequest
         return [
             'nama_kursus'   => 'required|min:3|max:100',
             'id_kategori'   => 'required',
-            'id_tutor'   => 'required',
+            'id_tutor'      => 'required',
             'gambar_kursus' => 'required|nullable|image|mimes:jpeg,jpg,png,bmp',
             'biaya_kursus'  => 'required|digits_between:0,10',
             'diskon_kursus' => 'required|digits_between:0,10',
