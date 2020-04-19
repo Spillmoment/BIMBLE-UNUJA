@@ -89,7 +89,8 @@
                                                  </div>
                                              </div>
                                          
-                                         <div class="form-group ">
+                                        
+                                             <div class="form-group ">
                                             <label for="diskon_kursus">Diskon Kursus</label>
                                              <input type="number" class="form-control {{ $errors->first('diskon_kursus') ? 'is-invalid' : '' }}" name="diskon_kursus"  id="diskon_kursus" value="{{$kursus->diskon_kursus}}"  placeholder="Diskon Kursus">
                                                 <div class="invalid-feedback">
