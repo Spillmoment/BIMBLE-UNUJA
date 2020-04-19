@@ -16,27 +16,52 @@
         </nav>
                  
         @if(session('status'))
-         <div class="alert alert-success" role="alert">
-        <strong>{{session('status')}}</strong>
-             </div> 
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{session('status')}}</strong> 
+            <button type="button" class="close text-light" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
          @endif
              
-
-        <form action="{{route('kursus.index')}}">                
-        <div class="row">
-
-            <div class="col-md-5 ml-3">
+         
+         <form action="{{route('kursus.index')}}">                
+         <div class="row">
+             
+             <div class="col-md-5 ml-3">
                 <div class="form-group">
                     <input type="text" class="form-control" {{ Request::get('keyword') }} name="keyword"  placeholder="Masukkan Nama Kursus">
                   
                 </div>
             </div>
 
-            <div class="col-md-1">
-                <button type="submit" value="Cari" class="btn btn-success"> <i class="fa fa-search" aria-hidden="true"></i> Cari</button>
+            <div class="col-xs-1">
+                <button type="submit" class="btn btn-success"> <i class="fas fa-search" aria-hidden="true"></i></button>
             </div>
-
         </div>
+        </form>
+
+    <form action="{{route('kursus.index')}}">                
+        <div class="row">
+            
+            <div class="col-md-5 ml-3">
+            <div class="form-group">
+               
+                <select class="custom-select" name="nama_kategori" id="nama_kategori">
+                    <option selected> --- Pilih Kategori --- </option>
+                    @foreach ($kategori as $row)
+                    <option value="{{$row->id}}">{{ $row->nama_kategori }}</option>
+                        @endforeach
+                </select>
+            </div>
+        </div>
+
+        <div class="col-xs-1">
+            <button type="submit" class="btn btn-success"> <i class="fas fa-filter" aria-hidden="true"></i></button>
+        </div>
+    </div>
+
+
     </form>
      
         <div class="row" style="overflow: scroll">
@@ -85,9 +110,10 @@
                                        [$krs->id])}}"> <i class="fa fa-edit"></i> Edit</a>
                                     <a class="badge badge-warning text-white badge-pill" href="{{route('kursus.show',
                                        [$krs->id])}}"> <i class="fa fa-eye"></i> Detail</a>
-                                   <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')" class="d-inline" action="{{route('kursus.destroy', [$krs->id])}}"   method="POST">
-                                       @method('DELETE')
-                                       @csrf
+                                 
+                            <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')" class="d-inline" action="{{route('kursus.destroy', [$krs->id])}}"   method="POST">
+                                @method('DELETE')
+                                @csrf
                                        <button type="submit" value="Delete" class="badge badge-danger badge-pill">
                                            <i class="fa fa-trash"></i> Trash
                                        </button>
