@@ -16,12 +16,6 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-// Route::match(['GET', 'POST'], '/register', function () {
-//     return redirect('/login');
-// })->name('register');
-
-// Ajax Kategori Search
-Route::get('/ajax/kategori/search', 'KategoriController@ajaxSearch');
 
 Route::group(['prefix' => 'admin'], function () {
 
@@ -36,8 +30,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('kategori/{id}/restore', 'KategoriController@restore')->name('kategori.restore');
     Route::get('kategori/trash', 'KategoriController@trash')->name('kategori.trash');
     Route::resource('kategori', 'KategoriController');
+
+    // Route Kursus
+    Route::resource('kursus', 'KursusController');
 });
 
-Route::get('/', 'Web\FrontController@index')->name('front.home');
+Route::get('/', 'Web\FrontController@index')->name('front.index');
 
 Route::get('/home', 'HomeController@index')->name('home');
