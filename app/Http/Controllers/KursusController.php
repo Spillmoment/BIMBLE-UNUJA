@@ -19,15 +19,30 @@ class KursusController extends Controller
 
     public function index(Request $request)
     {
+        $kursus = Kursus::orderBy('created_at', 'DESC')->paginate(10);
+        $kategori = Kategori::orderBy('created_at', 'DESC')->paginate(10);
+
+
         $keyword = $request->get('keyword');
+        $filter_kategori = $request->get('nama_kategori');
 
         if ($keyword) {
-            $kursus = Kursus::where('nama_kursus', 'LIKE', "%$keyword%")
+            $kursus = Kursus::with(['kategori', 'tutor'])
+                ->where('nama_kursus', 'LIKE', "%$keyword%")
                 ->paginate(10);
         } else {
             $kursus = Kursus::orderBy('created_at', 'DESC')->paginate(10);
         }
-        return view('admin.kursus.index', compact('kursus'));
+
+        if ($filter_kategori) {
+            $kursus = Kursus::with(['kategori', 'tutor'])
+                ->where('id_kategori', 'LIKE', "%$filter_kategori%")
+                ->orderBy('created_at', 'DESC')
+                ->paginate(10);
+        }
+
+
+        return view('admin.kursus.index', compact('kursus', 'kategori'));
     }
 
     /**
@@ -119,6 +134,10 @@ class KursusController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $kursus = Kursus::findOrFail($id);
+        Storage::delete('public/' . $kursus->gambar_kursus);
+        $kursus->delete();
+
+        return redirect()->route('kursus.index')->with(['status' => 'Data Kursus Berhasil Dihapus']);
     }
 }
