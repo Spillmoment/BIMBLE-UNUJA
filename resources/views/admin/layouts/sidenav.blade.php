@@ -59,12 +59,12 @@
 
                     <li class="menu-header">Management Kategori</li>
                     <li class="nav-item dropdown">
-                    <a href="#" class="nav-link has-dropdown"><i class="fa fa-cart-plus"></i>
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-cart-plus"></i>
                             <span>Kategori</span></a>
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" href="{{ route('kategori.index') }}">Data Kategori</a>
                             </li>
-                            <li><a class="nav-link" href="">Tambah Kategori</a>
+                        <li><a class="nav-link" href="{{route('kategori.create')}}">Tambah Kategori</a>
                             </li>
 
                         </ul>
@@ -74,9 +74,9 @@
                         <a href="#" class="nav-link has-dropdown"><i class="fas fa-chalkboard-teacher"></i>
                             <span>Kursus</span></a>
                         <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="">Data Kursus</a>
+                        <li><a class="nav-link" href="{{route('kursus.index')}}">Data Kursus</a>
                             </li>
-                            <li><a class="nav-link" href="">Tambah Kursus</a>
+                        <li><a class="nav-link" href="{{route('kursus.create')}}">Tambah Kursus</a>
                             </li>
 
                         </ul>
