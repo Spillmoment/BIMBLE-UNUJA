@@ -21,14 +21,15 @@
                     <div class="alert alert-success" role="alert">
                         <strong>Hasil Pencarian Kategori :<b> {{ $nama_kategori }} </b> </strong>
                     </div>
-                @endif
+                    @endif
+                  
 
                 <div class="owl-carousel">
                     @foreach ($kursus as $krs)
                     <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
-                                <img src="{{asset('storage/'.$krs->gambar_kursus) }}"
+                                <img src="{{asset('storage/'.$krs->gambar_kursus) }}" style="height: 10em;"
                                     alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
                                     href="detail-rooms.html" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
