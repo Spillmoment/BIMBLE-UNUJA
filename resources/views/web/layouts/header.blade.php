@@ -50,18 +50,21 @@
 
         {{-- Search Bimble  --}}
      
+        <form action="{{ route('front.index') }}">               
         <div class="row">
                 <div class="col-lg-4 d-flex align-items-center form-group">
-                    <form action="{{ route('front.index') }}">               
                     <input type="text" name="keyword" placeholder="Mau cari Bimbel?"
                 class="form-control border-0 shadow-0" value="{{ Request::get('keyword') }}">
                 </div>
        
                 <div class="col-md-6 col-lg-2 d-flex align-items-center form-group">
                     <div class="input-label-absolute input-label-absolute-right w-100">
-                        <button type="submit" class="btn btn-primary btn-block h-100">Cari</button>
+                        <label for="location" class="label-absolute"><i class="fa fa-crosshairs"></i>
+                            <div class="sr-only">Kota</div>
+                        </label>
+                        <input type="text" name="location" placeholder="Lokasi"
+                            class="form-control border-0 shadow-0">
                     </div>
-                </form>
                 </div>
 
                 <div class="col-md-6 col-lg-3 d-flex align-items-center form-group no-divider">
