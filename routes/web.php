@@ -32,7 +32,18 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('kategori', 'KategoriController');
 
     // Route Kursus
+    Route::delete('kursus/{id}/delete-permanent', 'KursusController@deletePermanent')
+        ->name('kursus.delete-permanent');
+    Route::get('kursus/{id}/restore', 'KursusController@restore')->name('kursus.restore');
+    Route::get('kursus/trash', 'KursusController@trash')->name('kursus.trash');
     Route::resource('kursus', 'KursusController');
+
+    // Route Tutor
+    Route::resource('tutor', 'TutorController');
+
+    // Route Pendaftar
+    Route::get('pendaftar/trash', 'KursusController@trash')->name('pendaftar.trash');
+    Route::resource('pendaftar', 'PendaftarController');
 });
 
 Route::get('/', 'Web\FrontController@index')->name('front.index');
