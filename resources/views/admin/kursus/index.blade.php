@@ -35,8 +35,21 @@
                 </div>
             </div>
 
-            <div class="col-xs-1">
+            <div class="col-md-1">
                 <button type="submit" class="btn btn-success"> <i class="fas fa-search" aria-hidden="true"></i></button>
+            </div>
+
+            <div class="col-md-3">
+                <ul class="nav nav-pills card-header-pills">
+                    <li class="nav-item">
+                    <a class="nav-link active" href="
+                    {{route('kursus.index')}}">Published</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="
+                    {{route('kursus.trash')}}">Trash</a>
+                    </li>
+                    </ul>
             </div>
         </div>
         </form>
@@ -56,7 +69,7 @@
             </div>
         </div>
 
-        <div class="col-xs-1">
+        <div class="col-md-1">
             <button type="submit" class="btn btn-success"> <i class="fas fa-filter" aria-hidden="true"></i></button>
         </div>
     </div>
@@ -85,8 +98,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($kursus as $krs)
+
+
+                            @if ($kursus->count() > 0)
                                 
+                            @foreach ($kursus as $krs)    
                             <tr>
                                 <td scope="row">  {{$loop->iteration}}  </td>
                             <td>{{ $krs->nama_kursus }}</td>
@@ -98,12 +114,12 @@
                                 <td>
                                     @foreach ($krs->kategori as $item)
                                         {{$item->nama_kategori}}
-                                    @endforeach
+                                        @endforeach
                                 </td>
                                 <td>
                                     @foreach ($krs->tutor as $sensei)
                                         {{$sensei->nama_tutor}}
-                                    @endforeach
+                                        @endforeach
                                 </td>
                                 <td>
                                     <a class="badge badge-info text-white badge-pill" href="{{route('kursus.edit',
@@ -114,14 +130,19 @@
                             <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')" class="d-inline" action="{{route('kursus.destroy', [$krs->id])}}"   method="POST">
                                 @method('DELETE')
                                 @csrf
-                                       <button type="submit" value="Delete" class="badge badge-danger badge-pill">
-                                           <i class="fa fa-trash"></i> Trash
-                                       </button>
-                                       </form>
-                                       </td>
-                              
-                            </tr>           
-                                @endforeach
+                                <button type="submit" value="Delete" class="badge badge-danger badge-pill">
+                                    <i class="fa fa-trash"></i> Trash
+                                </button>
+                            </form>
+                        </td>
+                        
+                    </tr>           
+                    @endforeach
+                    @else
+                    <tr>
+                        <td><h5>Data Kosong</h5></td>
+                    </tr>
+                    @endif
                         </tbody>
               
                     </table>
