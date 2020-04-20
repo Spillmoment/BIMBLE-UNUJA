@@ -54,7 +54,7 @@
                     </div>
 
                     <hr>
-                    <div class="col-md-3">
+                    <div class="col-md-3 ">
                         <ul class="nav nav-pills card-header-pills">
                             <li class="nav-item">
                             <a class="nav-link active" href="
