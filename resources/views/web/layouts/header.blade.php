@@ -70,10 +70,14 @@
                 <div class="col-md-6 col-lg-3 d-flex align-items-center form-group no-divider">
                     <form action="{{ route('front.index') }}"> 
                     <select id="nama_kategori" name="nama_kategori" data-style="btn-form-control" class="selectpicker" value="Kategori">
+                        @if ($kategori->count() > 0)
                         @foreach ($kategori as $row)
-                    <option value="{{$row->id}}">{{ $row->nama_kategori }}</option>
+                        <option value="{{$row->id}}">{{ $row->nama_kategori }}</option>
                         @endforeach
-                     
+                        @else
+                        Data Kosong
+                        @endif
+                        
                     </select>
                     
                 </div>
