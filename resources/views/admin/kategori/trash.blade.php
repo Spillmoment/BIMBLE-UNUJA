@@ -16,11 +16,15 @@
             <span class="breadcrumb-item active">Trash</span>
         </nav>
 
-            @if(session('status'))
-           <div class="alert alert-success" role="alert">
-               <strong>{{session('status')}}</strong>
-           </div> 
-            @endif
+        @if(session('status'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>{{session('status')}}</strong> 
+            <button type="button" class="close text-light" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+         @endif
+             
         
             <div class="row ml-3 mt-3">
                 
