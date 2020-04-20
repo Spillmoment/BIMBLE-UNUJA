@@ -140,4 +140,45 @@ class KursusController extends Controller
 
         return redirect()->route('kursus.index')->with(['status' => 'Data Kursus Berhasil Dihapus']);
     }
+
+    public function trash(Request $request)
+    {
+        $filter_trash = $request->get('trash');
+
+        if ($filter_trash) {
+            $kursus = Kursus::onlyTrashed()->where('nama_kursus', 'LIKE', "%$filter_trash%")
+                ->paginate(10);
+        } else {
+            $kursus = Kursus::onlyTrashed()->paginate(10);
+        }
+
+        return view('admin.kursus.trash', compact('kursus'));
+    }
+
+    public function restore($id)
+    {
+        $kursus = Kursus::withTrashed()->findOrFail($id);
+
+        if ($kursus->trashed()) {
+            $kursus->restore();
+        } else {
+            return redirect()->route('kursus.index')
+                ->with(['status' => 'kursus tidak ada di Trash']);
+        }
+        return redirect()->route('kursus.index')
+            ->with(['status' => 'kursus Sukses Dikembalikan']);
+    }
+
+    public function deletePermanent($id)
+    {
+        $kursus = Kursus::withTrashed()->findOrFail($id);
+        if (!$kursus->trashed()) {
+            return redirect()->route('kursus.trash')
+                ->with('status', 'Tidak bisa menghapus permanent data kursus yang aktif');
+        } else {
+            $kursus->forceDelete();
+            return redirect()->route('kursus.trash')
+                ->with('status', 'Data kursus berhasil dihapus permanent');
+        }
+    }
 }
