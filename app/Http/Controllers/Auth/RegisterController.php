@@ -51,7 +51,7 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [            
+        return Validator::make($data, [
             'nama_pendaftar' => ['required', 'string', 'max:100'],
             'jenis_kelamin' => ['required', 'in:L,P'],
             'alamat' => ['required', 'string', 'max:255'],
@@ -71,7 +71,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $file = $data['foto'];
-        $file_name = 'pendaftar-'.time().'.'.$file->getClientOriginalExtension();
+        $file_name = 'pendaftar-' . time() . '.' . $file->getClientOriginalExtension();
         $file->storeAs('uploads/pendaftar/profile', $file_name);
 
         return Pendaftar::create([
