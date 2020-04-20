@@ -71,6 +71,8 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $file = $data['foto'];
+        $file_name = 'pendaftar-' . time() . '.' . $file->getClientOriginalExtension();
+        $file->storeAs('uploads/pendaftar/profile', $file_name);
         $file_name = 'pendaftar-'.time().'.'.$file->getClientOriginalExtension();
         $file->storeAs('public/uploads/pendaftar/profile', $file_name);
         $file_name = 'pendaftar-' . time() . '.' . $file->getClientOriginalExtension();
