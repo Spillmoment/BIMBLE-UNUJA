@@ -18,10 +18,10 @@
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>Siswa</h4>
+                                        <h4>Pendaftar</h4>
                                     </div>
                                     <div class="card-body">
-                                        100
+                                        {{ $pendaftar }}
                                     </div>
                                 </div>
                             </div>
@@ -33,10 +33,10 @@
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>Tutor</h4>
+                                    <h4><a href="{{ route('tutor.index') }}" style="color: #98a6ad">Tutor</a></h4>
                                     </div>
                                     <div class="card-body">
-                                       100
+                                       {{$tutor}}
                                     </div>
                                 </div>
                             </div>
@@ -48,10 +48,10 @@
                                 </div>
                                 <div class="card-wrap">
                                     <div class="card-header">
-                                        <h4>Manajer</h4>
+                                    <h4><a href="{{ route('kursus.index') }}" style="color: #98a6ad">Kursus</a></h4>
                                     </div>
                                     <div class="card-body">
-                                       200
+                                    {{ $kursus }}
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                     <div class="col-12 mb-4">
                         <div class="hero text-white hero-bg-image" data-background="#">
                             <div class=" hero-inner">
-                            <h1>Selamat Datang, {{ $user }}</h1>
+                            <h1>Selamat Datang,</h1>
                                 <p class="lead">Di halaman Admin Bimble - Web Bimble
                                     Probolinggo<br></p>
                                 <div class="mt-4">
