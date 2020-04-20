@@ -130,7 +130,6 @@ class KategoriController extends Controller
             $kategori = Kategori::onlyTrashed()->paginate(10);
         }
 
-        $kategori = Kategori::onlyTrashed()->paginate(10);
         return view('admin.kategori.trash', compact('kategori'));
     }
 
