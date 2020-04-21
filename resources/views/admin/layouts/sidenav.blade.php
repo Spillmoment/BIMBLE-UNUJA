@@ -1,3 +1,4 @@
+
 <div id="app">
     <div class="main-wrapper">
         <div class="navbar-bg"></div>
@@ -43,13 +44,12 @@
 
                 <ul class="sidebar-menu">
                     <li class="menu-header ">Dashboard</li>
-                    <li class="nav-item dropdown active">
-                        <a href="#" class="nav-link"><i
-                                class="fas fa-fire"></i><span>Dashboard</span></a>
+                    <li class="nav-item dropdown   {{ (Request::route()->getName() == 'dashboard.index') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.index') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
                     </li>
 
                     <li class="menu-header">Management User</li>
-                    <li class="nav-item dropdown">
+                <li class="nav-item dropdown ">
                         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-user"></i>
                             <span>User</span></a>
                         <ul class="dropdown-menu">
@@ -58,25 +58,37 @@
                         </ul>
                     </li>
 
+                    <li class="menu-header">Management Kategori</li>
+                    <li class="nav-item dropdown  {{ (Request::route()->getName() == 'kategori.index') ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-cart-plus"></i>
+                            <span>Kategori</span></a>
+                        <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="{{ route('kategori.index') }}">Data Kategori</a>
+                            </li>
+                        <li><a class="nav-link" href="{{route('kategori.create')}}">Tambah Kategori</a>
+                            </li>
+
+                        </ul>
+                    </li>
                     <li class="menu-header">Management Kursus</li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown  {{ (Request::route()->getName() == 'kursus.index') ? 'active' : '' }}">
                         <a href="#" class="nav-link has-dropdown"><i class="fas fa-chalkboard-teacher"></i>
                             <span>Kursus</span></a>
                         <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="">Data Kursus</a>
+                        <li><a class="nav-link " href="{{route('kursus.index')}}">Data Kursus</a>
                             </li>
-                            <li><a class="nav-link" href="">Data Kategori Kursus</a>
+                        <li><a class="nav-link" href="{{route('kursus.create')}}">Tambah Kursus</a>
                             </li>
 
                         </ul>
                     </li>
 
                     <li class="menu-header">Management Pendaftar</li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {{ (Request::route()->getName() == 'pendaftar.index') ? 'active' : '' }}">
                         <a href="#" class="nav-link has-dropdown"><i class="fas fa-book"></i>
                             <span>Pendaftar</span></a>
                         <ul class="dropdown-menu">
-                            <li><a class="nav-link" href="">Data Pendaftar</a>
+                        <li><a class="nav-link" href="{{ route('pendaftar.index') }}">Data Pendaftar</a>
                             </li>
 
                         </ul>
