@@ -42,10 +42,12 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('tutor', 'TutorController');
 
     // Route Pendaftar
-    Route::get('pendaftar/trash', 'KursusController@trash')->name('pendaftar.trash');
+    Route::get('pendaftar/trash', 'PendaftarController@trash')->name('pendaftar.trash');
     Route::resource('pendaftar', 'PendaftarController');
 });
 
+
+// Route Home
 Route::get('/', 'Web\FrontController@index')->name('front.index');
 
 Route::get('/home', 'HomeController@index')->name('home');
