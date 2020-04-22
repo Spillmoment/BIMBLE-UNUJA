@@ -72,7 +72,7 @@ class RegisterController extends Controller
     {
         $file = $data['foto'];
         $file_name = 'pendaftar-' . time() . '.' . $file->getClientOriginalExtension();
-        $file->storeAs('uploads/pendaftar/profile', $file_name);
+        $file->move('uploads/pendaftar/profile/', $file_name);
 
         return Pendaftar::create([
             'nama_pendaftar' => $data['nama_pendaftar'],
