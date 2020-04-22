@@ -60,7 +60,7 @@
                                                 class="fa fa-star text-gray-300"> </i>
                                         </p>
                                     </div>
-                                    <p class="card-text text-muted"><span class="h4 text-primary">{{$krs->biaya_kursus}}</span>
+                                    <p class="card-text text-muted"><span class="h4 text-primary"> @currency($krs->biaya_kursus)</span>
                                         per Bulan</p>
                                 </div>
                             </div>
