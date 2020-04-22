@@ -114,15 +114,22 @@ class KursusController extends Controller
     public function update(KursusRequest $request, $id)
     {
         $kursus = Kursus::findOrFail($id);
-        $data = $request->all();
+        $kursus->nama_kursus = $request->get('nama_kursus');
+        $kursus->id_kategori = $request->get('id_kategori');
+        $kursus->id_tutor = $request->get('id_tutor');
+        $kursus->biaya_kursus = $request->get('biaya_kursus');
+        $kursus->lama_kursus = $request->get('lama_kursus');
+        $kursus->diskon_kursus = $request->get('diskon_kursus');
+        $kursus->latitude = $request->get('latitude');
+        $kursus->longitude = $request->get('longitude');
 
         if ($kursus->gambar_kursus && file_exists(storage_path('app/public/' . $kursus->gambar_kursus))) {
             Storage::delete('public/' . $kursus->gambar_kursus);
             $file = $request->file('gambar_kursus')->store('kursus', 'public');
-            $data['gambar_kursus'] = $file;
+            $kursus->gambar_kursus = $file;
         }
 
-        $kursus->update($data);
+        $kursus->save();
         return redirect()->route('kursus.index')->with(['status' => 'Data Kursus Berhasil Di Update']);
     }
 
