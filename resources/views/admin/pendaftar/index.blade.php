@@ -55,11 +55,11 @@
                   <ul class="nav nav-pills card-header-pills">
                       <li class="nav-item">
                       <a class="nav-link active" href="
-                      {{route('kategori.index')}}">Published</a>
+                      {{route('pendaftar.index')}}">Published</a>
                       </li>
                       <li class="nav-item">
                       <a class="nav-link" href="
-                      {{route('kategori.trash')}}">Trash</a>
+                      {{route('pendaftar.trash')}}">Trash</a>
                       </li>
                       </ul>
               </div>
@@ -90,8 +90,7 @@
                         <tbody>
 
 
-                            @if ($pendaftar->count() > 0)
-                                
+                            @if ($pendaftar->count() > 0)              
                             @foreach ($pendaftar as $regis)    
                             <tr>
                                 <td scope="row">  {{$loop->iteration}}  </td>
@@ -103,7 +102,7 @@
                             @endif
                             <td>{{ $regis->alamat }}</td>
                                 @if($regis->foto)
-                                <td> <img src="{{ asset('uploads/pendaftar/profile/'.$regis->foto) }}" width="50px"> </td>
+                                <td> <img src="{{ asset('storage/'.$regis->foto) }}" width="50px"> </td>
                                 @else
                                 Tidak Ada Gambar
                                 @endif
