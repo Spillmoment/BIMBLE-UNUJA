@@ -7,6 +7,7 @@ use App\Kursus;
 use App\Http\Requests\KursusRequest;
 use App\Kategori;
 use App\Tutor;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class KursusController extends Controller
@@ -68,8 +69,10 @@ class KursusController extends Controller
         $kursus = $request->all();
 
         if ($request->file('gambar_kursus')) {
-            $file = $request->file('gambar_kursus')->store('kursus', 'public');
-            $kursus['gambar_kursus'] = $file;
+            $gambar_kursus = $request->file('gambar_kursus');
+            $nama_gambar = 'kursus-' . time() . '.' . $gambar_kursus->getClientOriginalExtension();
+            $request->file('gambar_kursus')->move('uploads/kursus', $nama_gambar);
+            $kursus['gambar_kursus'] = $nama_gambar;
         }
 
         Kursus::create($kursus);
@@ -114,22 +117,21 @@ class KursusController extends Controller
     public function update(KursusRequest $request, $id)
     {
         $kursus = Kursus::findOrFail($id);
-        $kursus->nama_kursus = $request->get('nama_kursus');
-        $kursus->id_kategori = $request->get('id_kategori');
-        $kursus->id_tutor = $request->get('id_tutor');
-        $kursus->biaya_kursus = $request->get('biaya_kursus');
-        $kursus->lama_kursus = $request->get('lama_kursus');
-        $kursus->diskon_kursus = $request->get('diskon_kursus');
-        $kursus->latitude = $request->get('latitude');
-        $kursus->longitude = $request->get('longitude');
+        $data = $request->all();
 
-        if ($kursus->gambar_kursus && file_exists(storage_path('app/public/' . $kursus->gambar_kursus))) {
-            Storage::delete('public/' . $kursus->gambar_kursus);
-            $file = $request->file('gambar_kursus')->store('kursus', 'public');
-            $kursus->gambar_kursus = $file;
+        if ($request->hasFile('gambar_kursus')) {
+            if ($request->file('gambar_kursus')) {
+
+                File::delete('uploads/kursus/' . $kursus->gambar_kursus);
+
+                $gambar_kursus = $request->file('gambar_kursus');
+                $nama_gambar = 'kursus-' . time() . '.' . $gambar_kursus->getClientOriginalExtension();
+                $request->file('gambar_kursus')->move('uploads/kursus', $nama_gambar);
+                $data['gambar_kursus'] = $nama_gambar;
+            }
         }
 
-        $kursus->save();
+        $kursus->update($data);
         return redirect()->route('kursus.index')->with(['status' => 'Data Kursus Berhasil Di Update']);
     }
 
@@ -142,7 +144,7 @@ class KursusController extends Controller
     public function destroy($id)
     {
         $kursus = Kursus::findOrFail($id);
-        Storage::delete('public/' . $kursus->gambar_kursus);
+        File::delete('uploads/kursus/' . $kursus->gambar_kursus);
         $kursus->delete();
 
         return redirect()->route('kursus.index')->with(['status' => 'Data Kursus Berhasil Dihapus']);
