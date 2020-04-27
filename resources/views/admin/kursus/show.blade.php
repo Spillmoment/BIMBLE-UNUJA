@@ -30,7 +30,7 @@
                       <ul class="list-group list-group-flush">
                       <li class="list-group-item">Nama Kursus : <b>{{ $kursus->nama_kursus }}</b></li>
                         <li class="list-group-item">Gambar Kursus : 
-                        <img class="card-img-top" src="{{ asset('storage/'.$kursus->gambar_kursus) }}" alt="Card image cap" style="width: 8rem" >
+                        <img class="card-img-top" src="{{ asset('uploads/kursus/'.$kursus->gambar_kursus) }}" alt="Card image cap" style="width: 8rem" >
                   
                         <span class="badge badge-pill badge-primary mt-5"  data-toggle="modal" data-target="#exampleModal"><i class="fa fa-eye" aria-hidden="true"></i> Lihat Gambar </span>
                         </li>
@@ -77,7 +77,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <img class="card-img-top" src="{{ asset('storage/'.$kursus->gambar_kursus) }}" alt="Card image cap">
+        <img class="card-img-top" src="{{ asset('uploads/kursus/'.$kursus->gambar_kursus) }}" alt="Card image cap">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
