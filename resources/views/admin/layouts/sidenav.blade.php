@@ -13,14 +13,14 @@
             <ul class="navbar-nav navbar-right">
                 <li class="dropdown"><a href="#" data-toggle="dropdown"
                         class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                        <img alt="image" style="margin-bottom:4px !important;"
+                        {{-- <img alt="image" style="margin-bottom:4px !important;"
                             src="./assets/stisla-assets/img/avatar/avatar-2.png"
-                            class="rounded-circle mr-1 my-auto">
-                        <div class="d-sm-none d-lg-inline-block" style="font-size:15px;">Hello,</div>
+                            class="rounded-circle mr-1 my-auto"> --}}
+                <div class="d-sm-none d-lg-inline-block" style="font-size:15px;">Hello, {{ Auth::user()->nama }}</div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <div class="dropdown-title">Admin - Bimble</div>
-                        <a href="#" class="dropdown-item has-icon text-danger">
+                        <a href="{{ route('manager.logout') }}" class="dropdown-item has-icon text-danger">
                             <i class="fas fa-sign-out-alt"></i> Logout
                         </a>
                     </div>
@@ -44,8 +44,8 @@
 
                 <ul class="sidebar-menu">
                     <li class="menu-header ">Dashboard</li>
-                    <li class="nav-item dropdown   {{ (Request::route()->getName() == 'dashboard.index') ? 'active' : '' }}">
-                    <a href="{{ route('dashboard.index') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
+                    <li class="nav-item dropdown   {{ (Request::route()->getName() == 'manager.home') ? 'active' : '' }}">
+                    <a href="{{ route('manager.home') }}" class="nav-link"><i class="fas fa-fire"></i><span>Dashboard</span></a>
                     </li>
 
                     <li class="menu-header">Management User</li>
