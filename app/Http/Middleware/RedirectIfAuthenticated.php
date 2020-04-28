@@ -25,6 +25,12 @@ class RedirectIfAuthenticated
                 }
                 break;
             
+            case 'tutor':
+                if (Auth::guard($guard)->check()){
+                    return redirect()->route('tutor.home');
+                }
+                break;
+            
             default:
                 if (Auth::guard($guard)->check()) {
                     return redirect(RouteServiceProvider::HOME);
