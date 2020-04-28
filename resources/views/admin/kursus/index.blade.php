@@ -107,7 +107,7 @@
                                 <td scope="row">  {{$loop->iteration}}  </td>
                             <td>{{ $krs->nama_kursus }}</td>
                                 @if($krs->gambar_kursus)
-                                <td> <img src="{{ asset('storage/'.$krs->gambar_kursus) }}" width="50px"> </td>
+                                <td> <img src="{{ asset('uploads/kursus/'.$krs->gambar_kursus) }}" width="50px"> </td>
                                 @else
                                 Tidak Ada Gambar
                                 @endif

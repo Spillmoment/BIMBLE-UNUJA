@@ -43,7 +43,7 @@
                                             
                                               <small class="text-muted">Current Gambar</small>
                                          
-                                              <img src="{{asset('storage/' . $kursus->gambar_kursus)}}" width="96px"/>
+                                              <img src="{{asset('uploads/kursus/' . $kursus->gambar_kursus)}}" width="96px"/>
                                              
                                               <input type="file" class="form-control-file {{ $errors->first('gambar_kursus') ? 'is-invalid' : '' }}" name="gambar_kursus" id="gambar_kursus">
                                               <small class="text-muted">Kosongkan jika tidak ingin mengubah

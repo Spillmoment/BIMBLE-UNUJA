@@ -26,21 +26,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-                            <div class="card card-statistic-1">
-                                <div class="card-icon bg-danger">
-                                    <i class="fas fa-chalkboard-teacher"></i>
-                                </div>
-                                <div class="card-wrap">
-                                    <div class="card-header">
-                                    <h4><a href="{{ route('tutor.index') }}" style="color: #98a6ad">Tutor</a></h4>
-                                    </div>
-                                    <div class="card-body">
-                                       {{$tutor}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                 
                         <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                             <div class="card card-statistic-1">
                                 <div class="card-icon bg-warning">
@@ -75,7 +61,7 @@
                     <div class="col-12 mb-4">
                         <div class="hero text-white hero-bg-image" data-background="#">
                             <div class=" hero-inner">
-                            <h1>Selamat Datang,</h1>
+                            <h1>Selamat Datang,{{ Auth::user()->nama }}</h1>
                                 <p class="lead">Di halaman Admin Bimble - Web Bimble
                                     Probolinggo<br></p>
                                 <div class="mt-4">

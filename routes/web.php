@@ -17,12 +17,22 @@ use Illuminate\Support\Facades\Auth;
 Auth::routes();
 
 
-Route::group(['prefix' => 'admin'], function () {
 
-    Route::get('/', 'DashboardController@index')->name('dashboard.index');
+// Manager Routing
+Route::group(['prefix' => 'manager'], function () {
 
-    // Route Users
-    Route::resource("users", "UserController");
+    // Route Auth
+    Route::get('/login', 'AuthManager\LoginController@showLoginForm')->name('manager.login');
+    Route::post('/login', 'AuthManager\LoginController@login')->name('manager.login.submit');
+    Route::get('/logout', 'AuthManager\LoginController@logoutManager')->name('manager.logout');
+    Route::get('/user/logout', 'Auth\LoginController@logoutUser')->name('user.logout');
+    Route::get('/password/reset', 'AuthManager\ForgotPasswordController@showLinkRequestForm')->name('manager.password.request');
+    Route::post('/password/email', 'AuthManager\ForgotPasswordController@sendResetLinkEmail')->name('manager.password.email');
+    Route::get('/password/reset/{token}', 'AuthManager\ResetPasswordController@showResetForm')->name('manager.password.reset');
+    Route::post('/password/reset', 'AuthManager\ResetPasswordController@reset');
+
+    // Route Dashboard
+    Route::get('/dashboard', 'ManagerController@index')->name('manager.home');
 
     // Route Kategori
     Route::delete('kategori/{id}/delete-permanent', 'KategoriController@deletePermanent')
@@ -38,29 +48,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('kursus/trash', 'KursusController@trash')->name('kursus.trash');
     Route::resource('kursus', 'KursusController');
 
-    // Route Tutor
-    // Route::resource('tutor', 'TutorController');
-
     // Route Pendaftar
-    Route::get('pendaftar/trash', 'KursusController@trash')->name('pendaftar.trash');
+    Route::get('pendaftar/trash', 'PendaftarController@trash')->name('pendaftar.trash');
     Route::resource('pendaftar', 'PendaftarController');
 });
 
-Route::get('/', 'Web\FrontController@index')->name('front.index');
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/user/logout', 'Auth\LoginController@logoutUser')->name('user.logout');
-
-Route::group(['prefix' => 'manager'], function(){
-    Route::get('/login', 'AuthManager\LoginController@showLoginForm')->name('manager.login');
-    Route::post('/login', 'AuthManager\LoginController@login')->name('manager.login.submit');
-    Route::get('/', 'ManagerController@index')->name('manager.home');
-    Route::get('/logout', 'AuthManager\LoginController@logoutManager')->name('manager.logout');
-    Route::get('/password/reset', 'AuthManager\ForgotPasswordController@showLinkRequestForm')->name('manager.password.request');
-    Route::post('/password/email', 'AuthManager\ForgotPasswordController@sendResetLinkEmail')->name('manager.password.email');    
-    Route::get('/password/reset/{token}', 'AuthManager\ResetPasswordController@showResetForm')->name('manager.password.reset');    
-    Route::post('/password/reset', 'AuthManager\ResetPasswordController@reset');    
-});
 
 Route::group(['prefix' => 'tutor'], function(){
     Route::get('/login', 'AuthTutor\LoginController@showLoginForm')->name('tutor.login');
@@ -72,3 +64,6 @@ Route::group(['prefix' => 'tutor'], function(){
     Route::get('/password/reset/{token}', 'AuthTutor\ResetPasswordController@showResetForm')->name('tutor.password.reset');    
     Route::post('/password/reset', 'AuthTutor\ResetPasswordController@reset');    
 });
+
+// Route Home
+Route::get('/', 'Web\FrontController@index')->name('front.index');
