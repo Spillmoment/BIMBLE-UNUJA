@@ -57,6 +57,17 @@ return [
             'provider' => 'managers',
             'hash' => false,
         ],
+
+        'tutor' => [
+            'driver' => 'session',
+            'provider' => 'tutors',
+        ],
+
+        'api-tutor' => [
+            'driver' => 'token',
+            'provider' => 'tutors',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -84,6 +95,10 @@ return [
         'managers' => [
             'driver' => 'eloquent',
             'model' => App\Manager::class,
+        ],
+        'tutors' => [
+            'driver' => 'eloquent',
+            'model' => App\Tutor::class,
         ],
 
         // 'users' => [
@@ -116,6 +131,12 @@ return [
         ],
         'managers' => [
             'provider' => 'managers',
+            'table' => 'password_resets',
+            'expire' => 15,
+            'throttle' => 15,
+        ],
+        'tutors' => [
+            'provider' => 'tutors',
             'table' => 'password_resets',
             'expire' => 15,
             'throttle' => 15,
