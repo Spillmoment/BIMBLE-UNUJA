@@ -25,10 +25,21 @@
             <!-- Navbar Collapse -->
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
+                    @guest
                     <li class="nav-item"><a href="#" class="nav-link active">Beranda</a></li>
                     <li class="nav-item"><a href="#" class="nav-link active">Pusat Bantuan</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Sign in</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Sign up</a></li>
+                    @if (Route::has('register'))
+                        <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Sign in</a></li>
+                        <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Sign up</a></li>
+                    @endif
+                    @else
+                        <li class="nav-item"><a href="#" class="nav-link active">Beranda</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link active">Pusat Bantuan</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">{{ Auth::user()->nama_pendaftar }}</a></li>
+                        <li class="nav-item"><a href="{{ route('user.logout') }}" class="nav-link">Log out</a></li>
+                    
+                        
+                    @endguest
                 </ul>
             </div>
         </div>
