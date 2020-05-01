@@ -16,7 +16,7 @@
                         {{-- <img alt="image" style="margin-bottom:4px !important;"
                             src="./assets/stisla-assets/img/avatar/avatar-2.png"
                             class="rounded-circle mr-1 my-auto"> --}}
-                <div class="d-sm-none d-lg-inline-block" style="font-size:15px;">Hello, {{ Auth::user()->nama }}</div>
+                <div class="d-sm-none d-lg-inline-block" style="font-size:15px;">Hello, </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <div class="dropdown-title">Admin - Bimble</div>
@@ -55,6 +55,16 @@
                         <ul class="dropdown-menu">
                             <li><a class="nav-link" href="#">Data User</a></li>
                             <li><a class="nav-link" href="#">Tambah Data User</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-header">Management Tutor</li>
+                <li class="nav-item dropdown ">
+                        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-user-circle"></i>
+                            <span>Tutor</span></a>
+                        <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="{{ route('tutor.index') }}">Data Tutor</a></li>
+                            <li><a class="nav-link" href="{{ route('tutor.create') }}">Tambah Data Tutor</a></li>
                         </ul>
                     </li>
 
