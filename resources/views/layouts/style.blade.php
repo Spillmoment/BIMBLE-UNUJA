@@ -1,12 +1,18 @@
-  <!-- General CSS Files -->
-  {{-- <link rel="icon" href="<?=base_url('assets/')?>img/favicon.png" type="image/png"> --}}
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Poppins:500,600,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{asset('stisla-assets/bootstrap/css/bootstrap.min.css')}}">
-  <link rel="stylesheet" href="{{asset('stisla-assets/fontawesome-free-5/css/all.min.css')}}">
-  
-  <!-- CSS Libraries -->
-
-  <!-- Template CSS -->
-  <link rel="stylesheet" href="{{asset('stisla-assets/css/style.css')}}">
-  <link rel="stylesheet" href="{{asset('stisla-assets/css/components.css')}}">
+<link rel="stylesheet" href="{{asset('assets/frontend/vendor/nouislider/nouislider.css') }}">
+    <!-- Google fonts - Playfair Display-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700">
+    <!-- Google fonts - Poppins-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,700">
+    <!-- Magnigic Popup-->
+    <link rel="stylesheet" href="{{asset('assets/frontend/vendor/magnific-popup/magnific-popup.css') }}">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{{asset('assets/frontend/vendor/bootstrap/style.default.css') }}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{{asset('assets/frontend/css/custom.css') }}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{{asset('assets/frontend/img/favicon.png') }}">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{asset('assets/backend/fontawesome-free-5/css/all.min.css')}}">
+    <!-- Owl carousel -->
+    <link rel="stylesheet" href="{{asset('assets/frontend/vendor/owl-carousel/dist/assets/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{asset('assets/frontend/vendor/owl-carousel/dist/assets/owl.theme.default.css') }}">

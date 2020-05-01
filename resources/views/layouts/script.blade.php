@@ -1,19 +1,19 @@
- <!-- General JS Scripts -->
- <script src="{{asset('stisla-assets/bootstrap/js/jquery-3.4.1.min.js')}}"></script>
-<script src="{{asset('stisla-assets/bootstrap/js/popper.min.js')}}">
-</script>
-<script src="{{asset('stisla-assets/bootstrap/js/bootstrap.min.js')}}">
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-<script src="{{asset('stisla-assets/js/moment.min.js') }}"></script>
-<script src="{{asset('stisla-assets/js/stisla.js')}}"></script>
-
-<!-- JS Libraies -->
-
-<!-- Template JS File -->
-<script src="{{asset('stisla-assets/js/scripts.js')}}"></script>
-<script src="{{asset('stisla-assets/js/custom.js')}}"></script>
-
-{{-- Javascript --}}
-
-<!-- Page Specific JS File -->
+   <!-- jQuery-->
+   <script src="{{asset('assets/backend/bootstrap/js/jquery-3.4.1.min.js')}}"></script>
+   <!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
+   <script src="{{ asset('assets/frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+   <!-- Magnific Popup - Lightbox for the gallery-->
+   <script src="{{ asset('assets/frontend/vendor/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+   <!-- Smooth scroll-->
+   <script src="{{ asset('assets/frontend/vendor/smooth-scroll/smooth-scroll.polyfills.min.js') }}"></script>
+   <!-- Bootstrap Select-->
+   <script src="{{ asset('assets/frontend/vendor/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
+   <!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
+   <script src="{{ asset('assets/frontend/vendor/object-fit-images/ofi.min.js') }}"></script>
+   <script src="{{ asset('assets/frontend/vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
+   <script src="{{ asset('assets/frontend/js/demo.36f8799a.js') }}"></script>
+   <!-- Main Theme JS file    -->
+   <script src="{{ asset('assets/frontend/js/theme.55f8348b.js') }}"></script>
+   <!-- owl carousel -->
+   <script src="{{ asset('assets/frontend/vendor/owl-carousel/dist/owl.carousel.min.js') }}"></script>
+   <script src="{{ asset('assets/frontend/vendor/lib/owlcarousel/owlcarousel-costume.js') }}"></script>
