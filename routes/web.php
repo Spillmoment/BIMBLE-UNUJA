@@ -68,5 +68,7 @@ Route::group(['prefix' => 'tutor'], function () {
     Route::post('/password/reset', 'AuthTutor\ResetPasswordController@reset');
 });
 
-// Route Home
+// Route Front
 Route::get('/', 'Web\FrontController@index')->name('front.index');
+Route::get('/kursus/{kursus}', 'Web\KursusController@show')->name('kursus.index');
+Route::get('/kursus/{kursus}', 'Web\KursusController@show')->name('kursus.index');
