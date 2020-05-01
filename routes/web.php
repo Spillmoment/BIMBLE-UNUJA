@@ -34,6 +34,9 @@ Route::group(['prefix' => 'manager'], function () {
     // Route Dashboard
     Route::get('/dashboard', 'ManagerController@index')->name('manager.home');
 
+    // Route Tutor
+    Route::resource('tutor', 'TutorController');
+
     // Route Kategori
     Route::delete('kategori/{id}/delete-permanent', 'KategoriController@deletePermanent')
         ->name('kategori.delete-permanent');
@@ -54,15 +57,15 @@ Route::group(['prefix' => 'manager'], function () {
 });
 
 
-Route::group(['prefix' => 'tutor'], function(){
+Route::group(['prefix' => 'tutor'], function () {
     Route::get('/login', 'AuthTutor\LoginController@showLoginForm')->name('tutor.login');
     Route::post('/login', 'AuthTutor\LoginController@login')->name('tutor.login.submit');
-    Route::get('/', 'TutorAuthController@index')->name('tutor.home');
+    Route::get('/', 'TutorController@index')->name('tutor.home');
     Route::get('/logout', 'AuthTutor\LoginController@logoutTutor')->name('tutor.logout');
     Route::get('/password/reset', 'AuthTutor\ForgotPasswordController@showLinkRequestForm')->name('tutor.password.request');
-    Route::post('/password/email', 'AuthTutor\ForgotPasswordController@sendResetLinkEmail')->name('tutor.password.email');    
-    Route::get('/password/reset/{token}', 'AuthTutor\ResetPasswordController@showResetForm')->name('tutor.password.reset');    
-    Route::post('/password/reset', 'AuthTutor\ResetPasswordController@reset');    
+    Route::post('/password/email', 'AuthTutor\ForgotPasswordController@sendResetLinkEmail')->name('tutor.password.email');
+    Route::get('/password/reset/{token}', 'AuthTutor\ResetPasswordController@showResetForm')->name('tutor.password.reset');
+    Route::post('/password/reset', 'AuthTutor\ResetPasswordController@reset');
 });
 
 // Route Home
