@@ -84,7 +84,7 @@
       </div>
       <div class="col-lg-4">
         <div style="top: 100px;" class="p-4 shadow ml-lg-4 rounded sticky-top">
-          <p class="text-muted"><span class="text-primary h2">Rp {{ number_format($kursus->biaya_kursus,0,',','.') }}</span> per bulan</p>
+          <p class="text-muted"><span class="text-primary h2">@currency($kursus->biaya_kursus)</span> per bulan</p>
           <hr class="my-4">
           <form id="booking-form" method="get" action="#" autocomplete="off" class="form">
             <div class="form-group">
