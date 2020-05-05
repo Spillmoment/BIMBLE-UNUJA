@@ -18,8 +18,11 @@ class CreateManagerTable extends Migration
             $table->string('nama', 100);
             $table->enum('jenis_kelamin', ['L', 'P']);
             $table->text('alamat');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('username', 100);
             $table->string('password', 100);
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });

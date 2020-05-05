@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderDetailTable extends Migration
+class CreateOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,21 @@ class CreateOrderDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_detail', function (Blueprint $table) {
+        Schema::create('order', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_order');
-            $table->foreign('id_order')->references('id')->on('order')->onDelete('cascade');
-            
+
             $table->foreignId('id_pendaftar');
             $table->foreign('id_pendaftar')->references('id')->on('pendaftar')->onDelete('cascade');
 
             $table->foreignId('id_kursus');
             $table->foreign('id_kursus')->references('id')->on('kursus')->onDelete('cascade');
 
-            $table->enum('status_kursus', ['1', '0']);
+            $table->integer('biaya_kursus');
+            $table->date('tanggal_order');
+            $table->enum('status_kursus', ['PENDING', 'SUCCESS' , 'PROCESS', 'CANCEL' ,'FAILED']);
             $table->timestamps();
             $table->softDeletes();
-        });
+        }); 
     }
 
     /**
@@ -37,6 +37,6 @@ class CreateOrderDetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_detail');
+        Schema::dropIfExists('order');
     }
 }

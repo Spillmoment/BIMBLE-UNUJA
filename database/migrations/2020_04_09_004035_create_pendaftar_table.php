@@ -19,9 +19,11 @@ class CreatePendaftarTable extends Migration
             $table->enum('jenis_kelamin', ['L', 'P']);
             $table->text('alamat');
             $table->string('foto', 100)->nullable();
-            $table->string('email', 100)->unique();
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('username', 100)->unique();
             $table->string('password', 100);
+            $table->rememberToken();
             $table->enum('status', ['1', '0']);
             $table->timestamps();
             $table->softDeletes();

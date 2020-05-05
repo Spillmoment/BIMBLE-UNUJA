@@ -13,15 +13,15 @@ class CreateTempDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('temp_detail', function (Blueprint $table) {
+        Schema::create('temp_order', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('id_pendaftar');
             $table->foreign('id_pendaftar')->references('id')->on('pendaftar')->onDelete('cascade');
             
-            $table->foreignId('id_kursus');
-            $table->foreign('id_kursus')->references('id')->on('kursus')->onDelete('cascade');
-
+            $table->integer('total_tagihan');
+            $table->string('bukti_pembayaran', 100)->nullable();
+            $table->enum('status', ['PENDING', 'SUCCESS' , 'PROCESS', 'CANCEL' ,'FAILED']);
             $table->timestamps();
             $table->softDeletes();
         });
