@@ -4,6 +4,8 @@
     
 @section('content')
 
+@include('web.layouts.header')
+
 <section class="py-6 bg-gray-100">
     <div class="container">
         <div class="row mb-5">
@@ -31,7 +33,7 @@
                             <div class="card-img-top overflow-hidden gradient-overlay">
                                 <img src="{{asset('uploads/kursus/'.$krs->gambar_kursus) }}" style="height: 10em;"
                                     alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
-                                    href="detail-rooms.html" class="tile-link"></a>
+                                    href="{{ route('front.detail', [$krs->slug_kursus]) }}" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
 
@@ -44,7 +46,7 @@
                             </div>
                             <div class="card-body d-flex align-items-center">
                                 <div class="w-100">
-                                    <h6 class="card-title"><a href="detail-rooms.html"
+                                    <h6 class="card-title"><a href="{{ route('front.detail', [$krs->slug_kursus]) }}"
                                             class="text-decoration-none text-dark">{{$krs->nama_kursus}}</a></h6>
                                     <div class="d-flex card-subtitle mb-3">
                                         <p class="flex-grow-1 mb-0 text-muted text-sm">
@@ -72,7 +74,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 d-lg-flex align-items-center justify-content-end">
-                <a href="#" class="text-primary text-sm"> Lihat Semua<i
+            <a href="{{ route('front.kursus') }}" class="text-primary text-sm"> Lihat Semua<i
                         class="fas fa-angle-double-right ml-2"></i></a>
             </div>
         </div>

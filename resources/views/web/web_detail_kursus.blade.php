@@ -3,14 +3,32 @@
 @section('title','Bimble Home')
     
 @section('content')
+
+@include('web.layouts.header-simple')
+
+<section style="background-image: url('assets/img/photo/photo-1426122402199-be02db90eb90.jpg');"
+class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
+<div class="container overlay-content">
+  <div class="d-flex justify-content-between align-items-start flex-column flex-lg-row align-items-lg-end">
+    <div class="text-white mb-4 mb-lg-0">
+      <div class="badge badge-pill badge-transparent px-3 py-2 mb-4">Programming &amp; MTK</div>
+      <h1 class="text-shadow verified">Kelas Pemograman Web dan Android</h1>
+      <p><i class="fa-map-marker-alt fas mr-2"></i> Paiton, Probolinggo</p>
+      <p class="mb-0 d-flex align-items-center"><i class="fa fa-xs fa-star text-primary"></i><i
+          class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i
+          class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200 mr-4"> </i>8 Reviews
+      </p>
+    </div>
+  </div>
+</div>
+</section>
+
 <div class="container py-5">
     <div class="row">
       <div class="col-lg-8">
         <div class="text-block">
           <h4>Tentang Kelas {{ $kursus->nama_kursus }}</h4>
-          <p class="text-muted font-weight-light">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi in
-            recusandae debitis vitae obcaecati, facilis, laboriosam ad veniam unde consectetur tenetur laborum ipsam
-            vero aliquam molestias minima quae! Pariatur, vitae.</p>
+          <p class="text-muted font-weight-light">{{ $kursus->keterangan }}</p>
         </div>
         <div class="text-block">
           <h4 class="mb-4">Fasilitas</h4>
@@ -46,45 +64,47 @@
             <div class="media-body">
               <p> <span class="text-muted text-uppercase text-sm">Hosted by </span>
                 <br>
-                <strong>Dzun Nurroin</strong>
+                @foreach ($kursus->tutor as $tutor)
+                <strong>{{ $tutor->nama_tutor }}</strong>
               </p>
-              <p class="text-muted text-sm mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                reprehenderit in voluptate velit esse cillum dolore.</p>
-              <p class="text-muted text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. </p>
+                <p class="text-muted text-sm mb-2">
+                    {{ $tutor->keahlian }}
+                </p>
+                @endforeach
             </div>
           </div>
         </div>
+
         <div class="text-block">
           <h5 class="mb-4">Gallery</h5>
-          <div class="row gallery mb-3 ml-n1 mr-n1">
-            <div class="col-lg-4 col-6 px-1 mb-2"><a href="assets/img/photo/photo-1426122402199-be02db90eb90.jpg"
-                data-fancybox="gallery" title="Our street"><img
-                  src="{{ asset('uploads/kursus/'.$kursus->gambar_kursus) }}" alt="..." class="img-fluid"></a></div>
-            <div class="col-lg-4 col-6 px-1 mb-2"><a href="assets/imgimg/photo/photo-1512917774080-9991f1c4c750.jpg"
-                data-fancybox="gallery" title="Outside"><img src="assets/img/photo/photo-1512917774080-9991f1c4c750.jpg"
-                  alt="..." class="img-fluid"></a></div>
-            <div class="col-lg-4 col-6 px-1 mb-2"><a href="assets/imgimg/photo/photo-1494526585095-c41746248156.jpg"
-                data-fancybox="gallery" title="Rear entrance"><img
-                  src="assets/img/photo/photo-1494526585095-c41746248156.jpg" alt="..." class="img-fluid"></a></div>
-            <div class="col-lg-4 col-6 px-1 mb-2"><a href="assets/img/photo/photo-1484154218962-a197022b5858.jpg"
-                data-fancybox="gallery" title="Kitchen"><img src="assets/img/photo/photo-1484154218962-a197022b5858.jpg"
-                  alt="..." class="img-fluid"></a></div>
-            <div class="col-lg-4 col-6 px-1 mb-2"><a href="assets/img/photo/photo-1522771739844-6a9f6d5f14af.jpg"
-                data-fancybox="gallery" title="Bedroom"><img src="assets/img/photo/photo-1522771739844-6a9f6d5f14af.jpg"
-                  alt="..." class="img-fluid"></a>
+          <div class="row gallery mb-3 ml-n1 mr-n1">    
+            @foreach ($kursus->galleries as $gallery)
+            <div class="col-lg-4 col-6 px-1 mb-2">
+             <a href="{{ Storage::url($gallery->image) }}"
+             data-fancybox="gallery" title="Bedroom">
+             <img src="{{ Storage::url($gallery->image) }}"
+             alt="..." class="img-fluid mt-2"></a>
             </div>
-            <div class="col-lg-4 col-6 px-1 mb-2"><a href="assets/img/photo/photo-1488805990569-3c9e1d76d51c.jpg"
-                data-fancybox="gallery" title="Bedroom"><img src="assets/img/photo/photo-1488805990569-3c9e1d76d51c.jpg"
-                  alt="..." class="img-fluid"></a></div>
+            @endforeach
+            </div>
           </div>
         </div>
-      </div>
+
       <div class="col-lg-4">
         <div style="top: 100px;" class="p-4 shadow ml-lg-4 rounded sticky-top">
-          <p class="text-muted"><span class="text-primary h2">Rp {{ number_format($kursus->biaya_kursus,0,',','.') }}</span> per bulan</p>
+          
+          @if ($kursus->diskon_kursus == 0)
+          <p class="text-muted"><span class="text-primary h2">@currency($kursus->biaya_kursus)</span> per bulan</p>
+          @else
+          <p class="text-muted"><span class="text-primary h2">@currency($kursus->biaya_kursus - ($kursus->diskon_kursus) )</span> per bulan</p>
+         
+          <span class="text-danger h6 font-weight-bold">
+          <strike>
+            Biaya:  @currency($kursus->biaya_kursus)
+          </strike>
+        </span>
+          @endif
+          
           <hr class="my-4">
           <form id="booking-form" method="get" action="#" autocomplete="off" class="form">
             <div class="form-group">
