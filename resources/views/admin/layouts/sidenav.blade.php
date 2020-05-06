@@ -80,6 +80,7 @@
 
                         </ul>
                     </li>
+                   
                     <li class="menu-header">Management Kursus</li>
                     <li class="nav-item dropdown  {{ (Request::route()->getName() == 'kursus.index') ? 'active' : '' }}">
                         <a href="#" class="nav-link has-dropdown"><i class="fas fa-chalkboard-teacher"></i>
@@ -88,6 +89,19 @@
                         <li><a class="nav-link " href="{{route('kursus.index')}}">Data Kursus</a>
                             </li>
                         <li><a class="nav-link" href="{{route('kursus.create')}}">Tambah Kursus</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="menu-header">Management Gallery</li>
+                    <li class="nav-item dropdown  {{ (Request::route()->getName() == 'gallery.index') ? 'active' : '' }}">
+                        <a href="#" class="nav-link has-dropdown"><i class="fas fa-images    "></i>
+                            <span>Gallery</span></a>
+                        <ul class="dropdown-menu">
+                        <li><a class="nav-link " href="{{route('gallery.index')}}">Data Gallery</a>
+                            </li>
+                        <li><a class="nav-link" href="{{route('gallery.create')}}">Tambah Gallery</a>
                             </li>
 
                         </ul>
@@ -103,5 +117,14 @@
 
                         </ul>
                     </li>
+
+                    <li class="menu-header">Management Order</li>
+                    <li class="nav-item dropdown {{ (Request::route()->getName() == 'order.index') ? 'active' : '' }}">
+                       
+                            <span> <a href="{{ route('order.index') }}"><i class="fas fa-book-reader    "></i>Order</span></a>
+                      
+                    </li>
+
+
             </aside>
         </div>
