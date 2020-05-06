@@ -13,7 +13,7 @@
                       
                         <div class="col-md-12 text-center">
                             <nav class="breadcrumb ml-4 mt-3" style="margin-top: -20px">
-                                <a class="breadcrumb-item" href="{{ route('dashboard.index') }}">Home</a>
+                                <a class="breadcrumb-item" href="{{ route('manager.home') }}">Home</a>
                             <a class="breadcrumb-item" href="{{ route('kursus.index') }}">Kursus</a>
                             <a class="breadcrumb-item active" href="#">Edit Kursus</a>
                             </nav>

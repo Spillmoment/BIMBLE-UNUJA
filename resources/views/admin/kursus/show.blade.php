@@ -22,7 +22,7 @@
                 <div class="container bg-white p-4"
                     style="border-radius:3px;box-shadow:rgba(0, 0, 0, 0.03) 0px 4px 8px 0px">
                     
-                    <div class="card" style="width: 30rem; font-size: 15px">
+                    <div class="card shadow" style="width: 50rem; font-size: 15px">
                      <div class="card-body">
                         <h5 class="card-title">Detail Data Kursus </h5>
                         

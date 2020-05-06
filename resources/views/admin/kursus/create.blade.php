@@ -13,7 +13,7 @@
                       
                         <div class="col-md-12 text-center">
                             <nav class="breadcrumb ml-4 mt-3" style="margin-top: -20px">
-                                <a class="breadcrumb-item" href="{{ route('dashboard.index') }}">Home</a>
+                                <a class="breadcrumb-item" href="{{ route('manager.home') }}">Home</a>
                             <a class="breadcrumb-item" href="{{ route('kursus.index') }}">Kursus</a>
                             <a class="breadcrumb-item active" href="#">Tambah Kursus</a>
                             </nav>
@@ -109,13 +109,14 @@
                                                  </div>
                                              </div>
                                          
-                                         <div class="form-group ">
-                                            <label for="keterangan">Keterangan</label>
-                                             <input type="text" class="form-control {{ $errors->first('keterangan') ? 'is-invalid' : '' }}" name="keterangan"  id="keterangan" value="{{old('keterangan')}}"  placeholder="Keterangan">
+                                      
+                                             <div class="form-group">
+                                                <label for="keterangan">Keterangan</label>
+                                                <textarea name="keterangan" class="form-control {{ $errors->first('keterangan') ? 'is-invalid' : '' }}" id="keterangan" rows="3" placeholder="Keterangan">{{old('keterangan')}}</textarea>
                                                 <div class="invalid-feedback">
                                                     {{$errors->first('keterangan')}}
                                                  </div>
-                                             </div>
+                                            </div>
                                        
                                         <button type="submit" class="btn btn-block btn-success">
                                           <big> <i class="fa fa-plus" aria-hidden="true"></i> Tambah  Kursus</big></button>
