@@ -11,8 +11,6 @@
 
     @include('web.layouts.style')
 
-    @include('web.layouts.header')
-
     @yield('content')
 
     @include('web.layouts.footer')
@@ -20,5 +18,6 @@
     @include('web.layouts.script')
 
 
+    @stack('scripts')
 </body>
 </html>
