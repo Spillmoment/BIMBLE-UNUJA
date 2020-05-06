@@ -15,9 +15,6 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Auth::routes();
-
-
-
 // Manager Routing
 Route::group(['prefix' => 'manager'], function () {
 
@@ -54,6 +51,12 @@ Route::group(['prefix' => 'manager'], function () {
     // Route Pendaftar
     Route::get('pendaftar/trash', 'PendaftarController@trash')->name('pendaftar.trash');
     Route::resource('pendaftar', 'PendaftarController');
+
+    // Route Gallery
+    Route::resource('gallery', 'GalleryController');
+
+    // Route Order
+    Route::resource('order', 'OrderController');
 });
 
 
@@ -70,5 +73,6 @@ Route::group(['prefix' => 'tutor'], function () {
 
 // Route Front
 Route::get('/', 'Web\FrontController@index')->name('front.index');
-Route::get('/kursus/{kursus}', 'Web\KursusController@show')->name('kursus.index');
-Route::get('/kursus/{kursus}', 'Web\KursusController@show')->name('kursus.index');
+Route::get('/kursus', 'Web\FrontController@kursus')->name('front.kursus');
+Route::get('/kursus/{slug}', 'Web\FrontController@show')->name('front.detail');
+
