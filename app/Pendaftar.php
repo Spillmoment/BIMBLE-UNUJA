@@ -23,6 +23,10 @@ class Pendaftar extends Authenticatable
         'password',
     ];
 
+    public function order() {
+        return $this->belongsTo(Order::class,'id','id_pendaftar');
+    }
+
     // public function getAuthPassword()
     // {
     //  return $this->password;
