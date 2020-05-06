@@ -105,6 +105,7 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
         </span>
           @endif
           
+          <p class="text-muted"><span class="text-primary h2">@currency($kursus->biaya_kursus)</span> per bulan</p>
           <hr class="my-4">
           <form id="booking-form" method="get" action="#" autocomplete="off" class="form">
             <div class="form-group">

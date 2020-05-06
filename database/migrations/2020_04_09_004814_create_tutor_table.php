@@ -17,10 +17,12 @@ class CreateTutorTable extends Migration
             $table->id();
             $table->string('nama_tutor', 100);
             $table->text('alamat');
-            $table->string('email', 100);
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('foto', 100)->nullable();
             $table->string('username', 100);
             $table->string('password', 100);
+            $table->rememberToken();
             $table->enum('status', ['1', '0']);
             $table->text('keahlian');
             $table->timestamps();

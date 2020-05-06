@@ -23,6 +23,7 @@ class CreateKursusTable extends Migration
             $table->foreign('id_tutor')->references('id')->on('tutor')->onDelete('cascade');
 
             $table->string('nama_kursus', 100);
+            $table->string('slug')->nullable()->unique();
             $table->string('gambar_kursus', 100)->nullable();
             $table->integer('biaya_kursus');
             $table->tinyInteger('diskon_kursus')->nullable();
