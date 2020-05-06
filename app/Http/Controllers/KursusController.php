@@ -9,6 +9,7 @@ use App\Kategori;
 use App\Tutor;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class KursusController extends Controller
 {
@@ -67,7 +68,10 @@ class KursusController extends Controller
     public function store(KursusRequest $request)
     {
         $kursus = $request->all();
+        $nama_kursus = $kursus['nama_kursus'];
 
+        $kursus['slug_kursus'] = Str::slug($nama_kursus, '-');
+        
         if ($request->file('gambar_kursus')) {
             $gambar_kursus = $request->file('gambar_kursus');
             $nama_gambar = 'kursus-' . time() . '.' . $gambar_kursus->getClientOriginalExtension();
@@ -114,16 +118,19 @@ class KursusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(KursusRequest $request, $id)
     {
         $kursus = Kursus::findOrFail($id);
         $data = $request->all();
 
+        $nama_kursus = $data['nama_kursus'];
+
+        $data['slug_kursus'] = Str::slug($nama_kursus, '-');
+
         if ($request->hasFile('gambar_kursus')) {
             if ($request->file('gambar_kursus')) {
-
                 File::delete('uploads/kursus/' . $kursus->gambar_kursus);
-
                 $gambar_kursus = $request->file('gambar_kursus');
                 $nama_gambar = 'kursus-' . time() . '.' . $gambar_kursus->getClientOriginalExtension();
                 $request->file('gambar_kursus')->move('uploads/kursus', $nama_gambar);
