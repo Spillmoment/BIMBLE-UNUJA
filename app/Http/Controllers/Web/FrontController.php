@@ -37,18 +37,19 @@ class FrontController extends Controller
     }
 
 
-    public function kursus(Request $request) {
+    public function kursus(Request $request)
+    {
         $kursus = Kursus::with(['kategori', 'tutor'])->orderBy('created_at', 'DESC')->paginate(9);
         $kategori = Kategori::latest()->get();
 
         $keyword = $request->get('keyword');
         $filter_kategori = $request->get('nama_kategori');
-    
+
         if ($keyword) {
-            $kursus = Kursus::with(['kategori','tutor'])
-            ->where('nama_kursus','LIKE',"%$keyword%")
-            ->orderBy('created_at', 'DESC')
-            ->paginate(9);
+            $kursus = Kursus::with(['kategori', 'tutor'])
+                ->where('nama_kursus', 'LIKE', "%$keyword%")
+                ->orderBy('created_at', 'DESC')
+                ->paginate(9);
         }
 
         if ($filter_kategori) {
@@ -61,15 +62,17 @@ class FrontController extends Controller
             $nama_kategori = $data_kategori->nama_kategori;
         }
 
-        return view('web.web_kursus',compact('kursus','kategori'));
+        return view('web.web_kursus', compact('kursus', 'kategori'));
     }
 
-    public function show($slug){
+    public function show($slug)
+    {
         $kursus = Kursus::with(['galleries'])
-        ->where('slug_kursus',$slug)->firstOrFail();
+            ->where('slug', $slug)->firstOrFail();
         $kategori = Kategori::latest()->get();
-        return view('web.web_detail_kursus',compact('kursus','kategori'));
+        return view('web.web_detail_kursus', [
+            'kursus' => $kursus,
+            'kategori' => $kategori
+        ]);
     }
-
-
 }

@@ -17,10 +17,10 @@ class GalleryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {     
+    {
         $gallery = Gallery::with(['kursus'])
-        ->paginate(10);
-        return view('admin.gallery.index',[
+            ->paginate(10);
+        return view('admin.gallery.index', [
             'gallery' => $gallery
         ]);
     }
@@ -34,7 +34,7 @@ class GalleryController extends Controller
     {
         $kursus = Kursus::all();
 
-        return view('admin.gallery.create',[
+        return view('admin.gallery.create', [
             'kursus' => $kursus
         ]);
     }
@@ -50,7 +50,8 @@ class GalleryController extends Controller
         $data = $request->all();
 
         $data['image'] = $request->file('image')->store(
-            'gallery','public'
+            'gallery',
+            'public'
         );
 
         Gallery::create($data);
@@ -81,7 +82,7 @@ class GalleryController extends Controller
         $kursus = Kursus::all();
 
         return view('admin.gallery.edit', [
-            'gallery' => $gallery ,
+            'gallery' => $gallery,
             'kursus' => $kursus
         ]);
     }
@@ -123,6 +124,4 @@ class GalleryController extends Controller
 
         return redirect()->route('gallery.index')->with(['status'  => 'Data Gallery Berhasil Dihapus']);
     }
-
- 
 }

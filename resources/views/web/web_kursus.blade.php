@@ -78,7 +78,7 @@
                             <div class="card-img-top overflow-hidden gradient-overlay">
                                 <img src="{{asset('uploads/kursus/'.$krs->gambar_kursus) }}"
                                     alt="gambar_kursus" class="img-fluid" /><a
-                                    href="{{ route('front.detail', [$krs->slug_kursus]) }}" class="tile-link"></a>
+                                    href="{{ route('front.detail', [$krs->slug]) }}" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
                                         @foreach ($krs->tutor as $sensei)
@@ -90,7 +90,7 @@
                             </div>
                             <div class="card-body d-flex align-items-center">
                                 <div class="w-100">
-                                    <h6 class="card-title"><a href="{{ route('front.detail', [$krs->slug_kursus]) }}"
+                                    <h6 class="card-title"><a href="{{ route('front.detail', [$krs->slug]) }}"
                                             class="text-decoration-none text-dark">{{$krs->nama_kursus}}</a></h6>
                                     <div class="d-flex card-subtitle mb-3">
                                         <p class="flex-grow-1 mb-0 text-muted text-sm">

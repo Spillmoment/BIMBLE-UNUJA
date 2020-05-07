@@ -13,7 +13,7 @@ class Kursus extends Model
 
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id_kategori', 'id_tutor', 'nama_kursus', 'slug_kursus', 'gambar_kursus', 'biaya_kursus', 'diskon_kursus', 'lama_kursus',
+        'id_kategori', 'id_tutor', 'nama_kursus', 'slug', 'gambar_kursus', 'biaya_kursus', 'diskon_kursus', 'lama_kursus',
         'latitude', 'longitude', 'keterangan'
     ];
 
@@ -31,14 +31,13 @@ class Kursus extends Model
         return $this->hasMany(Tutor::class, 'id', 'id_tutor');
     }
 
-    public function galleries() 
+    public function galleries()
     {
-        return $this->hasMany(Gallery::class,'kursus_id','id');        
+        return $this->hasMany(Gallery::class, 'kursus_id', 'id');
     }
 
-    public function order() {
-        return $this->belongsTo(Order::class,'id','id_kursus');
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'id', 'id_kursus');
     }
-
-   
 }

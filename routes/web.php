@@ -75,4 +75,3 @@ Route::group(['prefix' => 'tutor'], function () {
 Route::get('/', 'Web\FrontController@index')->name('front.index');
 Route::get('/kursus', 'Web\FrontController@kursus')->name('front.kursus');
 Route::get('/kursus/{slug}', 'Web\FrontController@show')->name('front.detail');
-

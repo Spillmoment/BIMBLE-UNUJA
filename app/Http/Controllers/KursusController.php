@@ -70,8 +70,8 @@ class KursusController extends Controller
         $kursus = $request->all();
         $nama_kursus = $kursus['nama_kursus'];
 
-        $kursus['slug_kursus'] = Str::slug($nama_kursus, '-');
-        
+        $kursus['slug'] = Str::slug($nama_kursus, '-');
+
         if ($request->file('gambar_kursus')) {
             $gambar_kursus = $request->file('gambar_kursus');
             $nama_gambar = 'kursus-' . time() . '.' . $gambar_kursus->getClientOriginalExtension();
@@ -126,7 +126,7 @@ class KursusController extends Controller
 
         $nama_kursus = $data['nama_kursus'];
 
-        $data['slug_kursus'] = Str::slug($nama_kursus, '-');
+        $data['slug'] = Str::slug($nama_kursus, '-');
 
         if ($request->hasFile('gambar_kursus')) {
             if ($request->file('gambar_kursus')) {
@@ -137,6 +137,7 @@ class KursusController extends Controller
                 $data['gambar_kursus'] = $nama_gambar;
             }
         }
+
 
         $kursus->update($data);
         return redirect()->route('kursus.index')->with(['status' => 'Data Kursus Berhasil Di Update']);
@@ -153,6 +154,7 @@ class KursusController extends Controller
         $kursus = Kursus::findOrFail($id);
         File::delete('uploads/kursus/' . $kursus->gambar_kursus);
         $kursus->delete();
+
 
         return redirect()->route('kursus.index')->with(['status' => 'Data Kursus Berhasil Dihapus']);
     }
