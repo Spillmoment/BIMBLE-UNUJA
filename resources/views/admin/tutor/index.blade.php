@@ -35,8 +35,8 @@
                             <tr>
                                 <th>No</th>
                                 <th>Nama Tutor</th>
+                                <th>Username</th>
                                 <th>Alamat</th>
-                                <th>Email</th>
                                 <th>Foto</th>
                                 <th>Status</th>
                                 <th>Option</th>
@@ -46,14 +46,20 @@
                             @foreach ($tutor as $sensei)
                                 
                             <tr>
-                                <td scope="row">  {{$loop->iteration}}  </td>
+                            <td scope="row">  {{$loop->iteration}}  </td>
                             <td>{{ $sensei->nama_tutor }}</td>
+                            <td> {{ $sensei->username }} </td>
                             <td> {{ $sensei->alamat }} </td>
-                           <td> {{ $sensei->email }} </td>
                           
-                            <td> <img src="{{ asset('storage/'. $sensei->foto) }}" width="50px"> </td>
-                            <td>{{ $sensei->status }}</td>
-                                <td>
+                            <td> <img src="{{ asset('uploads/tutor/'. $sensei->foto) }}" width="50px"> </td>
+
+                            @if ($sensei->status == 'ACTIVE')
+                            <td><span class="badge badge-pill badge-success">{{ $sensei->status }}</span></td>
+                            @else
+                            <td><span class="badge badge-pill badge-danger">{{ $sensei->status }}</span></td>
+                            @endif
+                            
+                            <td>
                                     <a class="badge badge-info text-white badge-pill" href="{{route('tutor.edit',
                                        [$sensei->id])}}"> <i class="fa fa-edit"></i> Edit</a>
                                     <a class="badge badge-warning text-white badge-pill" href="{{route('tutor.show',
