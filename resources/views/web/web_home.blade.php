@@ -39,7 +39,7 @@
                                     <div class="media text-white text-sm align-items-center">
 
                                         @foreach ($krs->tutor as $sensei)
-                                        <img src="{{asset('assets/frontend/img/avatar/avatar-0.png') }}" alt="John" class="avatar-profile avatar-border-white mr-2" /> 
+                                        <img src="{{asset('uploads/tutor/'.$sensei->foto) }}" alt="John" class="avatar-profile avatar-border-white mr-2" /> 
                                             <div class="media-body">{{ $sensei->nama_tutor }}</div>
                                             @endforeach
                                     </div>
