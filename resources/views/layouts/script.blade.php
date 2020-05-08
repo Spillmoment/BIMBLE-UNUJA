@@ -17,3 +17,6 @@
    <!-- owl carousel -->
    <script src="{{ asset('assets/frontend/vendor/owl-carousel/dist/owl.carousel.min.js') }}"></script>
    <script src="{{ asset('assets/frontend/vendor/lib/owlcarousel/owlcarousel-costume.js') }}"></script>
+
+   <script src="{{  asset('assets\frontend\vendor\sweetalert\package\dist\sweetalert2.all.min.js') }}"></script>
+

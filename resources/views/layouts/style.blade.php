@@ -16,3 +16,4 @@
     <!-- Owl carousel -->
     <link rel="stylesheet" href="{{asset('assets/frontend/vendor/owl-carousel/dist/assets/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{asset('assets/frontend/vendor/owl-carousel/dist/assets/owl.theme.default.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets\frontend\vendor\sweetalert\package\dist\sweetalert2.all.min.css') }}">

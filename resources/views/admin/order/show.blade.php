@@ -10,13 +10,7 @@
             <h1>Detail Data Order </h1>
         </div>
 
-            @if(session('status'))
-            <div class="alert alert-success" role="alert">
-                <strong>{{session('status')}}</strong>
-            </div> 
-            @endif
-     
-     
+        
         <div class="row" style="overflow: scroll">
             <div class="col-md-12">
                 <div class="container bg-white p-4"

@@ -15,7 +15,7 @@
                     <div class="form-group">
                         <label for="username" class="form-label"> Email</label>
                         <input name="email" id="email" type="email" placeholder="name@address.com"
-                    autocomplete="off" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+                 class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
                  
                     @error('email')    
                     <div class="invalid-feedback">
@@ -37,8 +37,8 @@
                             
                            
                         </div>
-                        <input name="password" id="password" placeholder="Password" type="password" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
-                            @error('email')    
+                        <input name="password" id="password" placeholder="Password" type="password" class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}">
+                            @error('password')    
                             <div class="invalid-feedback">
                                     {{$message}}
                                 </div>
