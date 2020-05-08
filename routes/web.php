@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Auth::routes();
+
 // Manager Routing
 Route::group(['prefix' => 'manager'], function () {
 
