@@ -40,11 +40,8 @@
                                         
                                             <div class="form-group">
                                               <label for="gambar_kursus">Gambar Kursus</label>
-                                            
                                               <small class="text-muted">Current Gambar</small>
-                                         
                                               <img src="{{asset('uploads/kursus/' . $kursus->gambar_kursus)}}" width="96px"/>
-                                             
                                               <input type="file" class="form-control-file {{ $errors->first('gambar_kursus') ? 'is-invalid' : '' }}" name="gambar_kursus" id="gambar_kursus">
                                               <small class="text-muted">Kosongkan jika tidak ingin mengubah
                                                 gambar</small>
