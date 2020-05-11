@@ -60,7 +60,7 @@
         <div class="text-block">
           <h5 class="mb-4">Gallery</h5>
           <div class="row gallery mb-3 ml-n1 mr-n1">
-            <div class="col-lg-4 col-6 px-1 mb-2"><a href="assets/img/photo/photo-1426122402199-be02db90eb90.jpg"
+            <div class="col-lg-4 col-6 px-1 mb-2"><a href="{{ asset('uploads/kursus/'.$kursus->gambar_kursus) }}"
                 data-fancybox="gallery" title="Our street"><img
                   src="{{ asset('uploads/kursus/'.$kursus->gambar_kursus) }}" alt="..." class="img-fluid"></a></div>
             <div class="col-lg-4 col-6 px-1 mb-2"><a href="assets/imgimg/photo/photo-1512917774080-9991f1c4c750.jpg"
@@ -86,26 +86,28 @@
         <div style="top: 100px;" class="p-4 shadow ml-lg-4 rounded sticky-top">
           <p class="text-muted"><span class="text-primary h2">@currency($kursus->biaya_kursus)</span> per bulan</p>
           <hr class="my-4">
-          <form id="booking-form" method="get" action="#" autocomplete="off" class="form">
+          <form id="booking-form" method="post" action="{{ route('order.post') }}" autocomplete="off" class="form">
+            @csrf
+
+            @if (Auth::check())
+            <input type="hidden" name="id_pendaftar" value="{{ Auth::user()->id }}">
+            @endif
+
+            <input type="hidden" name="id_kursus" value="{{ $kursus->id }}">
+            <input type="hidden" name="biaya_kursus" value="{{ $kursus->biaya_kursus }}">
+            <input type="hidden" name="diskon_kursus" value="{{ ($kursus->diskon_kursus > 0) ? $kursus->diskon_kursus : 0 }}">
             <div class="form-group">
-              <label for="bookingDate" class="form-label">Your stay *</label>
-              <div class="datepicker-container datepicker-container-right">
-                <input type="text" name="bookingDate" id="bookingDate" placeholder="Choose your dates"
-                  required="required" class="form-control">
-              </div>
-            </div>
-            <div class="form-group mb-4">
-              <label for="guests" class="form-label">Guests *</label>
-              <select name="guests" id="guests" class="form-control">
-                <option value="1">1 Guest</option>
-                <option value="2">2 Guests</option>
-                <option value="3">3 Guests</option>
-                <option value="4">4 Guests</option>
-                <option value="5">5 Guests</option>
-              </select>
+              <label for="diskon" class="form-label">Diskon</label>
+              <h3 class="text-danger">{{ $kursus->diskon_kursus }}%</h3>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block">Book your stay</button>
+              @guest
+                  @if (Route::has('register'))
+                    <button type="submit" id="orderKursusButton" class="btn btn-block" style="background-color: rgb(235, 236, 237); color: rgb(169, 170, 171)">Pesan</button>
+                  @endif                      
+                  @else
+                    <button type="submit" id="orderKursusButton" class="btn btn-primary btn-block">Pesan</button>
+              @endguest
             </div>
           </form>
         </div>
