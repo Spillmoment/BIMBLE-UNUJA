@@ -67,4 +67,8 @@ Route::group(['prefix' => 'tutor'], function(){
 
 // Route Front
 Route::get('/', 'Web\FrontController@index')->name('front.index');
-Route::get('/kursus/{kursus}', 'Web\KursusController@show')->name('kursus.index');
+Route::get('/kursus/{kursus}', 'Web\KursusController@show')->name('kursus.show');
+Route::post('/order/post', 'Web\OrderController@orderPost')->name('order.post');
+Route::get('/order/cart', 'Web\OrderController@view')->name('order.view');
+Route::get('/order/cart/pending', 'Web\OrderController@updateToPending')->name('order.update.cancel');
+Route::delete('/order/cart/{id}', 'Web\OrderController@updateToDelete')->name('order.delete.pesanan');
