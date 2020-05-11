@@ -42,6 +42,11 @@ class Pendaftar extends Authenticatable
     // {
     //     return $this->hasMany('App\DetailKomentar');
     // }
+
+    public function order_detail()
+    {
+        return $this->belongsTo(OrderDetail::class, 'id', 'id_pendaftar');
+    }
  
     protected $dates = ['deleted_at'];
 
