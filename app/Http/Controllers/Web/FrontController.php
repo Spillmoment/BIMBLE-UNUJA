@@ -35,4 +35,44 @@ class FrontController extends Controller
 
         return view('web.web_home', compact('kursus', 'kategori', 'nama_kategori'));
     }
+
+
+    public function kursus(Request $request)
+    {
+        $kursus = Kursus::with(['kategori', 'tutor'])->orderBy('created_at', 'DESC')->paginate(9);
+        $kategori = Kategori::latest()->get();
+
+        $keyword = $request->get('keyword');
+        $filter_kategori = $request->get('nama_kategori');
+
+        if ($keyword) {
+            $kursus = Kursus::with(['kategori', 'tutor'])
+                ->where('nama_kursus', 'LIKE', "%$keyword%")
+                ->orderBy('created_at', 'DESC')
+                ->paginate(9);
+        }
+
+        if ($filter_kategori) {
+            $kursus = Kursus::with('kategori')
+                ->where('id_kategori', 'LIKE', "%$filter_kategori%")
+                ->orderBy('created_at', 'DESC')
+                ->paginate(3);
+
+            $data_kategori = Kategori::findOrFail($filter_kategori);
+            $nama_kategori = $data_kategori->nama_kategori;
+        }
+
+        return view('web.web_kursus', compact('kursus', 'kategori'));
+    }
+
+    public function show($slug)
+    {
+        $kursus = Kursus::with(['galleries'])
+            ->where('slug', $slug)->firstOrFail();
+        $kategori = Kategori::latest()->get();
+        return view('web.web_detail_kursus', [
+            'kursus' => $kursus,
+            'kategori' => $kategori
+        ]);
+    }
 }

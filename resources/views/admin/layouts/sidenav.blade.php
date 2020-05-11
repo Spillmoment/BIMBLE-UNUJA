@@ -16,7 +16,7 @@
                         {{-- <img alt="image" style="margin-bottom:4px !important;"
                             src="./assets/stisla-assets/img/avatar/avatar-2.png"
                             class="rounded-circle mr-1 my-auto"> --}}
-                <div class="d-sm-none d-lg-inline-block" style="font-size:15px;">Hello, {{ Auth::user()->nama }}</div>
+                <div class="d-sm-none d-lg-inline-block" style="font-size:15px;">Hello, </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <div class="dropdown-title">Admin - Bimble</div>
@@ -58,6 +58,16 @@
                         </ul>
                     </li>
 
+                    <li class="menu-header">Management Tutor</li>
+                <li class="nav-item dropdown ">
+                        <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-user-circle"></i>
+                            <span>Tutor</span></a>
+                        <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="{{ route('tutor.index') }}">Data Tutor</a></li>
+                            <li><a class="nav-link" href="{{ route('tutor.create') }}">Tambah Data Tutor</a></li>
+                        </ul>
+                    </li>
+
                     <li class="menu-header">Management Kategori</li>
                     <li class="nav-item dropdown  {{ (Request::route()->getName() == 'kategori.index') ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-cart-plus"></i>
@@ -70,6 +80,7 @@
 
                         </ul>
                     </li>
+                   
                     <li class="menu-header">Management Kursus</li>
                     <li class="nav-item dropdown  {{ (Request::route()->getName() == 'kursus.index') ? 'active' : '' }}">
                         <a href="#" class="nav-link has-dropdown"><i class="fas fa-chalkboard-teacher"></i>
@@ -78,6 +89,19 @@
                         <li><a class="nav-link " href="{{route('kursus.index')}}">Data Kursus</a>
                             </li>
                         <li><a class="nav-link" href="{{route('kursus.create')}}">Tambah Kursus</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+                    <li class="menu-header">Management Gallery</li>
+                    <li class="nav-item dropdown  {{ (Request::route()->getName() == 'gallery.index') ? 'active' : '' }}">
+                        <a href="#" class="nav-link has-dropdown"><i class="fas fa-images    "></i>
+                            <span>Gallery</span></a>
+                        <ul class="dropdown-menu">
+                        <li><a class="nav-link " href="{{route('gallery.index')}}">Data Gallery</a>
+                            </li>
+                        <li><a class="nav-link" href="{{route('gallery.create')}}">Tambah Gallery</a>
                             </li>
 
                         </ul>
@@ -93,5 +117,14 @@
 
                         </ul>
                     </li>
+
+                    <li class="menu-header">Management Order</li>
+                    <li class="nav-item dropdown {{ (Request::route()->getName() == 'order.index') ? 'active' : '' }}">
+                       
+                            <span> <a href="{{ route('order.index') }}"><i class="fas fa-book-reader    "></i>Order</span></a>
+                      
+                    </li>
+
+
             </aside>
         </div>

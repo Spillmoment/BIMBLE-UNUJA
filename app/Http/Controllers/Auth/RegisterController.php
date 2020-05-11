@@ -55,7 +55,7 @@ class RegisterController extends Controller
             'nama_pendaftar' => ['required', 'string', 'max:100'],
             'jenis_kelamin' => ['required', 'in:L,P'],
             'alamat' => ['required', 'string', 'max:255'],
-            'foto' => ['nullable', 'file', 'image', 'mimes:jpeg,jpg,png', 'max:2048'],
+            'foto' => ['required', 'image', 'mimes:jpeg,jpg,png', 'max:2048'],
             'email' => ['required', 'string', 'email', 'max:100', 'unique:pendaftar'],
             'username' => ['required', 'string', 'max:100', 'unique:pendaftar'],
             'password' => ['required', 'string', 'min:3', 'confirmed'],
@@ -71,7 +71,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $file = $data['foto'];
-        $file_name = 'pendaftar-'.time().'.'.$file->getClientOriginalExtension();
+        $file_name = 'pendaftar-' . time() . '.' . $file->getClientOriginalExtension();
         $file->storeAs('public/uploads/pendaftar/profile', $file_name);
 
         return Pendaftar::create([

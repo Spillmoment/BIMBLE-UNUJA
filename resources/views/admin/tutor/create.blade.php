@@ -92,7 +92,7 @@
 
                                             
                                         <button type="submit" class="btn btn-block btn-success">
-                                          <big>Tambah  Kursus</big></button>
+                                          <big>Tambah  Tutor</big></button>
                                 </div>
 
 

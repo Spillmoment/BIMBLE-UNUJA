@@ -11,7 +11,7 @@
         </div>
 
         <nav class="breadcrumb ml-4" style="margin-top: -20px">
-            <a class="breadcrumb-item" href="{{ route('dashboard.index') }}">Home</a>
+            <a class="breadcrumb-item" href="{{ route('manager.home') }}">Home</a>
         <a class="breadcrumb-item active" href="{{ route('kursus.index') }}">Kursus</a>
         </nav>
                  

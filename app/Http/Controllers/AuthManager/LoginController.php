@@ -46,7 +46,7 @@ class LoginController extends Controller
             'password' => $request->password,
         ];
 
-        if(Auth::guard('manager')->attempt($credential, $request->member)){
+        if (Auth::guard('manager')->attempt($credential, $request->member)) {
             return redirect()->intended(route('manager.home'));
         }
 
@@ -58,5 +58,4 @@ class LoginController extends Controller
         Auth::guard('manager')->logout();
         return redirect('/manager/login');
     }
-
 }

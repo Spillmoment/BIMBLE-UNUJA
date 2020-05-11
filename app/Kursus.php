@@ -2,8 +2,10 @@
 
 namespace App;
 
+use App\Http\Requests\KursusRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Kursus extends Model
 {
@@ -11,11 +13,13 @@ class Kursus extends Model
 
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id_kategori', 'id_tutor', 'nama_kursus', 'gambar_kursus', 'biaya_kursus', 'diskon_kursus', 'lama_kursus',
+        'id_kategori', 'id_tutor', 'nama_kursus', 'slug', 'gambar_kursus', 'biaya_kursus', 'diskon_kursus', 'lama_kursus',
         'latitude', 'longitude', 'keterangan'
     ];
 
+
     use SoftDeletes;
+
 
     public function kategori()
     {
@@ -25,6 +29,16 @@ class Kursus extends Model
     public function tutor()
     {
         return $this->hasMany(Tutor::class, 'id', 'id_tutor');
+    }
+
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class, 'kursus_id', 'id');
+    }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'id', 'id_kursus');
     }
 
     public function order_detail()

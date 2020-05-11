@@ -36,7 +36,7 @@
                         <li class="nav-item"><a href="#" class="nav-link active">Beranda</a></li>
                         <li class="nav-item"><a href="#" class="nav-link active">Pusat Bantuan</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">{{ Auth::user()->nama_pendaftar }}</a></li>
-                        <li class="nav-item"><a href="{{ route('user.logout') }}" class="nav-link">Log out</a></li>
+                        <li class="nav-item"><a href="{{ route('user.logout') }}" class="nav-link badge badge-primary mt-1 text-light">Log Out</a></li>
                     
                         
                     @endguest

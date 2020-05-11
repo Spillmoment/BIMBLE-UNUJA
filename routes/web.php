@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-
-
 // Manager Routing
 Route::group(['prefix' => 'manager'], function () {
 
@@ -33,6 +31,9 @@ Route::group(['prefix' => 'manager'], function () {
 
     // Route Dashboard
     Route::get('/dashboard', 'ManagerController@index')->name('manager.home');
+
+    // Route Tutor
+    Route::resource('tutor', 'TutorController');
 
     // Route Kategori
     Route::delete('kategori/{id}/delete-permanent', 'KategoriController@deletePermanent')
@@ -51,23 +52,32 @@ Route::group(['prefix' => 'manager'], function () {
     // Route Pendaftar
     Route::get('pendaftar/trash', 'PendaftarController@trash')->name('pendaftar.trash');
     Route::resource('pendaftar', 'PendaftarController');
+
+    // Route Gallery
+    Route::resource('gallery', 'GalleryController');
+
+    // Route Order
+    Route::resource('order', 'OrderController');
 });
 
 
-Route::group(['prefix' => 'tutor'], function(){
+Route::group(['prefix' => 'tutor'], function () {
     Route::get('/login', 'AuthTutor\LoginController@showLoginForm')->name('tutor.login');
     Route::post('/login', 'AuthTutor\LoginController@login')->name('tutor.login.submit');
-    Route::get('/', 'TutorAuthController@index')->name('tutor.home');
+    Route::get('/', 'TutorController@index')->name('tutor.home');
     Route::get('/logout', 'AuthTutor\LoginController@logoutTutor')->name('tutor.logout');
     Route::get('/password/reset', 'AuthTutor\ForgotPasswordController@showLinkRequestForm')->name('tutor.password.request');
-    Route::post('/password/email', 'AuthTutor\ForgotPasswordController@sendResetLinkEmail')->name('tutor.password.email');    
-    Route::get('/password/reset/{token}', 'AuthTutor\ResetPasswordController@showResetForm')->name('tutor.password.reset');    
-    Route::post('/password/reset', 'AuthTutor\ResetPasswordController@reset');    
+    Route::post('/password/email', 'AuthTutor\ForgotPasswordController@sendResetLinkEmail')->name('tutor.password.email');
+    Route::get('/password/reset/{token}', 'AuthTutor\ResetPasswordController@showResetForm')->name('tutor.password.reset');
+    Route::post('/password/reset', 'AuthTutor\ResetPasswordController@reset');
 });
 
 // Route Front
 Route::get('/', 'Web\FrontController@index')->name('front.index');
-Route::get('/kursus/{kursus}', 'Web\KursusController@show')->name('kursus.show');
+Route::get('/kursus', 'Web\FrontController@kursus')->name('front.kursus');
+Route::get('/kursus/{slug}', 'Web\FrontController@show')->name('front.detail');
+
+// Route Order
 Route::post('/order/post', 'Web\OrderController@orderPost')->name('order.post');
 Route::get('/order/cart', 'Web\OrderController@view')->name('order.view');
 Route::get('/order/cart/pending', 'Web\OrderController@updateToPending')->name('order.update.cancel');

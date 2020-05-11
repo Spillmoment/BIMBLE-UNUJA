@@ -1,139 +1,119 @@
 @extends('layouts.app')
 
+@section('title','Register Eh-Bimble')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="nama_pendaftar" class="col-md-4 col-form-label text-md-right">{{ __('Nama') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="nama_pendaftar" type="text" class="form-control @error('nama_pendaftar') is-invalid @enderror" name="nama_pendaftar" value="{{ old('nama_pendaftar') }}" required autocomplete="nama_pendaftar" autofocus>
-
-                                @error('nama_pendaftar')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="jenis_kelamin" class="col-md-4 col-form-label text-md-right">{{ __('Jenis Kelamin') }}</label>
-
-                            <div class="col-md-6">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="laki-laki" value="L" required {{ (old('jenis_kelamin') == 'L') ? 'checked' : ''}}>
-                                    <label class="form-check-label" for="laki-laki">Laki-laki</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="perempuan" value="P" required {{ (old('jenis_kelamin') == 'P') ? 'checked' : ''}}>
-                                    <label class="form-check-label" for="perempuan">Perempuan</label>
-                                </div>
-
-                                @error('jenis_kelamin')
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label for="alamat" class="col-md-4 col-form-label text-md-right">{{ __('Alamat') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="alamat" type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat">
-
-                                @error('alamat')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label for="foto" class="col-md-4 col-form-label text-md-right">{{ __('Foto') }}</label>
-
-                            <div class="col-md-6">
-                                <input type="file" name="foto" id="foto" class="@error('foto') is-invalid @enderror" value="{{ old('foto') }}">
-                                
-                                @error('foto')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="username" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username">
-
-                                @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                                                
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Konfirmasi Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+<div class="container-fluid px-3">
+    <div class="row min-vh-100">
+        <div class="col-md-8 col-lg-6 col-xl-5 d-flex align-items-center">
+            <div class="w-100 py-5 px-md-5 px-xl-6 position-relative">
+                <div class="mb-5"><img src="{{asset('assets/frontend/img/favicon.png')}}" style="max-width: 4rem;" class="img-fluid mb-3">
+                    <h2>Daftar Akun Eh-Bimbel</h2>
                 </div>
+                <form class="form-validate" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="form-group">
+                    <label for="nama_lengkap" class="form-label"> Nama Lengkap </label>
+                        <input name="nama_pendaftar" id="nama_lengkap" type="text" placeholder="Masukan Nama Lengkap"
+                             class="form-control {{ $errors->first('nama_pendaftar') ? 'is-invalid' : '' }}" value="{{old('nama_pendaftar') }}" >
+                            <div class="invalid-feedback">
+                                {{$errors->first('nama_pendaftar')}}
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label"> Email</label>
+                        <input name="email" id="email" type="email" placeholder="Masukkan Email" 
+                            class="form-control {{ $errors->first('email') ? 'is-invalid' : '' }}"
+                             value="{{old('email') }}">
+                            <div class="invalid-feedback">
+                                {{$errors->first('email')}}
+                            </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="jenis_kelamin" class="form-label"> Jenis Kelamin</label>
+                        <div class="form-check {{ $errors->first('jenis_kelamin') ? 'is-invalid' : '' }}"
+                            value="{{old('jenis_kelamin') }}">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="laki-laki" name="jenis_kelamin"
+                                    class="custom-control-input "  value="L" required {{ (old('jenis_kelamin') == 'L') ? 'checked' : ''}}>
+                                   
+                                <label for="laki-laki" class="custom-control-label">Laki-laki</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="perempuan" name="jenis_kelamin"
+                                    class="custom-control-input"  value="P" required {{ (old('perempuan') == 'L') ? 'checked' : ''}}>
+                                   
+                                <label for="perempuan" class="custom-control-label">Perempuan</label>
+                            </div>
+                        
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <textarea rows="4" name="alamat" id="alamat" placeholder="Masukkan Alamat"
+                             class="form-control {{ $errors->first('alamat') ? 'is-invalid' : '' }}">
+                             {{old('alamat') }}
+                            </textarea>
+                              
+                        <div class="invalid-feedback">
+                        {{$errors->first('alamat')}}
+                        </div>  
+                    </div>
+
+                    <div class="form-group">
+                      <label for="foto">Foto</label>
+                      <input type="file" class="form-control-file {{ $errors->first('foto') ? 'is-invalid' : '' }}" name="foto" id="foto" >
+                      <div class="invalid-feedback">
+                        {{$errors->first('foto')}}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username" class="form-label"> Username</label>
+                        <input name="username" id="username" type="text" placeholder="Masukkan Username"
+                             class="form-control {{ $errors->first('username') ? 'is-invalid' : '' }}"
+                            value="{{old('username') }}">
+                           <div class="invalid-feedback">
+                               {{$errors->first('username')}}
+                           </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label"> Password</label>
+                        <input name="password" id="password" type="password" placeholder="Masukkan password"
+                             class="form-control {{ $errors->first('password') ? 'is-invalid' : '' }}"
+                            value="{{old('password') }}">
+                           <div class="invalid-feedback">
+                               {{$errors->first('password')}}
+                           </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password-confirm" class="form-label"> Konfirmasi Password</label>
+                        <input name="password_confirmation" id="password-confirm" type="password"
+                            placeholder="Masukkan konfirmasi password"  class="form-control {{ $errors->first('password-confirm') ? 'is-invalid' : '' }}"
+                            value="{{old('password-confirm') }}">
+                           <div class="invalid-feedback">
+                               {{$errors->first('password-confirm')}}
+                           </div>
+                    </div>
+                    <!-- Submit-->
+                    <button class="btn btn-lg btn-block btn-primary" type="submit">Daftar</button>
+                    <hr class="my-4">
+                    <p class="text-center"><small class="text-muted text-center">Sudah Punya akun Eh-Bimbel? <a
+                                href="login.html">Login Sekarang </a></small></p>
+                </form><a href="/login" class="close-absolute mr-md-5 mr-xl-6 pt-5">
+                    <svg class="svg-icon w-3rem h-3rem">
+                        <use xlink:href="#close-1"> </use>
+                    </svg></a>
             </div>
+        </div>
+        <div class="col-md-4 col-lg-6 col-xl-7 d-none d-md-block">
+            <!-- Image-->
+            <div style="background-image: url({{asset('assets/frontend/img/photo/photo-login.jpg')}});"
+                class="bg-cover h-100 mr-n3"></div>
         </div>
     </div>
 </div>

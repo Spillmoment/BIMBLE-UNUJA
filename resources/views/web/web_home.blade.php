@@ -4,6 +4,8 @@
     
 @section('content')
 
+@include('web.layouts.header')
+
 <section class="py-6 bg-gray-100">
     <div class="container">
         <div class="row mb-5">
@@ -25,26 +27,28 @@
                   
 
                 <div class="owl-carousel">
+
                     @foreach ($kursus as $krs)
                     <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
                                 <img src="{{asset('uploads/kursus/'.$krs->gambar_kursus) }}" style="height: 10em;"
                                     alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
-                                    href="kursus/{{ $krs->slug }}" class="tile-link"></a>
+                                    href="{{ route('front.detail', [$krs->slug]) }}" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
 
                                         @foreach ($krs->tutor as $sensei)
-                                        <img src="{{asset('assets/frontend/img/avatar/avatar-0.png') }}" alt="John" class="avatar-profile avatar-border-white mr-2" /> 
+                                        <img src="{{asset('uploads/tutor/'.$sensei->foto) }}" alt="John" class="avatar-profile avatar-border-white mr-2" /> 
                                             <div class="media-body">{{ $sensei->nama_tutor }}</div>
                                             @endforeach
                                     </div>
                                 </div>
                             </div>
+
                             <div class="card-body d-flex align-items-center">
                                 <div class="w-100">
-                                    <h6 class="card-title"><a href="kursus/{{ $krs->slug }}"
+                                    <h6 class="card-title"><a href="{{ route('front.detail', [$krs->slug]) }}"
                                             class="text-decoration-none text-dark">{{$krs->nama_kursus}}</a></h6>
                                     <div class="d-flex card-subtitle mb-3">
                                         <p class="flex-grow-1 mb-0 text-muted text-sm">
@@ -60,8 +64,19 @@
                                                 class="fa fa-star text-gray-300"> </i>
                                         </p>
                                     </div>
+
+                                    @if ($krs->diskon_kursus == 0)     
                                     <p class="card-text text-muted"><span class="h4 text-primary"> @currency($krs->biaya_kursus)</span>
-                                        per Bulan</p>
+                                        per Bulan</p>                                        
+                                    @else
+                                    <p class="card-text text-muted"><span class="h4 text-primary"> @currency($krs->biaya_kursus - $krs->diskon_kursus)</span>
+                                        per Bulan</p> 
+                                        <strike>
+                                        <p class="card-text text-muted"><span class="h6 text-danger"> Diskon: @currency($krs->diskon_kursus)</span>
+                                           </p> 
+                                    </strike>
+                                    @endif
+
                                 </div>
                             </div>
                         </div>
@@ -72,7 +87,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 d-lg-flex align-items-center justify-content-end">
-                <a href="#" class="text-primary text-sm"> Lihat Semua<i
+            <a href="{{ route('front.kursus') }}" class="text-primary text-sm"> Lihat Semua<i
                         class="fas fa-angle-double-right ml-2"></i></a>
             </div>
         </div>
