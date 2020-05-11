@@ -26,4 +26,9 @@ class Kursus extends Model
     {
         return $this->hasMany(Tutor::class, 'id', 'id_tutor');
     }
+
+    public function order_detail()
+    {
+        return $this->belongsTo(OrderDetail::class, 'id', 'id_kursus');
+    }
 }
