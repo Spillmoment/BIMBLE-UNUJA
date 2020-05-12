@@ -124,17 +124,15 @@ class OrderController extends Controller
     public function updateToDelete($id){
         
         $order_detail = OrderDetail::findOrFail($id);
-        $order_detail->delete();
-        // Order::where('id', $id->id_order)->decrement('total_tagihan', $id->biaya_kursus);
+        $order_detail->forceDelete();
 
-        // $tot_tagihan = OrderDetail::where('id_pendaftar', $id->id_pendaftar)
-        //                             ->where('status', 'PROCESS')
-        //                             ->sum('biaya_kursus');
-
+        $order = Order::find($order_detail->id_order);
+        $decrement = $order->total_tagihan - $order_detail->biaya_kursus;
+        $order->update(['total_tagihan' => $decrement]);
 
         return response()->json([
             'message' => 'Bimbel berhasil di cancel.',
-            // 'totalTagihan' => $tot_tagihan
+            'totalTagihan' => $order->total_tagihan
         ]);
     }
 }
