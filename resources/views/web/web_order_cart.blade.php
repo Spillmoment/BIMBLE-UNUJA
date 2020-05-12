@@ -228,6 +228,9 @@
                     toastr.warning(response.message);
 
                     document.getElementById("total").textContent=response.totalTagihan;
+                    setTimeout(function(){
+                        location.reload(); 
+                    }, 1500); 
                 }
             });
         
