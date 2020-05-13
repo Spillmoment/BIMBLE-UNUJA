@@ -107,26 +107,28 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
           
        
           <hr class="my-4">
-          <form id="booking-form" method="get" action="#" autocomplete="off" class="form">
+          <form id="booking-form" method="post" action="{{ route('order.post') }}" autocomplete="off" class="form">
+            @csrf
+
+            @if (Auth::check())
+            <input type="hidden" name="id_pendaftar" value="{{ Auth::user()->id }}">
+            @endif
+
+            <input type="hidden" name="id_kursus" value="{{ $kursus->id }}">
+            <input type="hidden" name="biaya_kursus" value="{{ $kursus->biaya_kursus }}">
+            <input type="hidden" name="diskon_kursus" value="{{ ($kursus->diskon_kursus > 0) ? $kursus->diskon_kursus : 0 }}">
             <div class="form-group">
-              <label for="bookingDate" class="form-label">Your stay *</label>
-              <div class="datepicker-container datepicker-container-right">
-                <input type="text" name="bookingDate" id="bookingDate" placeholder="Choose your dates"
-                  required="required" class="form-control">
-              </div>
-            </div>
-            <div class="form-group mb-4">
-              <label for="guests" class="form-label">Guests *</label>
-              <select name="guests" id="guests" class="form-control">
-                <option value="1">1 Guest</option>
-                <option value="2">2 Guests</option>
-                <option value="3">3 Guests</option>
-                <option value="4">4 Guests</option>
-                <option value="5">5 Guests</option>
-              </select>
+              <label for="diskon" class="form-label">Diskon</label>
+              <h3 class="text-danger">{{ $kursus->diskon_kursus }}%</h3>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-block">Book your stay</button>
+              @guest
+                  @if (Route::has('register'))
+                    <button type="submit" id="orderKursusButton" class="btn btn-block" style="background-color: rgb(235, 236, 237); color: rgb(169, 170, 171)">Pesan</button>
+                  @endif                      
+                  @else
+                    <button type="submit" id="orderKursusButton" class="btn btn-primary btn-block">Pesan</button>
+              @endguest
             </div>
           </form>
         </div>

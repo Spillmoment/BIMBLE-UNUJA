@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTempDetailTable extends Migration
+class CreateOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,17 @@ class CreateTempDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('temp_order', function (Blueprint $table) {
+        Schema::create('order', function (Blueprint $table) {
             $table->id();
 
             $table->foreignId('id_pendaftar');
             $table->foreign('id_pendaftar')->references('id')->on('pendaftar')->onDelete('cascade');
-            
+
             $table->integer('total_tagihan');
-            $table->string('bukti_pembayaran', 100)->nullable();
-            $table->enum('status', ['PENDING', 'SUCCESS' , 'PROCESS', 'CANCEL' ,'FAILED']);
+            $table->enum('status_kursus', ['PENDING', 'SUCCESS' , 'PROCESS', 'CANCEL' ,'FAILED']);
             $table->timestamps();
             $table->softDeletes();
-        });
+        }); 
     }
 
     /**
@@ -34,6 +33,6 @@ class CreateTempDetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('temp_detail');
+        Schema::dropIfExists('order');
     }
 }

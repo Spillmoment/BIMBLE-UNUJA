@@ -40,4 +40,9 @@ class Kursus extends Model
     {
         return $this->belongsTo(Order::class, 'id', 'id_kursus');
     }
+
+    public function order_detail()
+    {
+        return $this->belongsTo(OrderDetail::class, 'id', 'id_kursus');
+    }
 }
