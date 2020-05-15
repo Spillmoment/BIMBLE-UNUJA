@@ -170,11 +170,6 @@
 </body>
 
 <script>
-    // tootip dari bootstrap
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-    })
-    // -----------------------------------
 
     let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
     elems.forEach(function(html) {
