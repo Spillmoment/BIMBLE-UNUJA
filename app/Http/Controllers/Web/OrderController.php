@@ -75,7 +75,10 @@ class OrderController extends Controller
         $pendaftarId = Auth::id();
         $order_kursus = OrderDetail::with(['pendaftar', 'kursus'])
                         ->where('id_pendaftar', $pendaftarId)
-                        ->where('status', 'PROCESS')
+                        ->where(function ($query) {
+                            $query->where('status', 'PROCESS')
+                                  ->orWhere('status', 'CANCEL');
+                        })
                         ->orderBy('created_at', 'ASC')
                         ->get();
         
