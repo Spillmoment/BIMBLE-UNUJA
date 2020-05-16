@@ -91,7 +91,7 @@
                                          </div>
 
                                             
-                                        <button type="submit" class="btn btn-block btn-success">
+                                        <button type="submit" class="btn btn-block btn-primary">
                                           <big>Tambah  Tutor</big></button>
                                 </div>
 

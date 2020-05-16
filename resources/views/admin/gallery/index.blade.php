@@ -29,7 +29,7 @@
                 <div class="container bg-white p-4"
                     style="bgallery-radius:3px;box-shadow:rgba(0, 0, 0, 0.03) 0px 4px 8px 0px">
                     
-                    <a href="{{ route('gallery.create') }}" class="btn btn-success my-1 float-right">
+                    <a href="{{ route('gallery.create') }}" class="btn btn-primary my-1 float-right">
                       <i class="fa fa-plus"></i> Tambah Gallery</a>
                      
                     <table class="table align-items-center table-flush">

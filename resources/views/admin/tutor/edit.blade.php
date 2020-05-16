@@ -117,7 +117,7 @@
 
                                     </div>
                                   <br>
-                                        <button type="submit" class="btn btn-block btn-success">
+                                        <button type="submit" class="btn btn-block btn-primary">
                                           <big> <i class="fa fa-edit" aria-hidden="true"></i> Edit Tutor</big></button>
                                 </div>
 

@@ -36,7 +36,7 @@
             </div>
 
             <div class="col-md-1">
-                <button type="submit" class="btn btn-success"> <i class="fas fa-search" aria-hidden="true"></i></button>
+                <button type="submit" class="btn btn-primary"> <i class="fas fa-search" aria-hidden="true"></i></button>
             </div>
 
             <div class="col-md-3">
@@ -70,7 +70,7 @@
         </div>
 
         <div class="col-md-1">
-            <button type="submit" class="btn btn-success"> <i class="fas fa-filter" aria-hidden="true"></i></button>
+            <button type="submit" class="btn btn-primary"> <i class="fas fa-filter" aria-hidden="true"></i></button>
         </div>
     </div>
 
@@ -83,7 +83,7 @@
                     style="border-radius:3px;box-shadow:rgba(0, 0, 0, 0.03) 0px 4px 8px 0px">
                    
                     
-                    <a href="{{ route('kursus.create') }}" class="btn btn-success my-1 float-right">
+                    <a href="{{ route('kursus.create') }}" class="btn btn-primary my-1 float-right">
                         <i class="fa fa-plus"></i> Tambah Kursus</a>
 
                     <table class="table align-items-center table-flush">

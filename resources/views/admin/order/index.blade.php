@@ -36,7 +36,7 @@
             </div>
 
             <div class="col-md-1">
-                <button type="submit" class="btn btn-success"> <i class="fas fa-search" aria-hidden="true"></i></button>
+                <button type="submit" class="btn btn-primary"> <i class="fas fa-search" aria-hidden="true"></i></button>
             </div>
 
             <div class="col-md-3">
@@ -70,7 +70,7 @@
         </div>
 
         <div class="col-md-1">
-            <button type="submit" class="btn btn-success"> <i class="fas fa-filter" aria-hidden="true"></i></button>
+            <button type="submit" class="btn btn-primary"> <i class="fas fa-filter" aria-hidden="true"></i></button>
         </div>
     </div>
     </form>
