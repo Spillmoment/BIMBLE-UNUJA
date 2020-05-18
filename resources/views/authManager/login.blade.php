@@ -52,7 +52,7 @@
                             </div>
 
                         <div class="form-group text-right">
-                            <button type="submit" class="btn btn-block btn-success btn-lg btn-icon icon-right"
+                            <button type="submit" class="btn btn-block btn-primary btn-lg btn-icon icon-right"
                                 tabindex="4">
                                 Masuk
                             </button>
