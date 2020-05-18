@@ -40,21 +40,22 @@
                             <td>{{ $user->email }}</td>
                           </tr>
                           
-                          @foreach ($item->kursus as $kursus)    
-                          <tr>
-                            <th>Paket Kursus</th>
-                            <td>{{ $kursus->nama_kursus }}</td>
-                          </tr>
-                          <tr>
-                            <th>Biaya Kursus</th>
-                            <td>{{ $kursus->biaya_kursus }}</td>
-                          </tr>
-                          @endforeach
-                          
+
+                          @if ($item->status_kursus == "SUCCESS")
                           <tr>
                             <th>Status Order</th>
-                            <td>{{ $item->status_kursus }}</td>
+                            <td>
+                              <span class="badge badge-success"><i class="fas fa-check"></i> 
+                              {{ $item->status_kursus }}
+                            </span>
+                          </td>
                           </tr>
+                            @else
+                            <tr>
+                              <th>Status Order</th>
+                              <td> <span class="badge badge-warning">{{ $item->status_kursus }}</span> </td>
+                            </tr>
+                          @endif
                           
                           <tr>
                             <th>Pembelian</th>
@@ -62,22 +63,22 @@
                               <table class="table table-bordered">
                                 <tr>
                                   <th>ID</th>
-                                  <th>No Orders</th>
+                                  <th>Total Tagihan</th>
                                   <th>Tanggal Orders</th>
                                 </tr>
-                                @foreach ($item->details as $detail)
+                              
                                 <tr>
-                                  <td> {{ $detail->id }} </td>
-                                  <td> {{ $detail->no_orders }} </td>
-                                  <td> {{ $detail->tanggal_order }} </td>
+                                  <td> {{ $item->order_detail->id }} </td>
+                                  <td> @currency($item->total_tagihan ).00 </td>
+                                  <td> {{ $item->order_detail->created_at->format('d M Y')}} </td>
                                 </tr>
-                                @endforeach
+                               
                               </table>
                             </td>
                           </tr>
                               </table>
                       </div>
-                    </div>
+                    </div>z
                    
                 </div>
             </div>
