@@ -1596,7 +1596,7 @@ table tr:hover .table-links {
 }
 
 .badge.badge-success {
-	background-color: #4e73df;
+	background-color: #3bb557;
 }
 
 .badge.badge-info {
@@ -1830,8 +1830,8 @@ h6 .badge {
 .btn-success,
 .btn-success.disabled {
 	box-shadow: 0 2px 6px #81d694;
-	background-color: #4e73df;
-	border-color: #4e73df;
+	background-color: #3bb557;
+	border-color: #3bb557;
 	color: #fff;
 }
 
@@ -1851,7 +1851,7 @@ h6 .badge {
 .btn-outline-success.disabled:hover,
 .btn-outline-success.disabled:focus,
 .btn-outline-success.disabled:active {
-	background-color: #4e73df !important;
+	background-color: #3bb557 !important;
 	color: #fff !important;
 }
 
