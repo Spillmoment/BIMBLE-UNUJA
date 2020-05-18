@@ -75,6 +75,10 @@ class OrderController extends Controller
         $pendaftarId = Auth::id();
         $order_kursus = OrderDetail::with(['pendaftar', 'kursus'])
                         ->where('id_pendaftar', $pendaftarId)
+                        ->where(function ($query) {
+                            $query->where('status', 'PROCESS')
+                                  ->orWhere('status', 'CANCEL');
+                        })
                         ->orderBy('created_at', 'ASC')
                         ->get();
         
@@ -127,8 +131,11 @@ class OrderController extends Controller
         $order_detail->forceDelete();
 
         $order = Order::find($order_detail->id_order);
-        $decrement = $order->total_tagihan - $order_detail->biaya_kursus;
-        $order->update(['total_tagihan' => $decrement]);
+        // $decrement = $order->total_tagihan - $order_detail->biaya_kursus;
+        $tot_tagihan = OrderDetail::where('id_pendaftar', $order_detail->id_pendaftar)
+                            ->where('status', 'PROCESS')
+                            ->sum('biaya_kursus');
+        $order->update(['total_tagihan' => $tot_tagihan]);
 
         return response()->json([
             'message' => 'Bimbel berhasil di cancel.',

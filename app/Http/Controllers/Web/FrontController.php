@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Kursus;
 use App\Kategori;
+use App\OrderDetail;
+use Illuminate\Support\Facades\Auth;
 
 class FrontController extends Controller
 {
@@ -67,12 +69,24 @@ class FrontController extends Controller
 
     public function show($slug)
     {
+        $pendaftarId = Auth::id();
         $kursus = Kursus::with(['galleries'])
             ->where('slug', $slug)->firstOrFail();
         $kategori = Kategori::latest()->get();
+
+        $check_kursus_status = OrderDetail::where('id_pendaftar', $pendaftarId)
+                                            ->where('id_kursus', $kursus->id)
+                                            ->where('status', 'PROCESS')
+                                            ->first();
+        $check_kursus_sukses = OrderDetail::where('id_pendaftar', $pendaftarId)
+                                            ->where('id_kursus', $kursus->id)
+                                            ->where('status', 'SUCCESS')
+                                            ->first();
         return view('web.web_detail_kursus', [
             'kursus' => $kursus,
-            'kategori' => $kategori
+            'kategori' => $kategori,
+            'check_kursus' => $check_kursus_status,
+            'check_kursus_sukses' => $check_kursus_sukses,
         ]);
     }
 }

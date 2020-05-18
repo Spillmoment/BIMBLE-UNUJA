@@ -130,9 +130,19 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
               @guest
                   @if (Route::has('register'))
                     <button type="submit" id="orderKursusButton" class="btn btn-block" style="background-color: rgb(235, 236, 237); color: rgb(169, 170, 171)">Pesan</button>
-                  @endif                      
+                  @endif 
                   @else
-                    <button type="submit" id="orderKursusButton" class="btn btn-primary btn-block">Pesan</button>
+                    @if ($check_kursus != null)
+                      <div class="alert alert-warning" role="alert">
+                        <strong>Proses!</strong> Silahkan check out pesanan anda.
+                      </div>
+                    @elseif ($check_kursus_sukses)
+                      <div class="alert alert-success" role="alert">
+                        <button type="button" class="btn btn-success btn-block">Mulai Kursus</button>
+                      </div>
+                    @else
+                      <button type="submit" id="orderKursusButton" class="btn btn-primary btn-block">Pesan</button>
+                    @endif
               @endguest
             </div>
           </form>
