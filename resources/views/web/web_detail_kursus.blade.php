@@ -124,7 +124,7 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
             <input type="hidden" name="diskon_kursus" value="{{ ($kursus->diskon_kursus > 0) ? $kursus->diskon_kursus : 0 }}">
             <div class="form-group">
               <label for="diskon" class="form-label">Diskon</label>
-              <h3 class="text-danger">{{ $kursus->diskon_kursus }}%</h3>
+              <h3 class="text-danger">@currency($kursus->diskon_kursus)</h3>
             </div>
             <div class="form-group">
               @guest
