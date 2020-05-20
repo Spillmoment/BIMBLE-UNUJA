@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="shortcut icon" href="{{asset('assets/frontend/img/logo.png') }}" type="image/x-icon">
     <title>@yield('title')</title>
+    @stack('style')    
 </head>
 
 <body style="padding-top: 72px;">
