@@ -6,21 +6,25 @@
 
 @include('web.layouts.header-simple')
 
-<section style="background-image: url('assets/img/photo/photo-1426122402199-be02db90eb90.jpg');"
+
+
+<section style="background-image: url('{{ $kursus->galleries->count() ? Storage::url($kursus->galleries->first()->image) : '' }}');"
 class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
 <div class="container overlay-content">
   <div class="d-flex justify-content-between align-items-start flex-column flex-lg-row align-items-lg-end">
     <div class="text-white mb-4 mb-lg-0">
-      <div class="badge badge-pill badge-transparent px-3 py-2 mb-4">Programming &amp; MTK</div>
-      <h1 class="text-shadow verified">Kelas Pemograman Web dan Android</h1>
+      @foreach ($kursus->kategori as $kat)
+      <div class="badge badge-pill badge-transparent px-3 py-2 mb-4">{{ $kat->nama_kategori }}</div>
+      @endforeach
+      <h1 class="text-shadow verified">{{ $kursus->nama_kursus  }}</h1>
       <p><i class="fa-map-marker-alt fas mr-2"></i> Paiton, Probolinggo</p>
       <p class="mb-0 d-flex align-items-center"><i class="fa fa-xs fa-star text-primary"></i><i
-          class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i
+        class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i
           class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200 mr-4"> </i>8 Reviews
-      </p>
+        </p>
+      </div>
     </div>
   </div>
-</div>
 </section>
 
 <div class="container py-5">
@@ -60,11 +64,12 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
           </div>
         </div>
         <div class="text-block">
-          <div class="media"><img src="assets/img/avatar/avatar-0.png" alt="Dzun Nurroin" class="avatar avatar-lg mr-4">
+          <div class="media">
+            @foreach ($kursus->tutor as $tutor)
+            <img src="{{ asset('uploads/tutor/'.$tutor->foto) }}" alt="{{ $tutor->nama_tutor }}" class="avatar avatar-lg mr-4">
             <div class="media-body">
               <p> <span class="text-muted text-uppercase text-sm">Hosted by </span>
                 <br>
-                @foreach ($kursus->tutor as $tutor)
                 <strong>{{ $tutor->nama_tutor }}</strong>
               </p>
                 <p class="text-muted text-sm mb-2">
@@ -81,9 +86,9 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
             @foreach ($kursus->galleries as $gallery)
             <div class="col-lg-4 col-6 px-1 mb-2">
              <a href="{{ Storage::url($gallery->image) }}"
-             data-fancybox="gallery" title="Bedroom">
+             data-fancybox="gallery" title="{{ $kursus->nama_kursus }}">
              <img src="{{ Storage::url($gallery->image) }}"
-             alt="..." class="img-fluid mt-2"></a>
+             alt="{{ $kursus->nama_kursus }}" class="img-fluid mt-2"></a>
             </div>
             @endforeach
             </div>
@@ -119,7 +124,7 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
             <input type="hidden" name="diskon_kursus" value="{{ ($kursus->diskon_kursus > 0) ? $kursus->diskon_kursus : 0 }}">
             <div class="form-group">
               <label for="diskon" class="form-label">Diskon</label>
-              <h3 class="text-danger">{{ $kursus->diskon_kursus }}%</h3>
+              <h3 class="text-danger">@currency($kursus->diskon_kursus)</h3>
             </div>
             <div class="form-group">
               @guest

@@ -118,7 +118,7 @@
                                                  </div>
                                             </div>
                                        
-                                        <button type="submit" class="btn btn-block btn-success">
+                                        <button type="submit" class="btn btn-block btn-primary">
                                           <big> <i class="fa fa-plus" aria-hidden="true"></i> Tambah  Kursus</big></button>
                                 </div>
 

@@ -24,7 +24,7 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-           'status_kursus' => 'required|string|in:IN_CART,PENDING,SUCCESS,CANCEL,FAILED'
+           'status_kursus' => 'required|string|in:PENDING,PROCESS,SUCCESS,CANCEL,FAILED'
         ];
     }
 }

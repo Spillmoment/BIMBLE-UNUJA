@@ -76,7 +76,7 @@
                 <div class="container bg-white p-4"
                     style="border-radius:3px;box-shadow:rgba(0, 0, 0, 0.03) 0px 4px 8px 0px">
            
-                    <a href="{{ route('kategori.create') }}" class="btn btn-success my-1 float-right">
+                    <a href="{{ route('kategori.create') }}" class="btn btn-primary my-1 float-right">
                      <i class="fa fa-plus"></i> Tambah Kategori</a>
                     
                  <table class="table align-items-center table-flush mt-2">

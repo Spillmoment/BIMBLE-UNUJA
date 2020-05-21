@@ -13,10 +13,6 @@ class OrderDetail extends Model
 
     protected $fillable = ['id_order', 'id_pendaftar', 'id_kursus', 'biaya_kursus', 'status'];
 
-    // public function kursus()
-    // {
-    //     return $this->belongsTo(Kursus::class, 'id', 'id_kategori');
-    // }
 
     public function order()
     {

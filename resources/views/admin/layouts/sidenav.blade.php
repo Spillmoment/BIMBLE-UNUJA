@@ -33,7 +33,7 @@
                     <div>
                         <a href="#"
                             style="font-size: 35px;font-weight:900;font-family: 'Poppins', sans-serif;"
-                            class="text-success text-center"><i style="font-size: 30px;"
+                            class="text-primary text-center"><i style="font-size: 30px;"
                                 class="fas fa-home "></i> |
                             BIMBLE</a>
                     </div>
@@ -59,25 +59,12 @@
                     </li>
 
                     <li class="menu-header">Management Tutor</li>
-                <li class="nav-item dropdown ">
+                    <li class="nav-item dropdown {{ (Request::route()->getName() == 'tutor.index') ? 'active' : '' }}">
                         <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-user-circle"></i>
                             <span>Tutor</span></a>
                         <ul class="dropdown-menu">
                         <li><a class="nav-link" href="{{ route('tutor.index') }}">Data Tutor</a></li>
                             <li><a class="nav-link" href="{{ route('tutor.create') }}">Tambah Data Tutor</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="menu-header">Management Kategori</li>
-                    <li class="nav-item dropdown  {{ (Request::route()->getName() == 'kategori.index') ? 'active' : '' }}">
-                    <a href="#" class="nav-link has-dropdown"><i class="fas fa-cart-plus"></i>
-                            <span>Kategori</span></a>
-                        <ul class="dropdown-menu">
-                        <li><a class="nav-link" href="{{ route('kategori.index') }}">Data Kategori</a>
-                            </li>
-                        <li><a class="nav-link" href="{{route('kategori.create')}}">Tambah Kategori</a>
-                            </li>
-
                         </ul>
                     </li>
                    
@@ -86,10 +73,10 @@
                         <a href="#" class="nav-link has-dropdown"><i class="fas fa-chalkboard-teacher"></i>
                             <span>Kursus</span></a>
                         <ul class="dropdown-menu">
-                        <li><a class="nav-link " href="{{route('kursus.index')}}">Data Kursus</a>
+                            <li><a class="nav-link" href="{{route('kategori.index')}}">Data Kategori Kursus</a>
                             </li>
-                        <li><a class="nav-link" href="{{route('kursus.create')}}">Tambah Kursus</a>
-                            </li>
+                            <li><a class="nav-link" href="{{route('kursus.index')}}">Data Kursus</a>
+                                </li>
 
                         </ul>
                     </li>

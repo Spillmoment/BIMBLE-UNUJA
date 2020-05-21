@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use App\Order;
 use Illuminate\Http\Request;
 
@@ -15,11 +16,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $items = Order::with([
-            'kursus','pendaftar'
-        ])->get();
+        $items = Order::with(['pendaftar','order_detail'])
+        ->orderBy('created_at','DESC')
+        ->paginate(10);
         return view('admin.order.index',[
-            'items' => $items
+            'item' => $items
         ]);
     }
 
@@ -52,8 +53,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $items = Order::with([
-            'kursus','pendaftar','details'
+        $items = Order::with(['pendaftar','order_detail'
         ])->findOrFail($id);
 
         return view('admin.order.show',[
@@ -69,7 +69,10 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::findOrFail($id);
+        return view('admin.order.edit',[
+            'order' => $order
+            ]);
     }
 
     /**
@@ -79,9 +82,16 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(OrderRequest $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $item = Order::findOrFail($id);
+
+        $item->update($data);
+
+        return redirect()->route('order.index')
+        ->with(['status','Data Order Berhasil Di Update!']);
     }
 
     /**
@@ -92,6 +102,10 @@ class OrderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Order::findOrFail($id);
+        $item->forceDelete();
+        return redirect()->route('order.index')
+        ->with(['status','Data Order Berhasil Di Hapus!']);
+
     }
 }

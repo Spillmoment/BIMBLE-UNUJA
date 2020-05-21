@@ -59,7 +59,7 @@
 
                                         </div>
                                        <br>
-                                        <button type="submit" class="btn btn-block btn-success">
+                                        <button type="submit" class="btn btn-block btn-primary">
                                           <big>Ubah  Kategori</big></button>
                                 </div>
 
