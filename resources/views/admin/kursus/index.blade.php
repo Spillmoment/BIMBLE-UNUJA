@@ -16,12 +16,15 @@
         </nav>
                  
         @if(session('status'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{session('status')}}</strong> 
-            <button type="button" class="close text-light" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+        @push('scripts')
+        <script>
+            swal({
+            title: "Success",
+            text: "{{session('status')}}",
+            icon: "success",
+            });
+        </script>
+        @endpush
          @endif
              
          
@@ -122,16 +125,16 @@
                                         @endforeach
                                 </td>
                                 <td>
-                                    <a class="badge badge-info text-white badge-pill" href="{{route('kursus.edit',
-                                       [$krs->id])}}"> <i class="fa fa-edit"></i> Edit</a>
-                                    <a class="badge badge-warning text-white badge-pill" href="{{route('kursus.show',
-                                       [$krs->id])}}"> <i class="fa fa-eye"></i> Detail</a>
+                                    <a class="btn btn-info btn-sm" href="{{route('kursus.edit',
+                                       [$krs->id])}}"> <i class="fa fa-edit"></i></a>
+                                    <a class="btn btn-warning btn-sm" href="{{route('kursus.show',
+                                       [$krs->id])}}"> <i class="fa fa-eye"></i> </a>
                                  
                             <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')" class="d-inline" action="{{route('kursus.destroy', [$krs->id])}}"   method="POST">
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" value="Delete" class="badge badge-danger badge-pill">
-                                    <i class="fa fa-trash"></i> Trash
+                                <button type="submit" value="Delete" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash"></i> 
                                 </button>
                             </form>
                         </td>

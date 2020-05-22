@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from demo.bootstrapious.com/directory/1-4-1/category-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 17 Mar 2020 08:28:58 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -31,7 +28,6 @@
             <div class="container-fluid">
                 <div class="d-flex align-items-center"><a href="{{route('front.index')}}" class="navbar-brand py-1">
                         <img src="{{asset('assets/frontend/img/logo.png') }}" alt="Directory logo" style="width: 150px;"></a>
-
                         
                     <form action="#" id="search" class="form-inline d-none d-sm-flex">
                         <div
@@ -149,7 +145,7 @@
                                     <input type="checkbox" data-id="{{ $item->id }}" data-order="{{ $item->id_order }}" data-pendaf="{{ $item->id_pendaftar }}" data-kursus="{{ $cours->nama_kursus }}" name="status" class="js-switch" {{ $item->status == 'PROCESS' ? 'checked' : '' }}>
                                     
                                     {{-- <button type="button" class="btn btn-danger btn-sm deleteCart" data-id="{{ $item->id }}" data-orderId="{{ $item->id_order }}" data-biaya="{{ $item->biaya_kursus }}">Hapus</button> --}}
-                                    <button id="deleteCart" class="btn btn-danger btn-sm" data-id="{{ $item->id }}">Hapus</button>
+                                    <button id="deleteCart" class="btn btn-danger btn-sm" data-id="{{ $item->id }}" data-nama={{ $cours->nama_kursus }}>Hapus</button>
                                 </div>
                             </div>
                         </div>
@@ -199,16 +195,28 @@
             });
         });
 
-        $("body").on("click","#deleteCart",function(e){
+        // function delete
+        $("#deleteCart").on("click",function(e){
 
-            if(!confirm("Hapus pesanan ini?")) {
-                return false;
-            }
+            var nama = $(this).data('nama');
 
+            // sweealert 
+            swal({
+            title: "Yakin ?",
+            text: "mau dihapus order ini dengan kursus " + nama +" ",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+           
+            if (willDelete) {
+            
             e.preventDefault();
             var id = $(this).data("id");
             var token = $("meta[name='csrf-token']").attr("content");
-
+           
+           
             $.ajax({
                 url: "/order/cart/"+id,
                 type: 'DELETE',
@@ -228,12 +236,23 @@
                     }, 1500); 
                 }
             });
-        
+
+            } else {
+                // swal("Your imaginary file is safe!");
+            }
+            });
+
             return false;
         });
         
     });
+
+ 
+
     
 </script>
+
+
+
 
 </html>
