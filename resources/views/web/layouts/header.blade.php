@@ -28,6 +28,7 @@
                     @guest
                     <li class="nav-item"><a href="#" class="nav-link active">Beranda</a></li>
                     <li class="nav-item"><a href="#" class="nav-link active">Pusat Bantuan</a></li>
+
                     @if (Route::has('register'))
                         <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Sign in</a></li>
                         <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Sign up</a></li>
@@ -40,6 +41,7 @@
                     
                         
                     @endguest
+
                 </ul>
             </div>
         </div>
