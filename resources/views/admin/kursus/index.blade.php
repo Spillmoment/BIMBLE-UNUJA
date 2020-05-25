@@ -14,7 +14,7 @@
             <a class="breadcrumb-item" href="{{ route('manager.home') }}">Home</a>
         <a class="breadcrumb-item active" href="{{ route('kursus.index') }}">Kursus</a>
         </nav>
-                 
+               
         @if(session('status'))
         @push('scripts')
         <script>
@@ -22,10 +22,15 @@
             title: "Success",
             text: "{{session('status')}}",
             icon: "success",
+            button: false,
+            timer: 2000
             });
         </script>
         @endpush
          @endif
+
+
+      
              
          
          <form action="{{route('kursus.index')}}">                

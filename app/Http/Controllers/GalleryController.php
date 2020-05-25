@@ -105,7 +105,6 @@ class GalleryController extends Controller
             $data['image'] = $file;
         }
 
-
         $gallery->update($data);
         return redirect()->route('gallery.index')->with(['status' => 'Data Gallery Berhasil Diubah']);
     }

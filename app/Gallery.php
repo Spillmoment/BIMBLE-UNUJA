@@ -12,15 +12,13 @@ class Gallery extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'kursus_id','image'
+        'kursus_id', 'image'
     ];
 
-    protected $hidden = [
+    protected $hidden = [];
 
-    ];
-
-    public function kursus() {
-        return $this->belongsTo(Kursus::class,'kursus_id','id');
+    public function kursus()
+    {
+        return $this->belongsTo(Kursus::class, 'kursus_id', 'id');
     }
-
 }

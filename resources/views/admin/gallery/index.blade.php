@@ -15,7 +15,6 @@
         <a class="breadcrumb-item active" href="{{ route('gallery.index') }}">Gallery</a>
         </nav>
                  
-                 
         @if(session('status'))
         @push('scripts')
         <script>
@@ -23,10 +22,13 @@
             title: "Success",
             text: "{{session('status')}}",
             icon: "success",
+            button: false,
+            timer: 1500
             });
         </script>
         @endpush
          @endif
+
 
         <div class="row" style="overflow: scroll">
             <div class="col-md-12">

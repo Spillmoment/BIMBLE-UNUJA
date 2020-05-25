@@ -23,10 +23,13 @@
             title: "Success",
             text: "{{session('status')}}",
             icon: "success",
+            button: false,
+            timer: 1500
             });
         </script>
         @endpush
          @endif
+
              
          
 

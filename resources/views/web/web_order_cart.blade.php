@@ -121,8 +121,13 @@
                                     href="detail-kursus.html" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
-                                        <img src="{{ asset('assets/frontend/img/avatar/avatar-0.png') }}" alt="John" class="avatar-profile avatar-border-white mr-2" />
-                                        <div class="media-body">Dzun</div>
+
+                                        @foreach ($cours->tutor as $tutor)
+                                            
+                                        <img src="{{ asset('uploads/tutor/'.$tutor->foto) }}" alt="John" class="avatar-profile avatar-border-white mr-2" />
+                                        <div class="media-body">{{ $tutor->nama_tutor }}</div>
+                                        
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
