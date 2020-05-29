@@ -81,12 +81,17 @@
                                     <p class="card-text text-muted"><span class="h4 text-primary"> @currency($krs->biaya_kursus)</span>
                                         per Bulan</p>                                        
                                     @else
-                                    <p class="card-text text-muted"><span class="h4 text-primary"> @currency($krs->biaya_kursus - $krs->diskon_kursus)</span>
-                                        per Bulan</p> 
+                                    <p class="card-text text-muted">
+                                        <span class="h4 text-primary"> @currency($krs->biaya_kursus - ($krs->biaya_kursus * ($krs->diskon_kursus/100)))</span>
+                                        per Bulan
+                                    </p> 
+                                    <p class="card-text ">
                                         <strike>
-                                        <p class="card-text text-muted"><span class="h6 text-danger"> Diskon: @currency($krs->diskon_kursus)</span>
-                                           </p> 
-                                    </strike>
+                                            <span class="h6 text-danger">@currency($krs->biaya_kursus)</span>
+                                        </strike>
+                                        <strong class="ml-2">Diskon</strong> @currency($krs->diskon_kursus)%
+                                    </p> 
+                                        
                                     @endif
 
                                 </div>
