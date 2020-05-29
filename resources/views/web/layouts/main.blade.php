@@ -19,6 +19,6 @@
     
     @include('web.layouts.script')
 
-  
+    @stack('scripts')
 </body>
 </html>
