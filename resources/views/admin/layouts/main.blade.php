@@ -25,7 +25,8 @@
     {{-- include scripts --}}
     @include('admin.layouts.script')
 
-    @stack('footer-scripts')
+    {{-- load scripts --}}
+    @stack('scripts')
 
 
 </body>

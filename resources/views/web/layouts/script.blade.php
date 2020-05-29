@@ -17,3 +17,4 @@
    <!-- owl carousel -->
    <script src="{{ asset('assets/frontend/vendor/owl-carousel/dist/owl.carousel.min.js') }}"></script>
    <script src="{{ asset('assets/frontend/vendor/lib/owlcarousel/owlcarousel-costume.js') }}"></script>
+   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

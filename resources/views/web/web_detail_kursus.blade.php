@@ -7,7 +7,6 @@
 @include('web.layouts.header-simple')
 
 
-
 <section style="background-image: url('{{ $kursus->galleries->count() ? Storage::url($kursus->galleries->first()->image) : '' }}');"
 class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
 <div class="container overlay-content">

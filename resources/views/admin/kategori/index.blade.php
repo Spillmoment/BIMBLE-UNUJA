@@ -16,15 +16,20 @@
         </nav>
 
     
+                
         @if(session('status'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{session('status')}}</strong> 
-            <button type="button" class="close text-light" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
+        @push('scripts')
+        <script>
+            swal({
+            title: "Success",
+            text: "{{session('status')}}",
+            icon: "success",
+            button: false,
+            timer: 1500
+            });
+        </script>
+        @endpush
          @endif
-       
 
       
             <form action="{{route('kategori.index')}}">                

@@ -40,7 +40,7 @@
                                         
                                     <div class="form-group">
                                       <label for="image">Image</label>
-                                      <input type="file" class="form-control-file" name="image" id="imahe" placeholder="" aria-describedby="fileHelpId">
+                                      <input type="file" class="form-control-file" name="image" id="image" placeholder="" aria-describedby="fileHelpId">
                                       </div>
                                         
                                        
