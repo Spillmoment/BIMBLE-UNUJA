@@ -7,6 +7,8 @@ use App\Order;
 use App\OrderDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
 {
@@ -85,12 +87,25 @@ class OrderController extends Controller
         $total_tagihan = OrderDetail::where('id_pendaftar', $pendaftarId)
                             ->where('status', 'PROCESS')
                             ->sum('biaya_kursus');
-        return view('web.web_order_cart', compact('order_kursus', 'total_tagihan'));
+                        
+        $order = Order::where('id_pendaftar', $pendaftarId)
+                        ->where(function ($query) {
+                            $query->where('status_kursus', 'PENDING')
+                                ->orWhere('status_kursus', 'FAILED');
+                            })
+                        ->get();
+        $order_status = Order::where('id_pendaftar', $pendaftarId)
+                        ->where(function ($query) {
+                            $query->where('status_kursus', 'PENDING')
+                                ->orWhere('status_kursus', 'FAILED');
+                            })
+                        ->count();
+        $kursus_state = OrderDetail::with(['kursus'])->where('status', 'PENDING')->where('id_pendaftar', $pendaftarId)->get();
+        return view('web.web_order_cart', compact('order_kursus', 'total_tagihan', 'order', 'order_status', 'kursus_state'));
     }
 
     public function updateToPending(Request $request)
     {
-        // dd($r);
         $order = OrderDetail::findOrFail($request->order_id);
         $order->status = $request->status;
         $order->save();
@@ -106,24 +121,6 @@ class OrderController extends Controller
             'totalTagihan' => $tot_tagihan
             ]);
     }
-
-    // public function updateToDelete(Request $request)
-    // {
-    //     $order_detail = OrderDetail::find($request->id);
-    //     $order_detail->forceDelete();
-
-    //     $tot_tagihan = Order::where('id', $request->id_order)
-    //                         ->where('status', 'PROCESS')
-    //                         ->first()
-    //                         ->biaya_kursus;
-
-    //     Order::where('id', 8)->update(['total_tagihan' => $tot_tagihan]);
-
-    //     return response()->json([
-    //         'message' => 'Bimbel berhasil di cancel.',
-    //         'totalTagihan' => $tot_tagihan
-    //         ]);
-    // }
 
     public function updateToDelete($id){
         
@@ -141,5 +138,59 @@ class OrderController extends Controller
             'message' => 'Bimbel berhasil di cancel.',
             'totalTagihan' => $order->total_tagihan
         ]);
+    }
+
+    public function uploadFile(Request $request)
+    {
+        $request->validate([
+            'fileTransfer' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $pendaftarId = Auth::id();
+        $order = Order::where('id_pendaftar', $pendaftarId)
+                        ->where('status_kursus', 'PROCESS')
+                        ->first();
+                        
+        if($order->upload_bukti == NULL) {
+            $fileName = "buktibayar-" . time() . '.' . request()->fileTransfer->getClientOriginalExtension();
+            $request->fileTransfer->storeAs('public/uploads/bukti_pembayaran', $fileName);   
+            $order->upload_bukti = $fileName;
+            $order->status_kursus = 'PENDING';
+            $order->save();
+            
+            OrderDetail::where('id_order', $order->id)
+                        ->where('id_pendaftar', $pendaftarId)
+                        ->where('status', 'PROCESS')
+                        ->update([ 'status'=>'PENDING' ]);
+            OrderDetail::where('id_order', $order->id)
+                        ->where('id_pendaftar', $pendaftarId)
+                        ->where('status', 'CANCEL')
+                        ->forceDelete();
+        }
+
+        return redirect('order/cart');
+    }
+    
+    public function updateFile(Request $request)
+    {
+        $request->validate([
+            'fileTransfer' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $data = Order::findOrFail($request->order);
+            // dd(Storage::exists(storage_path('app/public/uploads/bukti_pembayaran'.$data->upload_bukti)));
+            // dd(file_exists(storage_path('public/index.php')));
+        if ($request->hasFile('fileTransfer'))
+        {
+            Storage::disk('local')->delete('public/uploads/bukti_pembayaran/'. $data->upload_bukti);
+
+            $fileName = "buktibayar-" . time() . '.' . request()->fileTransfer->getClientOriginalExtension();
+            $request->fileTransfer->storeAs('public/uploads/bukti_pembayaran', $fileName);   
+            $data->upload_bukti = $fileName;
+            $data->status_kursus = 'PENDING';
+            $data->save();
+        }
+                        
+        return redirect('order/cart');
     }
 }
