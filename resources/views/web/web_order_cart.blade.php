@@ -58,6 +58,8 @@
                         @else
                             <li class="nav-item"><a href="#" class="nav-link active">Beranda</a></li>
                             <li class="nav-item"><a href="#" class="nav-link active">Pusat Bantuan</a></li>
+                            <li class="nav-item"><a href="{{ route('order.view') }}" class="nav-link active">Cart</a></li>
+                            <li class="nav-item"><a href="#" class="nav-link active">Kursus ku</a></li>
                             <li class="nav-item"><a href="#" class="nav-link">{{ Auth::user()->nama_pendaftar }}</a></li>
                             <li class="nav-item"><a href="{{ route('user.logout') }}" class="nav-link">Log out</a></li>
                         
@@ -76,23 +78,25 @@
             </div>
         </div> -->
         <div class="row">
+            @if ($order_status < 1)
             <div class="col-lg-3 pt-3">
-                <form action="#" class="pr-xl-3">
+                    <form action="{{ route('order.post.pembayaran') }}" method="POST" enctype="multipart/form-data" class="pr-xl-3">
+                        @csrf
                     <div class="mb-4">
-                        <label for="form_search" class="form-label">Card Number</label>
+                        <label for="form_search" class="form-label">Upload Bukti Transfer</label>
                         <div class="input-label-absolute input-label-absolute-right">
-                            <input type="search" name="search" placeholder="Card" id="form_search"
-                                class="form-control pr-4">
+                            <input type="file" name="fileTransfer" class="form-control pr-4">
                         </div>
                     </div>
                     <div class="pb-4">
                         <div class="mb-4">
-                            <button type="submit" class="btn btn-primary"> <i class="fas fa-credit-card mr-1"></i>Pay Now
+                            <button type="submit" class="btn btn-primary"> <i class="far fa-paper-plane mr-1"></i>Send Now
                             </button>
                         </div>
                     </div>
                 </form>
             </div>
+            @endif
             <div class="col-lg-9">
                 <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
                     <div class="mr-3">
@@ -148,10 +152,8 @@
                                         Bulan</p>
                                     <p class="card-text text-muted">Dipotong diskon <span class="h6 text-danger">Rp {{ $cours->diskon_kursus }}</span> </p>
                                     <input type="checkbox" data-id="{{ $item->id }}" data-order="{{ $item->id_order }}" data-pendaf="{{ $item->id_pendaftar }}" data-kursus="{{ $cours->nama_kursus }}" name="status" class="js-switch" {{ $item->status == 'PROCESS' ? 'checked' : '' }}>
-                                    
-                                    {{-- <button type="button" class="btn btn-danger btn-sm deleteCart" data-id="{{ $item->id }}" data-orderId="{{ $item->id_order }}" data-biaya="{{ $item->biaya_kursus }}">Hapus</button> --}}
-                                    <button id="deleteCart" class="btn btn-danger btn-sm" data-id="{{ $item->id }}" data-nama={{ $cours->nama_kursus }}>Hapus</button>
                                 </div>
+                                <span id="deleteCart" data-id="{{ $item->id }}" class="badge badge-danger align-self-start" style="cursor: pointer">x</span>
                             </div>
                         </div>
                     </div>
@@ -160,6 +162,68 @@
                 </div>
                 <!-- Pagination -->
                 <h5>Total tagihan Anda : Rp. <span id="total">{{ $total_tagihan }}</span></h5>
+                
+                @foreach ($order as $pesan)
+                <div class="card mb-3" style="max-width: 540px;">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                        <img src="{{ asset('storage/uploads/bukti_pembayaran/'.$pesan->upload_bukti) }}" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Menunggu konfirmasi</h5>
+                            <p class="card-text">
+                                List kursus
+                                <ul>
+                                    @foreach ($kursus_state as $list_kursus)
+                                    <li>{{ $list_kursus->kursus->first()->nama_kursus }}</li>                                        
+                                    @endforeach
+                                </ul>
+                            </p>
+                            <p class="card-text"><small class="text-muted">Pesanan {{ $pesan->updated_at->diffForHumans() }}</small></p>
+                            @if ($pesan->status_kursus == 'FAILED')
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Gagal...</div>
+                                </div>
+                                <div class="alert alert-danger mt-3">
+                                    <h4 class="alert-heading">Perhatikan!</h4>
+                                    <hr>
+                                    <p class="mb-0">
+                                        <ol type="1">
+                                            <li>No. rekening tujuan</li>
+                                            <li>Jumlah tagihan anda sebesar Rp.{{ $pesan->total_tagihan }}</li>
+                                        </ol>
+                                    </p>
+                                </div>
+                                <form action="{{ route('order.patch.pembayaran') }}" method="POST" enctype="multipart/form-data" class="pr-xl-3">
+                                    @csrf
+                                    @method('patch')
+                                    <div class="mb-4">
+                                        <label for="form_search" class="form-label">Upload bukti pembayaran</label>
+                                        <div class="input-label-absolute input-label-absolute-right">
+                                            <input type="hidden" name="order" value="{{ $pesan->id }}">
+                                            <input type="file" name="fileTransfer" class="form-control pr-4">
+                                        </div>
+                                    </div>
+                                    <div class="pb-4">
+                                        <div class="mb-4">
+                                            <button type="submit" class="btn btn-primary"> <i class="far fa-paper-plane mr-1"></i>Update
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            @else
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">Proses...</div>
+                                </div>
+                            @endif
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                    
+                @endforeach
+                
             </div>
         </div>
     </div>

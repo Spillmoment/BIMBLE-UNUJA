@@ -76,7 +76,12 @@ class FrontController extends Controller
 
         $check_kursus_status = OrderDetail::where('id_pendaftar', $pendaftarId)
                                             ->where('id_kursus', $kursus->id)
-                                            ->where('status', 'PROCESS')
+                                            ->where(function ($query) {
+                                                $query->where('status', 'PROCESS')
+                                                      ->orWhere('status', 'CANCEL')
+                                                      ->orWhere('status', 'PENDING')
+                                                      ->orWhere('status', 'FAILED');
+                                            })
                                             ->first();
         $check_kursus_sukses = OrderDetail::where('id_pendaftar', $pendaftarId)
                                             ->where('id_kursus', $kursus->id)

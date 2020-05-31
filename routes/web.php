@@ -82,3 +82,5 @@ Route::post('/order/post', 'Web\OrderController@orderPost')->name('order.post');
 Route::get('/order/cart', 'Web\OrderController@view')->name('order.view');
 Route::get('/order/cart/pending', 'Web\OrderController@updateToPending')->name('order.update.cancel');
 Route::delete('/order/cart/{id}', 'Web\OrderController@updateToDelete')->name('order.delete.pesanan');
+Route::post('/order/cart/upload_bukti', 'Web\OrderController@uploadFile')->name('order.post.pembayaran');
+Route::patch('/order/cart/upload_bukti', 'Web\OrderController@updateFile')->name('order.patch.pembayaran');

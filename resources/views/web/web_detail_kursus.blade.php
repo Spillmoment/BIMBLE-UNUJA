@@ -100,11 +100,11 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
           @if ($kursus->diskon_kursus == 0)
           <p class="text-muted"><span class="text-primary h2">@currency($kursus->biaya_kursus)</span> per bulan</p>
           @else
-          <p class="text-muted"><span class="text-primary h2">@currency($kursus->biaya_kursus - ($kursus->diskon_kursus) )</span> per bulan</p>
+          <p class="text-muted"><span class="text-primary h2">@currency($kursus->biaya_kursus - ($kursus->biaya_kursus * ($kursus->diskon_kursus/100)) )</span> per bulan</p>
          
           <span class="text-danger h6 font-weight-bold">
           <strike>
-            Biaya:  @currency($kursus->biaya_kursus)
+            @currency($kursus->biaya_kursus)
           </strike>
         </span>
           @endif
@@ -123,7 +123,7 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
             <input type="hidden" name="diskon_kursus" value="{{ ($kursus->diskon_kursus > 0) ? $kursus->diskon_kursus : 0 }}">
             <div class="form-group">
               <label for="diskon" class="form-label">Diskon</label>
-              <h3 class="text-danger">@currency($kursus->diskon_kursus)</h3>
+              <h3>@currency($kursus->diskon_kursus)</h3>
             </div>
             <div class="form-group">
               @guest
@@ -133,7 +133,7 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
                   @else
                     @if ($check_kursus != null)
                       <div class="alert alert-warning" role="alert">
-                        <strong>Proses!</strong> mulai kursus
+                        <strong>Proses!</strong> Silahkan lihat pada cart.
                       </div>
                     @elseif ($check_kursus_sukses)
                       <div class="alert alert-success" role="alert">
