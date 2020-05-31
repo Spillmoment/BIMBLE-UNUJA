@@ -16,11 +16,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $items = Order::with(['pendaftar','order_detail'])
-        ->orderBy('created_at','DESC')
-        ->paginate(10);
-        return view('admin.order.index',[
-            'item' => $items
+        $items = Order::with(['pendaftar', 'order_detail'])
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
+        return view('admin.order.index', [
+            'order' => $items
         ]);
     }
 
@@ -53,10 +53,11 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $items = Order::with(['pendaftar','order_detail'
+        $items = Order::with([
+            'pendaftar', 'order_detail'
         ])->findOrFail($id);
 
-        return view('admin.order.show',[
+        return view('admin.order.show', [
             'item' => $items
         ]);
     }
@@ -70,9 +71,9 @@ class OrderController extends Controller
     public function edit($id)
     {
         $order = Order::findOrFail($id);
-        return view('admin.order.edit',[
+        return view('admin.order.edit', [
             'order' => $order
-            ]);
+        ]);
     }
 
     /**
@@ -91,7 +92,7 @@ class OrderController extends Controller
         $item->update($data);
 
         return redirect()->route('order.index')
-        ->with(['status','Data Order Berhasil Di Update!']);
+            ->with(['status', 'Data Order Berhasil Di Update!']);
     }
 
     /**
@@ -105,7 +106,6 @@ class OrderController extends Controller
         $item = Order::findOrFail($id);
         $item->forceDelete();
         return redirect()->route('order.index')
-        ->with(['status','Data Order Berhasil Di Hapus!']);
-
+            ->with(['status', 'Data Order Berhasil Di Hapus!']);
     }
 }

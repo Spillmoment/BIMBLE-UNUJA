@@ -133,7 +133,7 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
                   @else
                     @if ($check_kursus != null)
                       <div class="alert alert-warning" role="alert">
-                        <strong>Proses!</strong> Silahkan check out pesanan anda.
+                        <strong>Proses!</strong> mulai kursus
                       </div>
                     @elseif ($check_kursus_sukses)
                       <div class="alert alert-success" role="alert">

@@ -49,41 +49,59 @@
                                 <th>Option</th>
                             </tr>
                         </thead>
-                  
-                        <tbody>
-                           @forelse ($item as $order)
-                               
-                            <td> {{ $order->id}} </td>
-
-                            @foreach ($order->pendaftar as $user)
-                                <td>{{ $user->nama_pendaftar }}</td>
-                                <td>{{ $user->email }}</td>
-                            @endforeach
-
-                            <td>@currency($order->total_tagihan).00</td>
-                            <td>{{ $order->status_kursus }}</td>
-
-                            <td>
-                                <a class="badge badge-info text-white badge-pill" href="{{route('order.edit',
-                                   [$order->id])}}"> <i class="fa fa-edit"></i> Edit</a>
-                                <a class="badge badge-warning text-white badge-pill" href="{{route('order.show',
-                                   [$order->id])}}"> <i class="fa fa-eye"></i> Detail</a>
-                             
-                        <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')" class="d-inline" action="{{route('order.destroy', [$order->id])}}"   method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" value="Delete" class="badge badge-danger badge-pill">
-                                <i class="fa fa-trash"></i> Trash
-                            </button>
-                        </form>
-                    </td>
-
-                           @empty
-                               Data Kosong
-                           @endforelse
-                    
-                        </tbody>
+                 
               
+                        <tbody>
+                            @forelse ($order as $row)                
+                            <tr>
+                                <td> {{ $row->id }} </td>
+                                @foreach ($row->pendaftar as $item)
+                                    <td> {{ $item->nama_pendaftar }} </td>
+                                    <td>{{ $item->email }}</td>
+                                @endforeach
+                                <td>@currency($row->total_tagihan).00</td>
+
+                                @if ($row->status_kursus == 'SUCCESS')
+                                <td>
+                                    <span class="badge badge-success  badge-pill"><i class="fas fa-check-circle "></i>
+                                        {{ $row->status_kursus }}</span>
+                                </td>
+                                @elseif($row->status_kursus == 'CANCEL')
+                                <td>
+                                    <span class="badge badge-danger  badge-pill"><i class="fas fa-backspace"></i>
+                                        {{ $row->status_kursus }}</span>
+                                </td>
+                                @elseif($row->status_kursus == 'FAILED')
+                                <td>
+                                    <span class="badge badge-danger  badge-pill"><i class="fas fa-eye-slash    "></i>
+                                        {{ $row->status_kursus }}</span>
+                                </td>
+                                @else
+                                <td>
+                                    <span class="badge badge-warning badge-pill"><i class="fas fa-bullseye"></i>
+                                        {{ $row->status_kursus }}</span>
+                                </td>
+                                @endif
+                                
+                                <td>
+                                    <a class="btn btn-info text-white btn-sm" href="{{route('order.edit',
+                                  [$row->id])}}"> <i class="fa fa-edit"></i> </a>
+                               <a class="btn btn-warning text-white btn-sm" href="{{route('order.show',
+                                  [$row->id])}}"> <i class="fa fa-eye"></i> </a>
+                                          
+                       <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')" class="d-inline" action="{{route('order.destroy', [$row->id])}}"   method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" value="Delete" class="btn btn-danger btn-sm">
+                            <i class="fa fa-trash"></i> 
+                        </button>
+                    </form>
+                                </td>
+                            </tr>
+                            @empty
+                            @endforelse
+                        </tbody>
+
                     </table>
 
                     <div class="text-center">

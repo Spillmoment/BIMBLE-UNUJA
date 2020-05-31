@@ -28,7 +28,7 @@
                         <table class="table table-bordered">
 
                           <tr>
-                            <th>ID</th>
+                            <th>ID Order</th>
                             <td>{{ $item->id }}</td>
                           </tr>
                           <tr>
@@ -41,28 +41,48 @@
                           </tr>
                           
 
-                          @if ($item->status_kursus == "SUCCESS")
+                          @if ($item->status_kursus == 'SUCCESS')
                           <tr>
                             <th>Status Order</th>
                             <td>
-                              <span class="badge badge-success"><i class="fas fa-check"></i> 
-                              {{ $item->status_kursus }}
-                            </span>
-                          </td>
-                          </tr>
-                            @else
-                            <tr>
-                              <th>Status Order</th>
-                              <td> <span class="badge badge-warning">{{ $item->status_kursus }}</span> </td>
+                              <span class="badge badge-success  badge-pill"><i class="fas fa-check-circle "></i>
+                                {{ $item->status_kursus }}</span>
+                              </td>
                             </tr>
-                          @endif
+                          @elseif($item->status_kursus == 'CANCEL')
+                          <tr>
+
+                            <th>Status Order</th>
+                            <td>
+                              <span class="badge badge-danger  badge-pill"><i class="fas fa-backspace"></i>
+                                {{ $item->status_kursus }}</span>
+                              </td>
+                            </tr>
+                              @elseif($item->status_kursus == 'FAILED')
+                              <tr>
+                                <th>Status Order</th>
+                                <td>
+                                  <span class="badge badge-danger  badge-pill"><i class="fas fa-eye-slash    "></i>
+                                    {{ $item->status_kursus }}</span>
+                                  </td>
+                                </tr>
+                              
+                          @else
+                          <tr>
+                            <th>Status Order</th>
+                            <td>
+                              <span class="badge badge-warning badge-pill"><i class="fas fa-bullseye"></i>
+                                {{ $item->status_kursus }}</span>
+                              </td>
+                            </tr>
+                              @endif
                           
                           <tr>
                             <th>Pembelian</th>
                             <td>
                               <table class="table table-bordered">
                                 <tr>
-                                  <th>ID</th>
+                                  <th>ID User</th>
                                   <th>Total Tagihan</th>
                                   <th>Tanggal Orders</th>
                                 </tr>
