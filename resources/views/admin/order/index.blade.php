@@ -42,8 +42,8 @@
                         <thead class="thead-light">
                             <tr>
                                 <th>ID</th>
-                                <th>User</th>
-                                <th>Email</th>
+                                <th>Nama</th>
+                                <th>Username</th>
                                 <th>Total Tagihan</th>
                                 <th>Status Order</th>
                                 <th>Option</th>
@@ -57,7 +57,7 @@
                                 <td> {{ $row->id }} </td>
                                 @foreach ($row->pendaftar as $item)
                                     <td> {{ $item->nama_pendaftar }} </td>
-                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->username }}</td>
                                 @endforeach
                                 <td>@currency($row->total_tagihan).00</td>
 
