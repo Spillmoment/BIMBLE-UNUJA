@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<!-- Mirrored from demo.bootstrapious.com/directory/1-4-1/category-3.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 17 Mar 2020 08:28:58 GMT -->
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
