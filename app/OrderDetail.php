@@ -23,7 +23,7 @@ class OrderDetail extends Model
     {
         return $this->hasMany(Pendaftar::class, 'id', 'id_pendaftar');
     }
-    
+
     public function kursus()
     {
         return $this->hasMany(Kursus::class, 'id', 'id_kursus');

@@ -6,7 +6,6 @@ use App\Http\Requests\KursusRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
 class Kursus extends Model
 {
     protected $table = 'kursus';
@@ -36,10 +35,6 @@ class Kursus extends Model
         return $this->hasMany(Gallery::class, 'kursus_id', 'id');
     }
 
-    public function order()
-    {
-        return $this->belongsTo(Order::class, 'id', 'id_kursus');
-    }
 
     public function order_detail()
     {

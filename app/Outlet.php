@@ -33,13 +33,14 @@ class Outlet extends Model
      *
      * @return string
      */
+
     public function getNameLinkAttribute()
     {
         $title = __('app.show_detail_title', [
             'name' => $this->nama_kursus, 'type' => 'kursus',
         ]);
-        $link = '<a href="'.route('front.detail', $this->slug).'"';
-        $link .= ' title="'.$title.'">';
+        $link = '<a href="' . route('front.detail', $this->slug) . '"';
+        $link .= ' title="' . $title . '">';
         $link .= $this->nama_kursus;
         $link .= '</a>';
 
@@ -64,7 +65,7 @@ class Outlet extends Model
     public function getCoordinateAttribute()
     {
         if ($this->latitude && $this->longitude) {
-            return $this->latitude.', '.$this->longitude;
+            return $this->latitude . ', ' . $this->longitude;
         }
     }
 
@@ -76,8 +77,8 @@ class Outlet extends Model
     public function getMapPopupContentAttribute()
     {
         $mapPopupContent = '';
-        $mapPopupContent .= '<div class="my-2"><strong>Nama Kursus:</strong><br>'.$this->name_link.'</div>';
-        $mapPopupContent .= '<div class="my-2"><strong>'.__('outlet.coordinate').':</strong><br>'.$this->coordinate.'</div>';
+        $mapPopupContent .= '<div class="my-2"><strong>Nama Kursus:</strong><br>' . $this->name_link . '</div>';
+        $mapPopupContent .= '<div class="my-2"><strong>' . __('outlet.coordinate') . ':</strong><br>' . $this->coordinate . '</div>';
 
         return $mapPopupContent;
     }
