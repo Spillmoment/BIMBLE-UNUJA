@@ -22,55 +22,10 @@
 </head>
 
 <body style="padding-top: 72px;">
-    <header class="header">
-        <!-- Navbar-->
-        <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
-            <div class="container-fluid">
-                <div class="d-flex align-items-center"><a href="{{route('front.index')}}" class="navbar-brand py-1">
-                        <img src="{{asset('assets/frontend/img/logo.png') }}" alt="Directory logo" style="width: 150px;"></a>
-                        
-                    <form action="#" id="search" class="form-inline d-none d-sm-flex">
-                        <div
-                            class="input-label-absolute input-label-absolute-left input-reset input-expand ml-lg-2 ml-xl-3">
-                            <label for="search_search" class="label-absolute"><i class="fa fa-search"></i><span
-                                    class="sr-only">What
-                                    are you looking for?</span></label>
-                            <input id="search_search" placeholder="Search" aria-label="Search"
-                                class="form-control form-control-sm border-0 shadow-0 bg-gray-200">
-                            <button type="reset" class="btn btn-reset btn-sm"><i class="fa-times fas"></i></button>
-                        </div>
-                    </form>
+ 
 
-                </div>
-                <button type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
-                    class="navbar-toggler navbar-toggler-right"><i class="fa fa-bars"></i></button>
-                <!-- Navbar Collapse -->
-                <div id="navbarCollapse" class="collapse navbar-collapse">
-                    <ul class="navbar-nav ml-auto">
-                        @guest
-                        <li class="nav-item"><a href="#" class="nav-link active">Beranda</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link active">Pusat Bantuan</a></li>
-                        @if (Route::has('register'))
-                            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link">Sign in</a></li>
-                            <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Sign up</a></li>
-                        @endif
-                        @else
-                            <li class="nav-item"><a href="#" class="nav-link active">Beranda</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link active">Pusat Bantuan</a></li>
-                            <li class="nav-item"><a href="{{ route('order.view') }}" class="nav-link active">Cart</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link active">Kursus ku</a></li>
-                            <li class="nav-item"><a href="#" class="nav-link">{{ Auth::user()->nama_pendaftar }}</a></li>
-                            <li class="nav-item"><a href="{{ route('user.logout') }}" class="nav-link">Log out</a></li>
-                        
-                            
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- /Navbar -->
-    </header>
+    @include('web.layouts.header-simple')
+
     <div class="container-fluid py-5 px-lg-5">
         <!-- <div class="row border-bottom mb-4">
             <div class="col-12">
@@ -99,19 +54,7 @@
             @endif
             <div class="col-lg-9">
                 <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
-                    <div class="mr-3">
-                        <p class="mb-3 mb-md-0"><strong>12</strong> results found</p>
-                    </div>
-                    <div>
-                        <label for="form_sort" class="form-label mr-2">Sort by</label>
-                        <select name="sort" id="form_sort" data-style="btn-selectpicker" title="" class="selectpicker">
-                            <option value="sortBy_0">Most popular </option>
-                            <option value="sortBy_1">Recommended </option>
-                            <option value="sortBy_2">Newest </option>
-                            <option value="sortBy_3">Oldest </option>
-                            <option value="sortBy_4">Closest </option>
-                        </select>
-                    </div>
+                    
                 </div>
                 <div class="row">
                     <!-- venue item-->
