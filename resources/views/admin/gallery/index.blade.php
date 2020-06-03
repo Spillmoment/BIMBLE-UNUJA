@@ -1,47 +1,35 @@
-@extends('admin.layouts.main')
+@extends('admin.layouts.default')
 
-@section('title','Admin - Data Kursus')
-
+@section('title','Bimble - Data Gallery')
 @section('content')
-    
-<div class="main-content">
-    <section class="section">
-        <div class="section-header">
-            <h1>Management Data Gallery </h1>
-        </div>
+    <div class="orders">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="box-title">List Gallery Kursus</h4>
 
-        <nav class="breadcrumb ml-4" style="margin-top: -20px">
-            <a class="breadcrumb-item" href="{{ route('manager.home') }}">Home</a>
-        <a class="breadcrumb-item active" href="{{ route('gallery.index') }}">Gallery</a>
-        </nav>
-                 
-        @if(session('status'))
-        @push('scripts')
-        <script>
-            swal({
-            title: "Success",
-            text: "{{session('status')}}",
-            icon: "success",
-            button: false,
-            timer: 1500
-            });
-        </script>
-        @endpush
-         @endif
-
-
-        <div class="row" style="overflow: scroll">
-            <div class="col-md-12">
-                <div class="container bg-white p-4"
-                    style="bgallery-radius:3px;box-shadow:rgba(0, 0, 0, 0.03) 0px 4px 8px 0px">
-                    
-                    <a href="{{ route('gallery.create') }}" class="btn btn-primary my-1 float-right">
-                      <i class="fa fa-plus"></i> Tambah Gallery</a>
-                     
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
+              @if(session('status'))
+              @push('after-script')
+              <script>
+                  swal({
+                  title: "Success",
+                  text: "{{session('status')}}",
+                  icon: "success",
+                  button: false,
+                  timer: 2000
+                  });
+              </script>
+              @endpush
+              @endif
+              <div class="card-body--">
+              
+                <a class="btn btn-primary btn-sm my-3" href="{{ route('gallery.create') }}"> <i class="fa fa-plus" aria-hidden="true"></i> </a>
+                <div class="table-stats order-table ov-h">
+                  <table class="table table-hover">
+                     <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>#</th>
                                 <th>Kursus</th>
                                 <th>Gambar</th>
                                 <th>Option</th>
@@ -52,20 +40,20 @@
                         <tbody>
                             @foreach ($gallery as $gallery)
                             <tr>
-                              <td> {{$gallery->id}} </td>
+                              <td> {{$loop->iteration}} </td>
                                 <td> {{ $gallery->kursus->nama_kursus }} </td>
                               <td>
                               <img src="{{ Storage::url($gallery->image) }}" alt="" srcset="" width="150px" class="img-thumbnail">
                               </td>
                               
                                 <td>
-                                    <a class="badge badge-warning text-white badge-pill" href="{{route('gallery.edit',
-                                       [$gallery->id])}}"> <i class="fa fa-edit"></i> Edit</a>
+                                    <a class="btn btn-warning text-white btn-sm" href="{{route('gallery.edit',
+                                       [$gallery->id])}}"> <i class="fa fa-edit"></i></a>
                             <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')" class="d-inline" action="{{route('gallery.destroy', [$gallery->id])}}"   method="POST">
                                 @method('DELETE')
                                 @csrf
-                                <button type="submit" value="Delete" class="badge badge-danger badge-pill">
-                                    <i class="fa fa-trash"></i> Delete
+                                <button type="submit" value="Delete" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-trash"></i>
                                 </button>
                             </form>
                         </td>
@@ -77,16 +65,12 @@
               
                     </table>
 
-                    <div class="text-center">
-
-        
-                    </div>
-                        
                 </div>
             </div>
+          </div>
         </div>
-</div>
-</div>
-</div>
+      </div>
+    </div>
+
 
 @endsection
