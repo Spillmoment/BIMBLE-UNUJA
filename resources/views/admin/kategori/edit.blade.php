@@ -1,25 +1,13 @@
-@extends('admin.layouts.main')
+@extends('admin.layouts.default')
 
-@section('title','Admin - Edit Data Kategori')
-
+@section('title','Bimble - Edit Data Kategori')
 @section('content')
+    <div class="card">
+      <div class="card-header">
+        <strong>Edit Kategori</strong>
+      </div>
+      <div class="card-body card-block card-shadow">
 
-  <div class="main-content">
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
-
-                    <div class="card card-primary">
-                        <div class="col-md-12 text-center">
-                            <p class="registration-title font-weight-bold display-4 mt-4" style="font-size: 50px;">
-                               Edit Kategori</p>
-                            <p style="line-height:-30px;margin-top:-20px;">Silahkan ubah data data yang diperlukan
-                                dibawah </p>
-                            <hr>
-                        </div>
-
-                        <div class="card-body">
-                                <div class="col-md-12 bg-white" style="border-radius:3px;box-shadow:rgba(0, 0, 0, 0.03) 0px 4px 8px 0px">
                                     <form method="post" action="{{route('kategori.update',[$kategori->id])}}">
                                       @csrf
                                      @method('PUT')
@@ -40,36 +28,16 @@
                                             <div class="invalid-feedback">
                                                 {{$errors->first('keterangan')}}
                                              </div>
-                                        </div>
-                                        
-                                 
-                                        <div class="form-group">
-                                          <label for="my-input">Status</label>                 
-                                       
-                                        <div class="form-check" style="font-size: 17px">
-                                          <label class="form-check-label" for="active">Aktif  </label>
-                                          <span class="ml-4">
-                                              <input {{ $kategori->status == "ACTIVE" ? "checked" : ""}} value="ACTIVE" name="status" type="radio" class="form-check-input mt-2" id="active">
-                                          </span>
-                                              
-                                          <label class="form-check-label" for="inactive">Nonaktif </label>
-                                              <span class="ml-4">
-                                              <input {{$kategori->status == "INACTIVE" ? "checked" : ""}} value="INACTIVE" name="status" type="radio" class="form-check-input mt-2" id="inactive">
-                                          </span>
+                                           </div>
 
-                                        </div>
-                                       <br>
-                                        <button type="submit" class="btn btn-block btn-primary">
-                                          <big>Ubah  Kategori</big></button>
-                                </div>
-
-                              </div>
+                                           <div class="form-group">
+                                            <button class="btn btn-primary btn-block" type="submit">
+                                             Ubah Kategori
+                                            </button>
+                                          </div>
+                           
                             </form>
+                          </div>
                         </div>
-                    </div>
-                 
-                </div>
-            </div>
-        </div>
-  </div>
+                     
 @endsection
