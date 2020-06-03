@@ -1,26 +1,18 @@
-@extends('admin.layouts.main')
+@extends('admin.layouts.default')
 
-@section('title','Admin - Detail Data Kursus')
-
+@section('title','Bimble - Detail Tutor')
 @section('content')
-
-<div class="main-content">
-  <section class="section">
-    <div class="section-header">
-      <h1>Detail Data Order </h1>
-    </div>
-
-
-    <div class="row" style="overflow: scroll">
-      <div class="col-md-12">
-        <div class="container bg-white p-4" style="border-radius:3px;box-shadow:rgba(0, 0, 0, 0.03) 0px 4px 8px 0px">
-
-          <div class="card shadow" style="width: 50rem; font-size: 15px">
+    <div class="orders">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Detail Tutor {{ $tutor->nama_tutor }}
-              </h5>
-
-              <table class="table table-bordered">
+              <h4 class="box-title">Detail Tutor 
+              <span class="badge badge-light badge-pill badge-lg" style="font-size: 15px;">
+                {{ $tutor->nama_tutor }}
+              </span>
+            </h4>
+              <table class="table table-bordered mt-2">
 
                 <tr>
                   <th>ID</th>
@@ -28,7 +20,7 @@
                 </tr>
                 <tr>
                   <th>Nama Tutor </th>
-                  <td>{{ $tutor->username }}</td>
+                  <td>{{ $tutor->nama_tutor }}</td>
                 </tr>
                 <tr>
                   <th>Username</th>
@@ -45,7 +37,7 @@
                     <img src="{{ asset('uploads/tutor/' . $tutor->foto) }}" alt="" class="img-thumbnail mb-2" width="150px">
                     <br>
                     <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modelId">
-                     <i class="fas fa-eye    "></i> Show Images</button>
+                     <i class="fa fa-eye    "></i> Show Images</button>
                   </td>
                 </tr>
 
@@ -57,10 +49,10 @@
                 <tr>
                   <th>Status</th>
                   
-                  @if ($tutor->status == 'ACTIVE')
-                  <td><span class="badge badge-pill badge-success">{{ $tutor->status }}</span></td>
+                  @if ($tutor->status == 1)
+                  <td><span class="badge badge-pill badge-success">Aktif</span></td>
                   @else
-                  <td><span class="badge badge-pill badge-danger">{{ $tutor->status }}</span></td>
+                  <td><span class="badge badge-pill badge-danger">Nonaktif</span></td>
                   @endif
                 </tr>
                 
@@ -81,13 +73,15 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Foto Tutor</h5>
+        <h5 class="modal-title"><span class="badge badge-light badge-pill badge-lg" style="font-size: 15px;">
+          Foto Tutor {{ $tutor->nama_tutor }}
+        </span></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
       </div>
       <div class="modal-body">
-        <img src="{{ asset('uploads/tutor/' . $tutor->foto) }}" alt="" class="img-thumbnail" >
+        <img src="{{ asset('uploads/tutor/' . $tutor->foto) }}" alt="" class="img-thumbnail" height="200px">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
