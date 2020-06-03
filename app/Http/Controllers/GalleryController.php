@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Storage;
 
 class GalleryController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:manager');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +24,7 @@ class GalleryController extends Controller
     public function index()
     {
         $gallery = Gallery::with(['kursus'])
+            ->orderBy('created_at', 'DESC')
             ->paginate(10);
         return view('admin.gallery.index', [
             'gallery' => $gallery
@@ -56,7 +62,8 @@ class GalleryController extends Controller
 
         Gallery::create($data);
 
-        return redirect()->route('gallery.index')->with(['status' => 'Data Gallery Berhasil Ditambahkan']);
+        return redirect()->route('gallery.index')
+            ->with(['status' => 'Data Gallery Berhasil Ditambahkan']);
     }
 
     /**
@@ -106,7 +113,8 @@ class GalleryController extends Controller
         }
 
         $gallery->update($data);
-        return redirect()->route('gallery.index')->with(['status' => 'Data Gallery Berhasil Diubah']);
+        return redirect()->route('gallery.index')
+            ->with(['status' => 'Data Gallery Berhasil Diubah']);
     }
 
     /**
@@ -121,6 +129,7 @@ class GalleryController extends Controller
         $gallery->delete();
         Storage::delete('public/' . $gallery->image);
 
-        return redirect()->route('gallery.index')->with(['status'  => 'Data Gallery Berhasil Dihapus']);
+        return redirect()->route('gallery.index')
+            ->with(['status'  => 'Data Gallery Berhasil Dihapus']);
     }
 }
