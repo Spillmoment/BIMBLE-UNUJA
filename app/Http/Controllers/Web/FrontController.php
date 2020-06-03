@@ -75,18 +75,18 @@ class FrontController extends Controller
         $kategori = Kategori::latest()->get();
 
         $check_kursus_status = OrderDetail::where('id_pendaftar', $pendaftarId)
-                                            ->where('id_kursus', $kursus->id)
-                                            ->where(function ($query) {
-                                                $query->where('status', 'PROCESS')
-                                                      ->orWhere('status', 'CANCEL')
-                                                      ->orWhere('status', 'PENDING')
-                                                      ->orWhere('status', 'FAILED');
-                                            })
-                                            ->first();
+            ->where('id_kursus', $kursus->id)
+            ->where(function ($query) {
+                $query->where('status', 'PROCESS')
+                    ->orWhere('status', 'CANCEL')
+                    ->orWhere('status', 'PENDING')
+                    ->orWhere('status', 'FAILED');
+            })
+            ->first();
         $check_kursus_sukses = OrderDetail::where('id_pendaftar', $pendaftarId)
-                                            ->where('id_kursus', $kursus->id)
-                                            ->where('status', 'SUCCESS')
-                                            ->first();
+            ->where('id_kursus', $kursus->id)
+            ->where('status', 'SUCCESS')
+            ->first();
         return view('web.web_detail_kursus', [
             'kursus' => $kursus,
             'kategori' => $kategori,
