@@ -1,35 +1,17 @@
-@extends('admin.layouts.main')
+@extends('admin.layouts.default')
 
-@section('title','Admin - Tambah Data Kursus')
-
+@section('title','Bimble - Tambah Data Kursus')
 @section('content')
-
-  <div class="main-content">
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
-                  
-                    <div class="card card-primary">
-                      
-                        <div class="col-md-12 text-center">
-                            <nav class="breadcrumb ml-4 mt-3" style="margin-top: -20px">
-                                <a class="breadcrumb-item" href="{{ route('manager.home') }}">Home</a>
-                            <a class="breadcrumb-item" href="{{ route('kursus.index') }}">Kursus</a>
-                            <a class="breadcrumb-item active" href="#">Tambah Kursus</a>
-                            </nav>
-                            <p class="registration-title font-weight-bold display-4 mt-4" style="font-size: 50px;">
-                                Tambah Data Kursus</p>
-                            <p style="line-height:-30px;margin-top:-20px;">Silahkan isi data data yang diperlukan
-                                dibawah </p>
-                            <hr>
-                        </div>
-
-                        <div class="card-body">
-                                <div class="col-md-12 bg-white" style="border-radius:3px;box-shadow:rgba(0, 0, 0, 0.03) 0px 4px 8px 0px">
+    <div class="card">
+      <div class="card-header">
+        <strong>Tambah Kursus</strong>
+      </div>
+      <div class="card-body card-block">
                                     <form method="post" enctype="multipart/form-data" action="{{route('kursus.store')}}">
                                       @csrf
                                      
-                                        <div class="form-group ">
+                                        
+                                          <div class="form-group ">
                                            <label for="nama_kursus">Nama Kursus</label>
                                             <input type="text" class="form-control {{ $errors->first('nama_kursus') ? 'is-invalid' : '' }}" name="nama_kursus"  id="nama_kursus" value="{{old('nama_kursus')}}"  placeholder="Nama Kursus">
                                                <div class="invalid-feedback">
@@ -118,17 +100,12 @@
                                                  </div>
                                             </div>
                                        
-                                        <button type="submit" class="btn btn-block btn-primary">
-                                          <big> <i class="fa fa-plus" aria-hidden="true"></i> Tambah  Kursus</big></button>
-                                </div>
-
-
-                            </form>
-                        </div>
-                    </div>
-                 
-                </div>
-            </div>
-        </div>
-  </div>
+                                <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">
+              Tambah Kursus
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 @endsection
