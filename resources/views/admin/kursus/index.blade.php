@@ -1,116 +1,62 @@
-@extends('admin.layouts.main')
+@extends('admin.layouts.default')
 
-@section('title','Admin - Data Kursus')
-
+@section('title','Bimble - Data Kursus')
 @section('content')
-    
-<div class="main-content">
-    <section class="section">
-        <div class="section-header">
-            <h1>Management Data Kursus </h1>
-        </div>
+    <div class="orders">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="box-title">List Kursus</h4>
 
-        <nav class="breadcrumb ml-4" style="margin-top: -20px">
-            <a class="breadcrumb-item" href="{{ route('manager.home') }}">Home</a>
-        <a class="breadcrumb-item active" href="{{ route('kursus.index') }}">Kursus</a>
-        </nav>
-               
-        @if(session('status'))
-        @push('scripts')
-        <script>
-            swal({
-            title: "Success",
-            text: "{{session('status')}}",
-            icon: "success",
-            button: false,
-            timer: 2000
-            });
-        </script>
-        @endpush
-         @endif
+              @if(session('status'))
+              @push('after-script')
+              <script>
+                  swal({
+                  title: "Success",
+                  text: "{{session('status')}}",
+                  icon: "success",
+                  button: false,
+                  timer: 2000
+                  });
+              </script>
+              @endpush
+              @endif
 
+              <form action="{{route('kursus.index')}}">    
 
-      
-             
-         
-         <form action="{{route('kursus.index')}}">                
-         <div class="row">
-             
-             <div class="col-md-5 ml-3">
-                <div class="form-group">
-                    <input type="text" class="form-control" {{ Request::get('keyword') }} name="keyword"  placeholder="Masukkan Nama Kursus">
-                  
+                <div class="row mt-2">
+
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <input type="text" class="form-control" {{ Request::get('keyword') }} name="keyword"  placeholder="Masukkan Nama kursus" autofocus>
+                        </div>
+                    </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn btn-secondary"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                                <a href="{{ route('kursus.index') }}" class="btn btn-warning text-light ml-2"> <i class="fa fa-refresh" aria-hidden="true"></i> </a>
+                            </div>
+                           
                 </div>
+              </form>
             </div>
-
-            <div class="col-md-1">
-                <button type="submit" class="btn btn-primary"> <i class="fas fa-search" aria-hidden="true"></i></button>
-            </div>
-
-            <div class="col-md-3">
-                <ul class="nav nav-pills card-header-pills">
-                    <li class="nav-item">
-                    <a class="nav-link active" href="
-                    {{route('kursus.index')}}">Published</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="
-                    {{route('kursus.trash')}}">Trash</a>
-                    </li>
-                    </ul>
-            </div>
-        </div>
-        </form>
-
-    <form action="{{route('kursus.index')}}">                
-        <div class="row">
-            
-            <div class="col-md-5 ml-3">
-            <div class="form-group">
-               
-                <select class="custom-select" name="nama_kategori" id="nama_kategori">
-                    <option selected> --- Pilih Kategori --- </option>
-                    @foreach ($kategori as $row)
-                    <option value="{{$row->id}}">{{ $row->nama_kategori }}</option>
-                        @endforeach
-                </select>
-            </div>
-        </div>
-
-        <div class="col-md-1">
-            <button type="submit" class="btn btn-primary"> <i class="fas fa-filter" aria-hidden="true"></i></button>
-        </div>
-    </div>
-
-
-    </form>
-     
-        <div class="row" style="overflow: scroll">
-            <div class="col-md-12">
-                <div class="container bg-white p-4"
-                    style="border-radius:3px;box-shadow:rgba(0, 0, 0, 0.03) 0px 4px 8px 0px">
-                   
-                    
-                    <a href="{{ route('kursus.create') }}" class="btn btn-primary my-1 float-right">
-                        <i class="fa fa-plus"></i> Tambah Kursus</a>
-
-                    <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>No</th>
+            <div class="card-body--">
+              
+              <a class="btn btn-primary btn-sm ml-3 mb-3" href="{{ route('kursus.create') }}"> <i class="fa fa-plus" aria-hidden="true"></i> </a>
+              <div class="table-stats order-table ov-h">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                        <th>No</th>
                                 <th>Nama Kursus</th>
                                 <th>Gambar Kursus</th>
                                 <th>Kategori Kursus</th>
                                 <th>Tutor Kursus</th>
                                 <th>Option</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-
-                            @if ($kursus->count() > 0)
-                                
-                            @foreach ($kursus as $krs)    
+                    </tr>
+                  </thead>
+                  <tbody>
+                      @foreach ($kursus as $krs)    
                             <tr>
                                 <td scope="row">  {{$loop->iteration}}  </td>
                             <td>{{ $krs->nama_kursus }}</td>
@@ -130,10 +76,13 @@
                                         @endforeach
                                 </td>
                                 <td>
-                                    <a class="btn btn-info btn-sm" href="{{route('kursus.edit',
+                                  <a href="{{ route('kursus.gallery', $krs->id) }}" class="btn btn-info btn-sm">
+                                      <i class="fa fa-picture-o"></i>
+                                    </a>
+                                  <a class="btn btn-primary btn-sm" href="{{route('kursus.show',
+                                     [$krs->id])}}"> <i class="fa fa-eye"></i> </a>
+                                    <a class="btn btn-warning btn-sm text-light" href="{{route('kursus.edit',
                                        [$krs->id])}}"> <i class="fa fa-edit"></i></a>
-                                    <a class="btn btn-warning btn-sm" href="{{route('kursus.show',
-                                       [$krs->id])}}"> <i class="fa fa-eye"></i> </a>
                                  
                             <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')" class="d-inline" action="{{route('kursus.destroy', [$krs->id])}}"   method="POST">
                                 @method('DELETE')
@@ -146,25 +95,15 @@
                         
                     </tr>           
                     @endforeach
-                    @else
-                    <tr>
-                        <td><h5>Data Kosong</h5></td>
-                    </tr>
-                    @endif
-                        </tbody>
-              
-                    </table>
-
-                    <div class="text-center">
-
-        
-                    </div>
-                        
-                </div>
+                    </tbody>
+                </table>
+              </div>
             </div>
+          </div>
         </div>
-</div>
-</div>
-</div>
+      </div>
+    </div>
 
+    
 @endsection
+
