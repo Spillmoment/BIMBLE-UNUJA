@@ -1,31 +1,12 @@
-@extends('admin.layouts.main')
+@extends('admin.layouts.default')
 
-@section('title','Admin - Edit Data Kursus')
-
+@section('title','Bimble - Edit Data Kursus')
 @section('content')
-
-  <div class="main-content">
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
-                  
-                    <div class="card card-primary">
-                      
-                        <div class="col-md-12 text-center">
-                            <nav class="breadcrumb ml-4 mt-3" style="margin-top: -20px">
-                                <a class="breadcrumb-item" href="{{ route('manager.home') }}">Home</a>
-                            <a class="breadcrumb-item" href="{{ route('kursus.index') }}">Kursus</a>
-                            <a class="breadcrumb-item active" href="#">Edit Kursus</a>
-                            </nav>
-                            <p class="registration-title font-weight-bold display-4 mt-4" style="font-size: 50px;">
-                               Edit Data Kursus</p>
-                            <p style="line-height:-30px;margin-top:-20px;">Silahkan ubah data data yang diperlukan
-                                dibawah </p>
-                            <hr>
-                        </div>
-
-                        <div class="card-body">
-                                <div class="col-md-12 bg-white" style="border-radius:3px;box-shadow:rgba(0, 0, 0, 0.03) 0px 4px 8px 0px">
+    <div class="card">
+      <div class="card-header">
+        <strong>Edit Kursus {{ $kursus->nama_kursus }} </strong>
+      </div>
+      <div class="card-body card-block">
                                     <form method="post" enctype="multipart/form-data" action="{{route('kursus.update',[$kursus->id])}}">
                                       @csrf
                                      @method('PUT')
@@ -126,18 +107,13 @@
                                                     {{$errors->first('keterangan')}}
                                                  </div>
                                              </div>
-                                       
-                                        <button type="submit" class="btn btn-block btn-primary">
-                                          <big> <i class="fa fa-edit aria-hidden="true"></i> Edit Kursus</big></button>
-                                </div>
-
-
-                            </form>
-                        </div>
-                    </div>
-                 
-                </div>
-            </div>
-        </div>
-  </div>
+                                                
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-block" type="submit">
+                                     Edit Kursus
+                                    </button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
 @endsection
