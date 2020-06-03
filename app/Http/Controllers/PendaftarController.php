@@ -7,6 +7,11 @@ use App\Pendaftar;
 
 class PendaftarController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:manager');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -104,6 +109,9 @@ class PendaftarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Pendaftar::findOrfFail($id);
+        $user->delete();
+        return redirect()->route('pendaftar.index')
+            ->with(['status' => 'Data pendaftar berhasil dihapus']);
     }
 }
