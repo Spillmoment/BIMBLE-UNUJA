@@ -9,10 +9,20 @@ use Illuminate\Support\Facades\File;
 class TutorController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        $latestTutor = Tutor::latest()->get();
-        return view('admin.tutor.index', ['tutor' => $latestTutor]);
+        $tutor = Tutor::orderBy('created_at', 'DESC')
+            ->paginate(10);
+        $keyword = $request->get('keyword');
+
+        if ($keyword) {
+            $tutor = Tutor::where('nama_tutor', 'LIKE', "%$keyword%")
+                ->paginate(10);
+        }
+
+        return view('admin.tutor.index', [
+            'tutor' => $tutor
+        ]);
     }
 
 
