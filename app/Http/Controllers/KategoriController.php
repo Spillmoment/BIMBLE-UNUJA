@@ -8,6 +8,11 @@ use App\Http\Requests\KategoriRequest;
 
 class KategoriController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:manager');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -61,7 +66,8 @@ class KategoriController extends Controller
     {
         Kategori::create($request->all());
 
-        return redirect()->route('kategori.index')->with(['status' => 'Data Kategori Berhasil Ditambahkan']);
+        return redirect()->route('kategori.index')
+            ->with(['status' => 'Data Kategori Berhasil Ditambahkan']);
     }
 
     /**
@@ -99,7 +105,6 @@ class KategoriController extends Controller
         $kategori = Kategori::findOrFail($id);
         $kategori->nama_kategori = $request->get('nama_kategori');
         $kategori->keterangan = $request->get('keterangan');
-        $kategori->status = $request->get('status');
 
         $kategori->save();
         return redirect()->route('kategori.index')->with(['status' => 'Data Kategori Berhasil Diubah']);
@@ -158,12 +163,5 @@ class KategoriController extends Controller
             return redirect()->route('kategori.index')
                 ->with('status', 'Category permanently deleted');
         }
-    }
-
-    public function ajaxSearch(Request $request)
-    {
-        $keyword = $request->get('q');
-        $categories = Kategori::where("nama_kategori", "LIKE", "%$keyword%")->get();
-        return $categories;
     }
 }
