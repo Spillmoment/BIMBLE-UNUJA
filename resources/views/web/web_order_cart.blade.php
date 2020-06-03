@@ -93,7 +93,7 @@
                                     </div>
                                     <p class="card-text text-muted"><span class="h5 text-primary">Rp {{ $item->biaya_kursus }}</span> per
                                         Bulan</p>
-                                    <p class="card-text text-muted">Dipotong diskon <span class="h6 text-danger">Rp {{ $cours->diskon_kursus }}</span> </p>
+                                    <p class="card-text text-muted">Dipotong diskon <span class="h6 text-danger">Rp {{ $cours->diskon_kursus }}% </p>
                                     <input type="checkbox" data-id="{{ $item->id }}" data-order="{{ $item->id_order }}" data-pendaf="{{ $item->id_pendaftar }}" data-kursus="{{ $cours->nama_kursus }}" name="status" class="js-switch" {{ $item->status == 'PROCESS' ? 'checked' : '' }}>
                                 </div>
                                 <span id="deleteCart" data-id="{{ $item->id }}" class="badge badge-danger align-self-start" style="cursor: pointer">x</span>
