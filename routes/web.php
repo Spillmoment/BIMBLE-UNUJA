@@ -30,16 +30,12 @@ Route::group(['prefix' => 'manager'], function () {
     Route::post('/password/reset', 'AuthManager\ResetPasswordController@reset');
 
     // Route Dashboard
-    Route::get('/dashboard', 'ManagerController@index')->name('manager.home');
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     // Route Tutor
     Route::resource('tutor', 'TutorController');
 
     // Route Kategori
-    Route::delete('kategori/{id}/delete-permanent', 'KategoriController@deletePermanent')
-        ->name('kategori.delete-permanent');
-    Route::get('kategori/{id}/restore', 'KategoriController@restore')->name('kategori.restore');
-    Route::get('kategori/trash', 'KategoriController@trash')->name('kategori.trash');
     Route::resource('kategori', 'KategoriController');
 
     // Route Kursus
@@ -47,6 +43,8 @@ Route::group(['prefix' => 'manager'], function () {
         ->name('kursus.delete-permanent');
     Route::get('kursus/{id}/restore', 'KursusController@restore')->name('kursus.restore');
     Route::get('kursus/trash', 'KursusController@trash')->name('kursus.trash');
+    Route::get('kursus/{id}/gallery', 'KursusController@gallery')
+        ->name('kursus.gallery');
     Route::resource('kursus', 'KursusController');
 
     // Route Pendaftar
@@ -57,10 +55,13 @@ Route::group(['prefix' => 'manager'], function () {
     Route::resource('gallery', 'GalleryController');
 
     // Route Order
+    Route::get('order/{id}/set-status', 'OrderController@setStatus')
+        ->name('order.status');
     Route::resource('order', 'OrderController');
 });
 
 
+// Route Tutor
 Route::group(['prefix' => 'tutor'], function () {
     Route::get('/login', 'AuthTutor\LoginController@showLoginForm')->name('tutor.login');
     Route::post('/login', 'AuthTutor\LoginController@login')->name('tutor.login.submit');
