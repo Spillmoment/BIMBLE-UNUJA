@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Kursus;
 use App\Http\Requests\KursusRequest;
 use App\Kategori;
+use App\Gallery;
 use App\Tutor;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -13,6 +14,11 @@ use Illuminate\Support\Str;
 
 class KursusController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:manager');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -81,7 +87,8 @@ class KursusController extends Controller
 
         Kursus::create($kursus);
 
-        return redirect()->route('kursus.index')->with(['status' => 'Data Kursus Berhasil Ditambahkan']);
+        return redirect()->route('kursus.index')
+            ->with(['status' => 'Data Kursus Berhasil Ditambahkan']);
     }
 
     /**
@@ -156,7 +163,24 @@ class KursusController extends Controller
         $kursus->delete();
 
 
-        return redirect()->route('kursus.index')->with(['status' => 'Data Kursus Berhasil Dihapus']);
+        return redirect()->route('kursus.index')
+            ->with(['status' => 'Data Kursus Berhasil Dihapus']);
+    }
+
+    public function gallery($id)
+    {
+        $kursus = Kursus::with('galleries')
+            ->findorFail($id);
+
+        $gallery = Gallery::with('kursus')
+            ->where('kursus_id', $id)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(9);
+
+        return view('admin.kursus.gallery')->with([
+            'kursus' => $kursus,
+            'items' => $gallery
+        ]);
     }
 
     public function trash(Request $request)
