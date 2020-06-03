@@ -1,6 +1,6 @@
 @extends('web.layouts.main')
 
-@section('title','Bimble Home')
+<title>Detail Kursus - {{ $kursus->nama_kursus }}</title>
     
 @section('content')
 
