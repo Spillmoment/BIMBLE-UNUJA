@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
 use App\Order;
+use App\OrderDetail;
 use Illuminate\Http\Request;
 
 
 class OrderController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:manager');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +26,7 @@ class OrderController extends Controller
             ->orderBy('created_at', 'DESC')
             ->paginate(10);
         return view('admin.order.index', [
-            'order' => $items
+            'items' => $items
         ]);
     }
 
@@ -57,8 +63,13 @@ class OrderController extends Controller
             'pendaftar', 'order_detail'
         ])->findOrFail($id);
 
+        $check = OrderDetail::with('pendaftar', 'order', 'kursus')
+            ->where('id_order', $items->id) // hasMany to Order
+            ->get();
+
         return view('admin.order.show', [
-            'item' => $items
+            'item' => $items,
+            'detail' => $check,
         ]);
     }
 
@@ -107,5 +118,19 @@ class OrderController extends Controller
         $item->forceDelete();
         return redirect()->route('order.index')
             ->with(['status', 'Data Order Berhasil Di Hapus!']);
+    }
+
+    public function setStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:PENDING,SUCCESS,FAILED'
+        ]);
+
+        $item = Order::findOrFail($id);
+        $item->status_kursus = $request->status;
+
+        $item->save();
+
+        return redirect()->route('order.index');
     }
 }
