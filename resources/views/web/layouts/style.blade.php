@@ -12,7 +12,7 @@
     <!-- Favicon-->
     <link rel="shortcut icon" href="{{asset('assets/frontend/img/favicon.png') }}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('assets/backend/fontawesome-free-5/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/frontend/fontawesome-free-5/css/all.min.css')}}">
     <!-- Owl carousel -->
     <link rel="stylesheet" href="{{asset('assets/frontend/vendor/owl-carousel/dist/assets/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{asset('assets/frontend/vendor/owl-carousel/dist/assets/owl.theme.default.css') }}">

@@ -1,5 +1,5 @@
    <!-- jQuery-->
-   <script src="{{asset('assets/backend/bootstrap/js/jquery-3.4.1.min.js')}}"></script>
+   <script src="{{asset('assets/frontend/js/jquery-3.4.1.min.js')}}"></script>
    <!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
    <script src="{{ asset('assets/frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
    <!-- Magnific Popup - Lightbox for the gallery-->
