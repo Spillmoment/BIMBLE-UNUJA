@@ -2,8 +2,12 @@
 <header id="header" class="header">
   <div class="top-left">
       <div class="navbar-header">
-          <a class="navbar-brand" href="{{ route('dashboard') }}"><b><i class="fa fa-code fa-2x" aria-hidden="true"></i> BIMBLE </b></a>
-          <a class="navbar-brand hidden" href="{{ route('dashboard') }}"><b><i class="fa fa-code fa-2x" aria-hidden="true"></i> BIMBLE </b>a>
+          <a class="navbar-brand" href="{{ route('dashboard') }}">
+            <img src="{{ asset('assets/frontend/img/logo.png') }}" alt="" class="w-50 mb-2 mt-2" />
+        </a>
+          <a class="navbar-brand hidden" href="{{ route('dashboard') }}">
+            <img src="{{ asset('assets/frontend/img/logo.png') }}" alt="" class="w-50 mb-2 mt-2" />
+        </a>
           <a id="menuToggle" class="menutoggle"><i class="fa fa-bars"></i></a>
       </div>
   </div>
@@ -16,7 +20,8 @@
               </a>
 
               <div class="user-menu dropdown-menu">
-                  <a class="nav-link" href="{{ route('manager.logout') }}"><i class="fa fa-power -off"></i>Logout</a>
+                  <a class="nav-link" href="#"><i class="fa fa-user"></i>{{ Auth::user()->nama }}</a>
+                  <a class="nav-link" href="{{ route('manager.logout') }}"><i class="fa fa-power-off"></i>Logout</a>
               </div>
           </div>
 

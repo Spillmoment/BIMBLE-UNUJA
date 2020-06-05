@@ -10,6 +10,22 @@
               <h4 class="box-title">Daftar Order Masuk</h4>
             </div>
             <div class="card-body--">
+
+              @if(session('status'))
+              @push('after-script')
+              <script>
+                  swal({
+                  title: "Success",
+                  text: "{{session('status')}}",
+                  icon: "success",
+                  button: false,
+                  timer: 2000
+                  });
+              </script>
+              @endpush
+              @endif
+
+
               <div class="table-stats order-table ov-h">
                 <table class="table table-hover">
                   <thead>
@@ -23,7 +39,10 @@
                     </tr>
                   </thead>
                   <tbody>
+                    
                     @forelse ($items as $item)
+                      @if ($item->status_kursus != "CANCEL")
+                          
                       <tr>
                         <td>{{ $item->id }}</td>
                         @foreach ($item->pendaftar as $user)
@@ -39,6 +58,8 @@
                             <span class="badge badge-success">
                           @elseif($item->status_kursus == 'FAILED')
                             <span class="badge badge-warning">
+                          @elseif($item->status_kursus == 'PROCESS')
+                            <span class="badge badge-secondary">
                           @else
                             <span>
                           @endif
@@ -74,7 +95,9 @@
                           </form>
                         </td>
                       </tr>
-                    @empty
+                      @endif
+                      
+                      @empty
                         <tr>
                           <td colspan="6" class="text-center p-5">
                             Data tidak tersedia

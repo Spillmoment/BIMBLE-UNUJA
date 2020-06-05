@@ -38,14 +38,14 @@
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
                                 <img src="{{ asset('uploads/kursus/'.$cours->gambar_kursus) }}"
-                                    alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
+                                    alt="{{ $cours->nama_kursus }}" class="img-fluid" /><a
                                     href="{{ route('front.detail',$cours->slug) }}" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
 
                                         @foreach ($cours->tutor as $tutor)
                                             
-                                        <img src="{{ asset('uploads/tutor/'.$tutor->foto) }}" alt="John" class="avatar-profile avatar-border-white mr-2" />
+                                        <img src="{{ asset('uploads/tutor/'.$tutor->foto) }}" alt="{{ $tutor->nama_tutor }}" class="avatar-profile avatar-border-white mr-2" />
                                         <div class="media-body">{{ $tutor->nama_tutor }}</div>
                                         
                                         @endforeach
@@ -65,7 +65,7 @@
                                             </i>
                                         </p>
                                     </div>
-                                    <span class="badge badge-warning text-light float-right"><i class="fas fa-check-circle"></i> Aktif</span>
+                                    <span class="badge badge-success text-light float-right"><i class="fas fa-check-circle"></i> Aktif</span>
                                     <p class="card-text text-muted"><span class="h5 text-primary">@currency($row->biaya_kursus)</span> per
                                         Bulan</p>
                                     <p class="card-text text-muted">Dipotong diskon <span class="h6 text-danger"> {{ $cours->diskon_kursus }}%</span> </p>
@@ -84,14 +84,14 @@
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
                                 <img src="{{ asset('uploads/kursus/'.$cours->gambar_kursus) }}"
-                                    alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
+                                    alt="{{ $cours->nama_kursus }}" class="img-fluid" /><a
                                     href="{{ route('front.detail',$cours->slug) }}" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
 
                                         @foreach ($cours->tutor as $tutor)
                                             
-                                        <img src="{{ asset('uploads/tutor/'.$tutor->foto) }}" alt="John" class="avatar-profile avatar-border-white mr-2" />
+                                        <img src="{{ asset('uploads/tutor/'.$tutor->foto) }}" alt="{{ $tutor->nama_tutor }}" class="avatar-profile avatar-border-white mr-2" />
                                         <div class="media-body">{{ $tutor->nama_tutor }}</div>
                                         
                                         @endforeach
@@ -111,7 +111,7 @@
                                             </i>
                                         </p>
                                     </div>
-                                    <span class="badge badge-secondary text-light float-right"><i class="fas fa-tag    "></i></i> Pending</span>
+                                    <span class="badge badge-secondary text-light float-right"><i class="fas fa-spinner"></i></i> Pending</span>
                                     <p class="card-text text-muted"><span class="h5 text-primary">@currency($cours->biaya_kursus)</span> per
                                         Bulan</p>
                                     <p class="card-text text-muted">Dipotong diskon <span class="h6 text-danger"> {{ $cours->diskon_kursus }} <i class="fas fa-percent"></i> </span> </p>
