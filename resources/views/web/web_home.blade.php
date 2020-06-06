@@ -68,12 +68,24 @@
                                                
                                             {{$item->nama_kategori}}</p>
                                             @endforeach
-                                        <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i
-                                                class="fa fa-star text-warning"></i><i
-                                                class="fa fa-star text-warning"></i><i
-                                                class="fa fa-star text-warning"></i><i
-                                                class="fa fa-star text-warning"></i><i
-                                                class="fa fa-star text-gray-300"> </i>
+                                        <p class="flex-shrink-1 mb-0 card-stars text-xs text-right">
+                                            @php
+                                                $minat_kursus = $krs->order_detail_count/10;
+                                                $rating = round($minat_kursus*2)/2;
+                                            @endphp
+
+                                            @for($x = 5; $x > 0; $x--)
+                                                @php 
+                                                    if($rating > 0.5){
+                                                        echo '<i class="fa fa-star text-warning"></i>';
+                                                    }elseif($rating <= 0 ){
+                                                        echo '<i class="fa fa-star text-gray-300"></i>';
+                                                    }else{
+                                                        echo '<i class="fa fa-star-half text-warning"></i>';
+                                                    }
+                                                    $rating--;      
+                                                @endphp
+                                            @endfor
                                         </p>
                                     </div>
 
