@@ -207,4 +207,16 @@ class OrderController extends Controller
 
         return redirect('order/cart');
     }
+
+    public function deleteCheckout($id)
+    {
+
+        $order = Order::findOrFail($id);
+        Storage::disk('local')->delete('public/uploads/bukti_pembayaran/' . $order->upload_bukti);
+        $order->forceDelete();
+
+        return response()->json([
+            'message' => 'Konfirmasi berhasil dibatalkan.'
+        ]);
+    }
 }
