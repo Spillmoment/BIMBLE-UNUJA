@@ -81,9 +81,12 @@
                                       <span class="badge badge-info">
                                           @elseif($item->status_kursus == 'SUCCESS')
                                       <span class="badge badge-success">
-                                    @elseif($item->status_kursus == 'FAILED')
+                                          @elseif($item->status_kursus == 'FAILED')
                                       <span class="badge badge-warning">
-                                          @else
+                                          @elseif($item->status_kursus == "CANCEL")
+                                          <span class="badge badge-danger">
+                                          @elseif($item->status_kursus == "PROCESS")
+                                          <span class="badge badge-secondary">
                                       <span>
                                     @endif
                                     {{ $item->status_kursus }}
@@ -132,10 +135,10 @@
 
             // Pie chart flotPie1
             var piedata = [
-                { label: "Pending", data: [[1, {{ $pie['pending']}} ]], color: '#5c6bc0'},
-                { label: "Gagal", data: [[1, {{ $pie['failed']}} ]], color: '#ef5350'},
                 { label: "Sukses", data: [[1, {{ $pie['success']}} ]], color: '#66bb6a'},
-                { label: "Batal", data: [[1, {{ $pie['cancel']}} ]], color: 'red'},
+                { label: "Pending", data: [[1, {{ $pie['pending']}} ]], color: '#5c6bc0'},
+                { label: "Proses", data: [[1, {{ $pie['process']}} ]], color: 'orange'},
+                { label: "Gagal", data: [[1, {{ $pie['failed']}} ]], color: '#ef5350'},
             ];
 
             $.plot('#flotPie1', piedata, {

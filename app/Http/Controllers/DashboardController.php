@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $pie = [
             'pending' => Order::where('status_kursus', 'PENDING')->count(),
             'success' => Order::where('status_kursus', 'SUCCESS')->count(),
-            'cancel' => Order::where('status_kursus', 'CANCEL')->count(),
+            'process' => Order::where('status_kursus', 'PROCESS')->count(),
             'failed' => Order::where('status_kursus', 'FAILED')->count()
         ];
 

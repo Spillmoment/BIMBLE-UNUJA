@@ -10,18 +10,34 @@
     <td>{{ $user->email }}</td>
   </tr>
   @endforeach
- 
   
   <tr>
     <th>Total Order</th>
     <td>@currency($item->total_tagihan).00</td>
   </tr>
-  <tr>
-    <th>Status Order</th>
-    <td>{{ $item->status_kursus }}</td>
-  </tr>
-  <tr>
-    <th>Pembelian Kursus</th>
+
+      <tr>
+            <th>Bukti Upload</th>
+            <td>
+              
+              @if ($item->status_kursus == "SUCCESS" || $item->status_kursus == "PENDING")
+                  <img src="{{ Storage::url('uploads/bukti_pembayaran/'.$item->upload_bukti) }}" class="img-thumbnail" width="400px" height="400px">
+                  <br>
+                
+              @else
+                  <span class="alert alert-warning font-weight-bold">Bukti upload belum di proses</span>
+              @endif
+        
+            </td>
+       </tr>
+  
+       <tr>
+        <th>Status Order</th>
+        <td><span class="font-weight-bold">{{ $item->status_kursus }}</span></td>
+      </tr>
+      <tr>
+    
+        <th>Pembelian Kursus</th>
     <td>
       <table class="tabble table-bordered w-100">
         <tr>

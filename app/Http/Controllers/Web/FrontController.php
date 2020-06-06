@@ -20,7 +20,6 @@ class FrontController extends Controller
         $filter_kategori = $request->get('nama_kategori');
         $nama_kategori = '';
 
-
         if ($filter_kategori != '' || $keyword != '') {
 
             $kursus = Kursus::with('kategori')

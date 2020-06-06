@@ -26,7 +26,9 @@
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     @guest
-                    <li class="nav-item"><a href="#" class="nav-link active">Beranda</a></li>
+                    <li class="nav-item"><a href="{{ route('front.index') }}" class="nav-link active">Beranda</a></li>
+                    <li class="nav-item"><a href="{{ route('front.kursus') }}" class="nav-link active">List Kursus</a></li>
+                  
                     <li class="nav-item"><a href="#" class="nav-link active">Pusat Bantuan</a></li>
 
                     @if (Route::has('register'))
@@ -34,7 +36,8 @@
                         <li class="nav-item"><a href="{{ route('register') }}" class="nav-link">Sign up</a></li>
                     @endif
                     @else
-                    <li class="nav-item"><a href="#" class="nav-link active">Beranda</a></li>
+                    <li class="nav-item"><a href="{{ route('front.index') }}" class="nav-link active">Beranda</a></li>
+                    <li class="nav-item"><a href="{{ route('front.kursus') }}" class="nav-link active">List Kursus</a></li>
                     <li class="nav-item"><a href="{{ route('kursus.success') }}" class="nav-link active">Kursus ku</a></li>
                     <li class="nav-item"><a href="{{ route('order.view') }}" class="nav-link active">Cart</a></li>
                     <li class="nav-item"><a href="#" class="nav-link">{{ Auth::user()->nama_pendaftar }}</a></li>
@@ -80,17 +83,15 @@
                             class="form-control border-0 shadow-0">
                     </div>
                 </div>
-
+              
                 <div class="col-md-6 col-lg-3 d-flex align-items-center form-group no-divider">
                     <form action="{{ route('front.index') }}"> 
                     <select id="nama_kategori" name="nama_kategori" data-style="btn-form-control" class="selectpicker" value="Kategori">
-                        @if ($kategori->count() > 0)
+                      
                         @foreach ($kategori as $row)
                         <option value="{{$row->id}}">{{ $row->nama_kategori }}</option>
                         @endforeach
-                        @else
-                        Data Kosong
-                        @endif
+                      
                         
                     </select>
                     

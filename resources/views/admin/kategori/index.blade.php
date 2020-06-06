@@ -5,8 +5,11 @@
     <div class="orders">
       <div class="row">
         <div class="col-12">
+          
           <div class="card">
+            
             <div class="card-body">
+
               <h4 class="box-title">List Kategori</h4>
 
               @if(session('status'))
