@@ -108,6 +108,7 @@
                 
                 @foreach ($order as $pesan)
                 <div class="card mb-3" style="max-width: 540px;">
+                    <span id="deleteCheckout" data-id="{{ $pesan->id }}" class="badge badge-danger align-self-start" style="cursor: pointer">x</span>
                     <div class="row no-gutters">
                         <div class="col-md-4">
                         <img src="{{ asset('storage/uploads/bukti_pembayaran/'.$pesan->upload_bukti) }}" class="card-img" alt="...">
@@ -207,7 +208,7 @@
             });
         });
 
-        // function delete
+        // function delete cart
         $("#deleteCart").on("click",function(e){
 
             var nama = $(this).data('nama');
@@ -255,6 +256,45 @@
             });
 
             return false;
+        });
+
+        // function delete checkout
+        $("#deleteCheckout").on("click",function(e){
+        // sweealert 
+        swal({
+            title: "Yakin ?",
+            text: "Membatalkan konfirmasi.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+
+        if (willDelete) {
+
+        e.preventDefault();
+        var id = $(this).data("id");
+        var token = $("meta[name='csrf-token']").attr("content");
+
+        $.ajax({
+            url: "/order/checkout/"+id,
+            type: 'DELETE',
+            data: {
+                _token: token,
+            },
+            success: function (response){
+                setTimeout(function(){
+                    location.reload(); 
+                }, 1500); 
+            }
+        });
+
+        } else {
+            // swal("Your imaginary file is safe!");
+        }
+        });
+
+        return false;
         });
         
     });
