@@ -11,7 +11,6 @@ class KategoriController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:manager');
     }
     /**
      * Display a listing of the resource.

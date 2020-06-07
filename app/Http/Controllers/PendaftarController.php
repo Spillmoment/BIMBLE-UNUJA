@@ -8,10 +8,7 @@ use App\Pendaftar;
 class PendaftarController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth:manager');
-    }
+
     /**
      * Display a listing of the resource.
      *

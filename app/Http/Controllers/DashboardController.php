@@ -10,10 +10,6 @@ use App\Order;
 
 class DashboardController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:manager');
-    }
 
     public function index()
     {
