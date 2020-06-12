@@ -51,6 +51,11 @@ class Pendaftar extends Authenticatable
     {
         return $this->belongsTo(OrderDetail::class, 'id', 'id_pendaftar');
     }
+    
+    public function komentar()
+    {
+        return $this->belongsTo(Komentar::class, 'id', 'id_pendaftar');
+    }
  
     protected $dates = ['deleted_at'];
 
