@@ -98,28 +98,8 @@ class OrderController extends Controller
         return view('web.web_order_cart', compact('order_kursus', 'total_tagihan', 'order', 'order_status', 'kursus_state'));
     }
 
-    public function kursus_success()
-    {
-
-        $users_id = Auth::id();
-
-        $kursus_success = OrderDetail::with(['pendaftar', 'kursus', 'order'])
-            ->where('id_pendaftar', $users_id)
-            ->where(function ($query) {
-                $query->where('status', 'PENDING');
-            })
-            ->orderBy('created_at', 'DESC')
-            ->paginate(12);
-
-        return view('web.web_kursus_success', [
-            'kursus_success' => $kursus_success,
-        ]);
-    }
-
     public function updateToPending(Request $request)
     {
-
-
         $order = OrderDetail::findOrFail($request->order_id);
         $order->status = $request->status;
         $order->save();
@@ -192,9 +172,9 @@ class OrderController extends Controller
             'fileTransfer' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $data = Order::findOrFail($request->order);
-        // dd(Storage::exists(storage_path('app/public/uploads/bukti_pembayaran'.$data->upload_bukti)));
-        // dd(file_exists(storage_path('public/index.php')));
+        $pendaftarId = Auth::id();
+        $data = Order::where('id_pendaftar', $pendaftarId)->where('status_kursus', 'FAILED')->first();
+
         if ($request->hasFile('fileTransfer')) {
             Storage::disk('local')->delete('public/uploads/bukti_pembayaran/' . $data->upload_bukti);
 
