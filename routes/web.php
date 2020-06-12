@@ -14,9 +14,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
+// Auth User
 Auth::routes();
 
-// Manager Routing
+// Auth Manager
 Route::group(['prefix' => 'manager'], function () {
 
     // Route Auth
@@ -28,40 +29,9 @@ Route::group(['prefix' => 'manager'], function () {
     Route::post('/password/email', 'AuthManager\ForgotPasswordController@sendResetLinkEmail')->name('manager.password.email');
     Route::get('/password/reset/{token}', 'AuthManager\ResetPasswordController@showResetForm')->name('manager.password.reset');
     Route::post('/password/reset', 'AuthManager\ResetPasswordController@reset');
-
-    // Route Dashboard
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-
-    // Route Tutor
-    Route::resource('tutor', 'TutorController');
-
-    // Route Kategori
-    Route::resource('kategori', 'KategoriController');
-
-    // Route Kursus
-    Route::delete('kursus/{id}/delete-permanent', 'KursusController@deletePermanent')
-        ->name('kursus.delete-permanent');
-    Route::get('kursus/{id}/restore', 'KursusController@restore')->name('kursus.restore');
-    Route::get('kursus/trash', 'KursusController@trash')->name('kursus.trash');
-    Route::get('kursus/{id}/gallery', 'KursusController@gallery')
-        ->name('kursus.gallery');
-    Route::resource('kursus', 'KursusController');
-
-    // Route Pendaftar
-    Route::get('pendaftar/trash', 'PendaftarController@trash')->name('pendaftar.trash');
-    Route::resource('pendaftar', 'PendaftarController');
-
-    // Route Gallery
-    Route::resource('gallery', 'GalleryController');
-
-    // Route Order
-    Route::get('order/{id}/set-status', 'OrderController@setStatus')
-        ->name('order.status');
-    Route::resource('order', 'OrderController');
 });
 
-
-// Route Tutor
+// Auth Tutor
 Route::group(['prefix' => 'tutor'], function () {
     Route::get('/login', 'AuthTutor\LoginController@showLoginForm')->name('tutor.login');
     Route::post('/login', 'AuthTutor\LoginController@login')->name('tutor.login.submit');
@@ -72,6 +42,45 @@ Route::group(['prefix' => 'tutor'], function () {
     Route::get('/password/reset/{token}', 'AuthTutor\ResetPasswordController@showResetForm')->name('tutor.password.reset');
     Route::post('/password/reset', 'AuthTutor\ResetPasswordController@reset');
 });
+
+
+// Route Manager
+Route::prefix('manager')
+    ->middleware('auth:manager')
+    ->group(function () {
+
+        // Route Dashboard
+        Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+        // Route Tutor
+        Route::resource('tutor', 'TutorController');
+
+        // Route Kategori
+        Route::resource('kategori', 'KategoriController');
+
+        // Route Kursus
+        Route::delete('kursus/{id}/delete-permanent', 'KursusController@deletePermanent')
+            ->name('kursus.delete-permanent');
+        Route::get('kursus/{id}/restore', 'KursusController@restore')->name('kursus.restore');
+        Route::get('kursus/trash', 'KursusController@trash')->name('kursus.trash');
+        Route::get('kursus/{id}/gallery', 'KursusController@gallery')
+            ->name('kursus.gallery');
+        Route::resource('kursus', 'KursusController');
+
+        // Route Pendaftar
+        Route::get('pendaftar/trash', 'PendaftarController@trash')->name('pendaftar.trash');
+        Route::resource('pendaftar', 'PendaftarController');
+
+        // Route Gallery
+        Route::resource('gallery', 'GalleryController');
+
+        // Route Order
+        Route::get('order/{id}/set-status', 'OrderController@setStatus')
+            ->name('order.status');
+        Route::resource('order', 'OrderController');
+    });
+
+
 
 // Route Front
 Route::get('/', 'Web\FrontController@index')->name('front.index');
