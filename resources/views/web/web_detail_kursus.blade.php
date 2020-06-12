@@ -123,7 +123,7 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
             <input type="hidden" name="diskon_kursus" value="{{ ($kursus->diskon_kursus > 0) ? $kursus->diskon_kursus : 0 }}">
             <div class="form-group">
               <label for="diskon" class="form-label">Diskon</label>
-              <h3>@currency($kursus->diskon_kursus)</h3>
+              <h3>{{ $kursus->diskon_kursus }}%</h3>
             </div>
             <div class="form-group">
               @guest
@@ -137,7 +137,7 @@ class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
                       </div>
                     @elseif ($check_kursus_sukses)
                       <div class="alert alert-success" role="alert">
-                        <button type="button" class="btn btn-success btn-block">Mulai Kursus</button>
+                        <a href="/user/kursus/{{ $kursus->slug }}" class="btn btn-success btn-block">Buka</a>
                       </div>
                     @else
                       <button type="submit" id="orderKursusButton" class="btn btn-primary btn-block">Pesan</button>
