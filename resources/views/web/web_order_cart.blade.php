@@ -145,7 +145,6 @@
                                     <div class="mb-4">
                                         <label for="form_search" class="form-label">Upload bukti pembayaran</label>
                                         <div class="input-label-absolute input-label-absolute-right">
-                                            <input type="hidden" name="order" value="{{ $pesan->id }}">
                                             <input type="file" name="fileTransfer" class="form-control pr-4">
                                         </div>
                                     </div>
