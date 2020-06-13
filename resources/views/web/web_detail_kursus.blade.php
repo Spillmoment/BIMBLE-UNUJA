@@ -115,13 +115,6 @@
           <form id="booking-form" method="post" action="/order/post/{{ $kursus->slug }}" autocomplete="off" class="form">
             @csrf
 
-            {{-- @if (Auth::check())
-            <input  type="hidden" name="id_pendaftar" value="{{ Auth::user()->id }}" contextmenu="">
-            @endif            
-            <input  type="hidden" name="id_kursus" value="{{ $kursus->id }}">
-            <input  type="hidden" name="biaya_kursus" value="{{ $kursus->biaya_kursus }}">
-            <input  type="hidden" name="diskon_kursus" value="{{ ($kursus->diskon_kursus > 0) ? $kursus->diskon_kursus : 0 }}"> --}}
-
             <div class="form-group">
               <label for="diskon" class="form-label">Diskon</label>
               <h3>{{ $kursus->diskon_kursus }}%</h3>
