@@ -8,7 +8,6 @@ use App\OrderDetail;
 use App\Kursus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class OrderController extends Controller
@@ -23,45 +22,47 @@ class OrderController extends Controller
         $this->middleware('auth');
     }
 
-    public function orderPost(Request $request)
+    public function orderPost(Request $request, $slug)
     {
-        $this->validate($request, [
-            'id_pendaftar' => 'required|integer',
-            'id_kursus' => 'required|integer',
-            'biaya_kursus' => 'required|integer',
-            'diskon_kursus' => 'required|integer',
-        ]);
+        $kursus = Kursus::where('slug', $slug)->first();
+
         $pendaftarId = Auth::id();
-        $harga_kursus = $request->biaya_kursus;
-        $diskon_kursus = $request->diskon_kursus;
+        $harga_kursus = $kursus->biaya_kursus;
+        $diskon_kursus = $kursus->diskon_kursus;
         $diskon = $harga_kursus * ($diskon_kursus / 100);
-
-        $check_order = Order::where('id_pendaftar', $pendaftarId)
-            ->where('status_kursus', 'PROCESS')
-            ->count();
-
-        if ($check_order == 0) {
-            $order = Order::create([
-                'id_pendaftar' => $pendaftarId,
-                'total_tagihan' => $request->biaya_kursus - $diskon,
-                'status_kursus' => 'PROCESS',
-            ]);
-            $orderId = $order->id;
+        
+        $chek_pesanan = OrderDetail::where('id_pendaftar', $pendaftarId)->where('id_kursus', $kursus->id)->count();
+        if ($chek_pesanan == 1) {
+            return 'Anda sudah memesan kursus ini.';
         } else {
-            $orderId = Order::where('id_pendaftar', $pendaftarId)
+        
+            $check_order = Order::where('id_pendaftar', $pendaftarId)
                 ->where('status_kursus', 'PROCESS')
-                ->first()
-                ->id;
-            Order::where('id', $orderId)->increment('total_tagihan', $request->biaya_kursus - $diskon);
-        }
+                ->count();
 
-        OrderDetail::create([
-            'id_order' => $orderId,
-            'id_pendaftar' => $request->id_pendaftar,
-            'id_kursus' => $request->id_kursus,
-            'biaya_kursus' => $request->biaya_kursus - $diskon,
-            'status' => 'PROCESS',
-        ]);
+            if ($check_order == 0) {
+                $order = Order::create([
+                    'id_pendaftar' => $pendaftarId,
+                    'total_tagihan' => $kursus->biaya_kursus - $diskon,
+                    'status_kursus' => 'PROCESS',
+                ]);
+                $orderId = $order->id;
+            } else {
+                $orderId = Order::where('id_pendaftar', $pendaftarId)
+                    ->where('status_kursus', 'PROCESS')
+                    ->first()
+                    ->id;
+                Order::where('id', $orderId)->increment('total_tagihan', $kursus->biaya_kursus - $diskon);
+            }
+
+            OrderDetail::create([
+                'id_order' => $orderId,
+                'id_pendaftar' => $pendaftarId,
+                'id_kursus' => $kursus->id,
+                'biaya_kursus' => $kursus->biaya_kursus - $diskon,
+                'status' => 'PROCESS',
+            ]);
+        }
 
         return redirect()->back();
     }
