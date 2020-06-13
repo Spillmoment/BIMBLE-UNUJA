@@ -22,7 +22,7 @@ class OrderController extends Controller
         $this->middleware('auth');
     }
 
-    public function orderPost(Request $request, $slug)
+    public function orderPost($slug)
     {
         $kursus = Kursus::where('slug', $slug)->first();
 
