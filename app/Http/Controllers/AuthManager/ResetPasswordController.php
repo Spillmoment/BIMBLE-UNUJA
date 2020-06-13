@@ -29,7 +29,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/manager';
+    protected $redirectTo = '/manager/dashboard';
 
     public function __construct()
     {
@@ -44,6 +44,20 @@ class ResetPasswordController extends Controller
     public function broker()
     {
         return Password::broker('managers');
+    }
+
+    /**
+     * Get the password reset validation rules.
+     *
+     * @return array
+     */
+    protected function rules()
+    {
+        return [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:6',
+        ];
     }
 
     /**
