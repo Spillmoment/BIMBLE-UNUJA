@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Kategori;
 use App\Http\Requests\KategoriRequest;
+use App\Repositories\KategoriRepositoryInterface;
 
 class KategoriController extends Controller
 {
-
-    public function __construct()
+    private $model;
+    public function __construct(KategoriRepositoryInterface $model)
     {
+        $this->model = $model;
     }
     /**
      * Display a listing of the resource.
@@ -20,26 +22,14 @@ class KategoriController extends Controller
     public function index(Request $request)
     {
 
-        $kategori = Kategori::orderBy('created_at', 'DESC')->paginate(10);
-        $filterKeyword = $request->get('keyword');
-        $status = $request->get('status');
+        $kategori = $this->model->getAll();
 
-        if ($status) {
-            $kategori = Kategori::where('status', $status)
-                ->paginate(10);
-        } else {
-            $kategori = Kategori::orderBy('created_at', 'DESC')->paginate(10);
-        }
+        $filterKeyword = $request->get('keyword');
 
         if ($filterKeyword) {
-            if ($status) {
-                $kategori = Kategori::where('nama_kategori', 'LIKE', "%$filterKeyword%")
-                    ->where('status', $status)
-                    ->paginate(10);
-            } else {
-                $kategori = Kategori::where('nama_kategori', 'LIKE', "%$filterKeyword%")
-                    ->paginate(10);
-            }
+            $kategori = Kategori::where('nama_kategori', 'LIKE', "%$filterKeyword%")
+                ->orderBy('created_at', 'DESC')
+                ->paginate(10);
         }
 
         return view('admin.kategori.index', compact('kategori'));
@@ -63,8 +53,7 @@ class KategoriController extends Controller
      */
     public function store(KategoriRequest $request)
     {
-        Kategori::create($request->all());
-
+        $this->model->create($request->all());
         return redirect()->route('kategori.index')
             ->with(['status' => 'Data Kategori Berhasil Ditambahkan']);
     }
@@ -101,12 +90,9 @@ class KategoriController extends Controller
      */
     public function update(KategoriRequest $request, $id)
     {
-        $kategori = Kategori::findOrFail($id);
-        $kategori->nama_kategori = $request->get('nama_kategori');
-        $kategori->keterangan = $request->get('keterangan');
-
-        $kategori->save();
-        return redirect()->route('kategori.index')->with(['status' => 'Data Kategori Berhasil Diubah']);
+        $this->model->update($id, $request->all());
+        return redirect()->route('kategori.index')
+            ->with(['status' => 'Data Kategori Berhasil Diubah']);
     }
 
     /**
@@ -117,50 +103,8 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $kategori = Kategori::findOrFail($id);
-        $kategori->delete();
-
-        return redirect()->route('kategori.index')->with(['status'  => 'Data Kategori Berhasil Dimasukkan Ke Trash']);
-    }
-
-    public function trash(Request $request)
-    {
-        $filter_trash = $request->get('trash');
-
-        if ($filter_trash) {
-            $kategori = Kategori::onlyTrashed()->where('nama_kategori', 'LIKE', "%$filter_trash%")
-                ->paginate(10);
-        } else {
-            $kategori = Kategori::onlyTrashed()->paginate(10);
-        }
-
-        return view('admin.kategori.trash', compact('kategori'));
-    }
-
-    public function restore($id)
-    {
-        $kategori = Kategori::withTrashed()->findOrFail($id);
-
-        if ($kategori->trashed()) {
-            $kategori->restore();
-        } else {
-            return redirect()->route('kategori.index')
-                ->with(['status' => 'Kategori tidak ada di Trash']);
-        }
+        $this->model->delete($id);
         return redirect()->route('kategori.index')
-            ->with(['status' => 'Kategori Sukses Dikembalikan']);
-    }
-
-    public function deletePermanent($id)
-    {
-        $kategori = Kategori::withTrashed()->findOrFail($id);
-        if (!$kategori->trashed()) {
-            return redirect()->route('kategori.index')
-                ->with('status', 'Can not delete permanent active kate$kategori');
-        } else {
-            $kategori->forceDelete();
-            return redirect()->route('kategori.index')
-                ->with('status', 'Category permanently deleted');
-        }
+            ->with(['status'  => 'Data Kategori Berhasil Dihapus']);
     }
 }

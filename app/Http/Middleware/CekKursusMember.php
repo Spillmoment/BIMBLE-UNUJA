@@ -21,10 +21,10 @@ class CekKursusMember
         $id_pendaftar = Auth::user()->id;
         $id_kursus = Kursus::where('slug', $request->route('slug'))->first()->id;
         $cek_status = OrderDetail::where('id_pendaftar', $id_pendaftar)
-        ->where('id_kursus', $id_kursus)
-        ->where('status', 'SUCCESS')
-        ->first();
-        
+            ->where('id_kursus', $id_kursus)
+            ->where('status', 'SUCCESS')
+            ->first();
+
         if ($cek_status) {
             return $next($request);
         }
