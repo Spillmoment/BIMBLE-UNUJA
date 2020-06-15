@@ -21,7 +21,7 @@ class KursusUserController extends Controller
         $this->middleware('auth');
     }
 
-    
+
     public function kursus_success()
     {
 
@@ -44,7 +44,7 @@ class KursusUserController extends Controller
     {
         $kursus = Kursus::where('slug', $slug)->first();
         $komentar = Komentar::with(['pendaftar', 'kursus'])->where('id_kursus', $kursus->id)->orderBy('created_at', 'DESC')->get();
-        return view('web.web_kursus_user', compact('kursus','komentar'));
+        return view('web.web_kursus_user', compact('kursus', 'komentar'));
     }
 
     public function kursusKelasKomentar(Request $request, $slug)
@@ -53,8 +53,8 @@ class KursusUserController extends Controller
         $kursus = Kursus::where('slug', $slug)->first()->id;
         $request->validate([
             'textkomen'  => 'required',
-        ],['textkomen.required' => 'Isikan komentar anda.']);   
-        
+        ], ['textkomen.required' => 'Isikan komentar anda.']);
+
         $komen = new Komentar();
         $komen->id_kursus = $kursus;
         $komen->id_pendaftar = $pendaftarId;
@@ -64,5 +64,4 @@ class KursusUserController extends Controller
 
         return redirect()->back();
     }
-    
 }
