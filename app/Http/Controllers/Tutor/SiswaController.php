@@ -58,7 +58,7 @@ class SiswaController extends Controller
 
         Siswa::create($siswa);
         return redirect()->route('siswa.index')
-            ->with(['status' => 'Data Tutor Berhasil Ditambahkan']);
+            ->with(['status' => 'Data Siswa Berhasil Ditambahkan']);
     }
 
     /**
