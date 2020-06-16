@@ -23,7 +23,7 @@ class CreateSiswaTable extends Migration
             $table->enum('jenis_kelamin', ['L', 'P']);
             $table->text('alamat');
             $table->string('foto', 100)->nullable();
-            $table->double('nilai', 8, 2);
+            $table->double('nilai', 8, 2)->nullable();
             $table->text('keterangan')->nullable();
             $table->string('username', 100);
             $table->string('password', 100);
