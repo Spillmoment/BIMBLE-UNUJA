@@ -1,9 +1,5 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
-<head>
+<html>
+    <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title')</title>
@@ -17,25 +13,36 @@
 
 </head>
 
-<body>
-    {{-- Sidebar --}}
-    @include('admin.includes.sidebar')
 
+<body>
+
+    {{-- main manager --}}
+    @auth('manager')
+    {{-- Sidebar --}}
+    @include('admin.includes.sidebar-manager')
+    
     <div id="right-panel" class="right-panel">
         {{-- Navbar --}}
-        @include('admin.includes.navbar')
-
+        @include('admin.includes.navbar-manager')
+        
         <div class="content">
             {{-- Content --}}
             @yield('content')
         </div>
         <div class="clearfix"></div>
     </div>
-
+    
     {{-- Script --}}
     @stack('before-script')
     @include('admin.includes.script')
     @stack('after-script')
+    
+    @endauth
+    {{-- end main manager --}}
+
+
 
 </body>
+
+
 </html>

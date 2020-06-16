@@ -1,4 +1,4 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.manager')
 
 @section('title','Bimble - Edit Data Kursus')
 @section('content')

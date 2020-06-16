@@ -1,4 +1,4 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.manager')
 
 @section('title','Bimble - Data Gallery')
 @section('content')

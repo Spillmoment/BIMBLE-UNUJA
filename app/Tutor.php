@@ -47,5 +47,10 @@ class Tutor extends Authenticatable
         return $this->belongsTo(Kursus::class, 'id', 'id_tutor');
     }
 
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'id', 'id_tutor');
+    }
+
     protected $dates = ['deleted_at'];
 }

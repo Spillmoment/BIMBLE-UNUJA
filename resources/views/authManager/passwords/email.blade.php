@@ -34,7 +34,7 @@
                                 @enderror     
                             </div>
                             
-                            <button type="submit" class="btn btn-login btn-block">
+                            <button type="submit" class="btn btn-primary btn-block">
                                 <i class="fas fa-sign-in-alt mr-2"></i>
                                 Kirim Email
                             </button>

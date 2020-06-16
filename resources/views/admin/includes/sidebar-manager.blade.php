@@ -4,9 +4,7 @@
       <div id="main-menu" class="main-menu collapse navbar-collapse">
           <ul class="nav navbar-nav">
 
-            {{-- Manage Auth Manager --}}
-            @auth('manager')
-                
+   
             <li class="{{ (Request::route()->getName() == 'dashboard') ? 'active' : '' }}">
                 <a href="{{ route('dashboard') }}"><i class
                     ="menu-icon fa fa-laptop"></i>Dashboard </a>
@@ -62,13 +60,8 @@
             <li class="{{ (Request::route()->getName() == 'order.index') ? 'active' : '' }}">
                 <a href="{{ route('order.index') }}"> <i class="menu-icon fa fa-dollar"></i>Lihat Order</a>
             </li> 
-            @endauth
-
-
-            {{-- Manage Auth Tutor --}}
-            @auth('tutor')
-                
-            @endauth
+       
+         
 
 
           </ul>

@@ -26,7 +26,6 @@ class KursusController extends Controller
         $kursus = Kursus::orderBy('created_at', 'DESC')->paginate(10);
         $kategori = Kategori::orderBy('created_at', 'DESC')->paginate(10);
 
-
         $keyword = $request->get('keyword');
         $filter_kategori = $request->get('nama_kategori');
 
