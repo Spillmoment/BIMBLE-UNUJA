@@ -35,7 +35,7 @@ Route::group(['prefix' => 'manager'], function () {
 Route::group(['prefix' => 'tutor'], function () {
     Route::get('/login', 'AuthTutor\LoginController@showLoginForm')->name('tutor.login');
     Route::post('/login', 'AuthTutor\LoginController@login')->name('tutor.login.submit');
-    Route::get('/', 'TutorController@index')->name('tutor.home');
+
     Route::get('/logout', 'AuthTutor\LoginController@logoutTutor')->name('tutor.logout');
     Route::get('/password/reset', 'AuthTutor\ForgotPasswordController@showLinkRequestForm')->name('tutor.password.request');
     Route::post('/password/email', 'AuthTutor\ForgotPasswordController@sendResetLinkEmail')->name('tutor.password.email');
@@ -43,6 +43,13 @@ Route::group(['prefix' => 'tutor'], function () {
     Route::post('/password/reset', 'AuthTutor\ResetPasswordController@reset');
 });
 
+Route::prefix('tutor')
+    ->middleware('auth:tutor')
+    ->group(function () {
+
+        Route::get('/', 'Tutor\DashboardController@index')->name('tutor.home');
+        Route::resource('siswa', 'Tutor\SiswaController');
+    });
 
 // Route Manager
 Route::prefix('manager')
