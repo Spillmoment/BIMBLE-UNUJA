@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tutor;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class TutorController extends Controller
 {
@@ -35,6 +36,7 @@ class TutorController extends Controller
     public function store(Request $request)
     {
         $tutor = $request->all();
+        $tutor['password'] = Hash::make($tutor['password']);
 
         if ($request->file('foto')) {
             $foto = $request->file('foto');
@@ -68,6 +70,7 @@ class TutorController extends Controller
     {
         $tutor = Tutor::findOrFail($id);
         $data = $request->all();
+        $data['password'] = Hash::make($data['password']);
 
         if ($request->hasFile('foto')) {
             if ($request->file('foto')) {

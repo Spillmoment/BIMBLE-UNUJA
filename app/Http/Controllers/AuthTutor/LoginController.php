@@ -46,7 +46,7 @@ class LoginController extends Controller
             'password' => $request->password,
         ];
 
-        if(Auth::guard('tutor')->attempt($credential, $request->member)){
+        if (Auth::guard('tutor')->attempt($credential, $request->member)) {
             return redirect()->intended(route('tutor.home'));
         }
 
@@ -58,5 +58,4 @@ class LoginController extends Controller
         Auth::guard('tutor')->logout();
         return redirect('/tutor/login');
     }
-
 }

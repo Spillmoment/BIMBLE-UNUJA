@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TutorRequest extends FormRequest
+class SiswaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,14 +24,15 @@ class TutorRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_tutor' => 'required|min:3|max:100',
-            'alamat'     => 'required|min:3|max:200',
-            'email'      => 'required|email',
-            'foto'       => 'required|image|mimes:jpg,jpeg,png,bmp',
+            'id_tutor' => 'required',
+            'nama_siswa' => 'required',
+            'alamat' => 'required|min:3',
+            'jenis_kelamin' => 'required',
+            'foto' => 'required|image|mimes:jpg,jpeg,png,bmp',
             'username'   => 'required|min:3|max:100',
             'password'   => 'required|min:3',
             'konfirmasi_password'   => 'required|same:password',
-            'keahlian'   => 'required',
+            'keterangan' => 'required'
         ];
     }
 }
