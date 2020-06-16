@@ -1,4 +1,4 @@
-@extends('admin.layouts.default')
+@extends('admin.layouts.manager')
 
 @section('title','Bimble - Edit Data Tutor')
 @section('content')
@@ -88,12 +88,12 @@
                                     <div class="form-check" style="font-size: 17px">
                                       <label class="form-check-label" for="active">Aktif  </label>
                                       <span class="ml-4">
-                                          <input {{ $tutor->status == "ACTIVE" ? "checked" : ""}} value="ACTIVE" name="status" type="radio" class="form-check-input mt-2" id="active">
+                                          <input {{ $tutor->status == 1 ? "checked" : ""}} value="1" name="status" type="radio" class="form-check-input mt-2" id="active">
                                       </span>
                                           
                                       <label class="form-check-label" for="inactive">Nonaktif </label>
                                           <span class="ml-4">
-                                          <input {{$tutor->status == "INACTIVE" ? "checked" : ""}} value="INACTIVE" name="status" type="radio" class="form-check-input mt-2" id="inactive">
+                                          <input {{$tutor->status == 0 ? "checked" : ""}} value="0" name="status" type="radio" class="form-check-input mt-2" id="inactive">
                                       </span>
 
                                     </div>
