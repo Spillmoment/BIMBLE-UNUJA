@@ -31,7 +31,7 @@
   
                        <a href="{{route('manager.password.request') }}" class="float-right"><i class="fas fa-lock mr-0"></i><small>Forgot Your Password?</small> </a>
                 </div>
-                            <button type="submit" class="btn btn-login btn-block">
+                            <button type="submit" class="btn btn-primary btn-block">
                                 <i class="fas fa-sign-in-alt mr-2"></i>
                                 Login
                             </button>
