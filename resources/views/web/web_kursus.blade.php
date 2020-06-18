@@ -37,6 +37,7 @@
                         <select name="nama_kategori" id="form_category" data-style="btn-selectpicker"
                             data-selected-text-format="count &gt; 1" title="" class="selectpicker form-control">
                             @if ($kategori->count() > 0)
+                            <option value="">Semua</option>
                             @foreach ($kategori as $row)
                             <option value="{{$row->id}}">{{ $row->nama_kategori }}</option>
                             @endforeach
