@@ -22,9 +22,12 @@ class CreateNilaiTable extends Migration
             $table->foreignId('id_kursus');
             $table->foreign('id_kursus')->references('id')->on('kursus')->onDelete('cascade');
 
-            $table->foreignId('id_pendaftar');
+            $table->foreignId('id_pendaftar')->nullable();
             $table->foreign('id_pendaftar')->references('id')->on('pendaftar')->onDelete('cascade');
-
+            
+            $table->foreignId('id_siswa')->nullable();
+            $table->foreign('id_siswa')->references('id')->on('siswa')->onDelete('cascade');
+            
             $table->double('nilai', 8, 2);
             $table->text('keterangan')->nullable();
             $table->timestamps();
