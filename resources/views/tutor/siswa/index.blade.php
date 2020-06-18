@@ -86,8 +86,10 @@
                                         @endif
                                     </td>
                                     <td>
-                                        {{-- <a class="btn btn-info text-white btn-sm" href="{{route('tutor.show',
-                         [$item->id])}}"> <i class="fa fa-eye"></i></a> --}}
+                                        <a class="btn btn-success text-white btn-sm" href="{{route('siswa.nilai',
+                         [$item->id])}}"> <i class="fa fa-download"></i></a>
+                                        <a class="btn btn-info text-white btn-sm" href="{{route('siswa.show',
+                         [$item->id])}}"> <i class="fa fa-eye"></i></a>
                                         <a class="btn btn-warning text-white btn-sm" href="{{route('siswa.edit',
                             [$item->id])}}"> <i class="fa fa-edit"></i> </a>
                                         <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')"
