@@ -52,5 +52,10 @@ class Tutor extends Authenticatable
         return $this->belongsTo(Siswa::class, 'id', 'id_tutor');
     }
 
+    public function nilai()
+    {
+        return $this->belongsTo(Nilai::class, 'id', 'id_tutor');
+    }
+
     protected $dates = ['deleted_at'];
 }
