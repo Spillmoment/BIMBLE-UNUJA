@@ -1,6 +1,6 @@
 @extends('admin.layouts.tutor')
 
-@section('title','Bimble - Data Siswa')
+@section('title','Bimble - Data Nilai')
 @section('content')
 <div class="orders">
     <div class="row">
@@ -10,7 +10,7 @@
 
                 <div class="card-body">
 
-                    <h4 class="box-title">Daftar Siswa</h4>
+                    <h4 class="box-title">Daftar Nilai</h4>
 
                     @if(session('status'))
                     @push('after-script')
@@ -40,7 +40,7 @@
                             <div class="col-md-3">
                                 <button type="submit" class="btn btn-secondary"> <i class="fa fa-search"
                                         aria-hidden="true"></i> </button>
-                                <a href="{{ route('siswa.index') }}" class="btn btn-warning text-light ml-2"> <i
+                                <a href="{{ route('nilai.index') }}" class="btn btn-warning text-light ml-2"> <i
                                         class="fa fa-refresh" aria-hidden="true"></i> </a>
                             </div>
 
@@ -49,59 +49,47 @@
                 </div>
                 <div class="card-body--">
 
-                    <a class="btn btn-primary btn-sm ml-3 mb-3" href="{{ route('siswa.create') }}"> <i
+                    <a class="btn btn-primary btn-sm ml-3 mb-3" href="{{ route('nilai.create') }}"> <i
                             class="fa fa-plus" aria-hidden="true"></i> </a>
                     <div class="table-stats order-table ov-h">
                         <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Siswa</th>
+                                    <th>Nama</th>
                                     <th>Jenis Kelamin</th>
-                                    <th>Alamat</th>
-                                    <th>Foto</th>
+                                    <th>Kursus</th>
+                                    <th>Nilai</th>
+                                    <th>Keterangan</th>
                                     <th>Option</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                                @forelse ($siswa as $item)
+                                @forelse ($nilai as $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td> {{ $item->nama_siswa }} </td>
                                     <td>
-                                        @if ($item->jenis_kelamin == 'L')
+                                        @foreach ($item->pendaftar as $user)
+                                        {{ $user->nama_pendaftar }}
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        @if ($user->jenis_kelamin == 'L')
                                         Laki-Laki
                                         @else
                                         Perempuan
                                         @endif
                                     </td>
-                                    <td> {{ $item->alamat }} </td>
                                     <td>
-                                        @if ($item->foto)
-                                        <img src="{{ asset('uploads/siswa/'.$item->foto) }}"
-                                            alt="{{ $item->nama_siswa }}">
-                                        @else
-                                        N/A
-                                        @endif
+                                        @foreach ($item->kursus as $cours)
+                                        {{ $cours->nama_kursus }}
+                                        @endforeach
                                     </td>
+                                    <td>{{ $item->nilai }}.0</td>
+                                    <td>{{ $item->keterangan }}</td>
                                     <td>
-                                        <a class="btn btn-success text-white btn-sm" href="{{route('siswa.nilai',
-                         [$item->id])}}"> <i class="fa fa-download"></i></a>
-                                        <a class="btn btn-info text-white btn-sm" href="{{route('siswa.show',
-                         [$item->id])}}"> <i class="fa fa-eye"></i></a>
-                                        <a class="btn btn-warning text-white btn-sm" href="{{route('siswa.edit',
-                            [$item->id])}}"> <i class="fa fa-edit"></i> </a>
-                                        <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')"
-                                            class="d-inline" action="{{route('siswa.destroy', [$item->id])}}"
-                                            method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" value="Delete" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
+                                        TODO: actions
                                 </tr>
                                 @empty
                                 <tr>

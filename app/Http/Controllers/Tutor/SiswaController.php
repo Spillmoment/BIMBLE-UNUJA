@@ -69,7 +69,10 @@ class SiswaController extends Controller
      */
     public function show($id)
     {
-        //
+        $siswa = Siswa::findOrFail($id);
+        return view('tutor.siswa.show', [
+            'siswa' => $siswa
+        ]);
     }
 
     /**
@@ -96,8 +99,14 @@ class SiswaController extends Controller
     public function update(SiswaRequest $request, $id)
     {
         $siswa = Siswa::findOrFail($id);
-        $data = $request->all();
-        $data['password'] = Hash::make($data['password']);
+
+        $siswa->nama_siswa = $request->get('nama_siswa');
+        $siswa->jenis_kelamin = $request->get('jenis_kelamin');
+        $siswa->alamat = $request->get('alamat');
+        $siswa->username = $request->get('username');
+        $siswa->password = Hash::make($request->get('password'));
+        $siswa->password = $request->get('konfirmasi_password');
+        $siswa->keterangan = $request->get('keterangan');
 
         if ($request->hasFile('foto')) {
             if ($request->file('foto')) {
@@ -105,11 +114,11 @@ class SiswaController extends Controller
                 $foto = $request->file('foto');
                 $nama_gambar = 'siswa-' . time() . '.' . $foto->getClientOriginalExtension();
                 $request->file('foto')->move('uploads/siswa', $nama_gambar);
-                $data['foto'] = $nama_gambar;
+                $siswa->foto = $nama_gambar;
             }
         }
 
-        $siswa->update($data);
+        $siswa->save();
         return redirect()->route('siswa.index')
             ->with(['status' => 'Data Siswa Berhasil Di Update']);
     }
@@ -128,5 +137,29 @@ class SiswaController extends Controller
 
         return redirect()->route('siswa.index')
             ->with(['status' => 'Data Siswa Berhasil Dihapus']);
+    }
+
+    public function nilai($id)
+    {
+        $siswa = Siswa::findOrFail($id);
+        return view('tutor.siswa.nilai', [
+            'siswa' => $siswa
+        ]);
+    }
+
+    public function add_nilai(Request $request)
+    {
+        $request->validate([
+            'nilai' => 'required|numeric',
+            'id_tutor' => 'required'
+        ]);
+
+        Siswa::create([
+            'id_tutor' => $request->id_tutor,
+            'nilai' => $request->nilai
+        ]);
+
+        return redirect()->route('siswa.index')
+            ->with(['status' => 'Data Nilai Siswa Berhasil Ditambah']);
     }
 }

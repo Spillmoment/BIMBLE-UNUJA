@@ -27,11 +27,11 @@ class SiswaRequest extends FormRequest
             'id_tutor' => 'required',
             'nama_siswa' => 'required',
             'alamat' => 'required|min:3',
-            'jenis_kelamin' => 'required',
+            'jenis_kelamin' => 'required|in:L,P',
             'foto' => 'required|image|mimes:jpg,jpeg,png,bmp',
             'username'   => 'required|min:3|max:100',
             'password'   => 'required|min:3',
-            'konfirmasi_password'   => 'required|same:password',
+            'konfirmasi_password' => 'required|same:password',
             'keterangan' => 'required'
         ];
     }

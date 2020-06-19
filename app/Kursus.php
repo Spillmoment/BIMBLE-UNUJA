@@ -45,4 +45,9 @@ class Kursus extends Model
     {
         return $this->belongsTo(Komentar::class, 'id', 'id_kursus');
     }
+
+    public function nilai()
+    {
+        return $this->belongsTo(Nilai::class, 'id', 'id_kursus');
+    }
 }

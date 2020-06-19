@@ -48,7 +48,10 @@ Route::prefix('tutor')
     ->group(function () {
 
         Route::get('/', 'Tutor\DashboardController@index')->name('tutor.home');
+        Route::post('siswa/nilai', 'Tutor\SiswaController@add_nilai')->name('siswa.add');
+        Route::get('siswa/nilai/{id}', 'Tutor\SiswaController@nilai')->name('siswa.nilai');
         Route::resource('siswa', 'Tutor\SiswaController');
+        Route::resource('nilai', 'Tutor\NilaiController');
     });
 
 // Route Manager

@@ -23,8 +23,9 @@ class Pendaftar extends Authenticatable
         'password',
     ];
 
-    public function order() {
-        return $this->belongsTo(Order::class,'id','id_pendaftar');
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'id', 'id_pendaftar');
     }
 
     // public function getAuthPassword()
@@ -51,12 +52,15 @@ class Pendaftar extends Authenticatable
     {
         return $this->belongsTo(OrderDetail::class, 'id', 'id_pendaftar');
     }
-    
+
     public function komentar()
     {
         return $this->belongsTo(Komentar::class, 'id', 'id_pendaftar');
     }
- 
-    protected $dates = ['deleted_at'];
+    public function nilai()
+    {
+        return $this->belongsTo(Nilai::class, 'id', 'id_pendaftar');
+    }
 
+    protected $dates = ['deleted_at'];
 }
