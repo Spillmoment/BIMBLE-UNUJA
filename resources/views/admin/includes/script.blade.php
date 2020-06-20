@@ -1,11 +1,11 @@
-<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- Scripts -->
+
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.4/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jquery-match-height@0.7.2/dist/jquery.matchHeight.min.js"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
-<!--  Chart js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.7.3/dist/Chart.bundle.min.js"></script>
 
 <!--Chartist Chart-->
@@ -25,20 +25,27 @@
 
 <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 <script>
+    $(document).ready(function () {
+        $('#bootstrap-data-table-export').DataTable();
+    });
+
     ClassicEditor
-            .create( document.querySelector( '.ckeditor' ) )
-            .then( editor => {
-                    console.log( editor );
-            } )
-            .catch( error => {
-                    console.error( error );
-            } );
+        .create(document.querySelector('.ckeditor'))
+        .then(editor => {
+            console.log(editor);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
 </script>
 
 <script>
-    jQuery(document).ready(function($){
-        $('#mymodal').on('show.bs.modal', function(e){
+    jQuery(document).ready(function ($) {
+        $('#mymodal').on('show.bs.modal', function (e) {
             var button = $(e.relatedTarget);
             var modal = $(this);
 
@@ -46,6 +53,7 @@
             modal.find('.modal-title').html(button.data("title"));
         });
     });
+
 </script>
 
 <div class="modal" id="mymodal" tabindex="-1" role="dialog">

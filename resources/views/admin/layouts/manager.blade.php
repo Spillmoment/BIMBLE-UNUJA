@@ -1,5 +1,6 @@
 <html>
-    <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title')</title>
@@ -16,29 +17,24 @@
 
 <body>
 
-    {{-- main manager --}}
-    @auth('manager')
+
     {{-- Sidebar --}}
     @include('admin.includes.sidebar-manager')
-    
+
     <div id="right-panel" class="right-panel">
         {{-- Navbar --}}
         @include('admin.includes.navbar-manager')
-        
-        <div class="content">
-            {{-- Content --}}
-            @yield('content')
-        </div>
+
+
+        @yield('content')
+
         <div class="clearfix"></div>
     </div>
-    
+
     {{-- Script --}}
     @stack('before-script')
     @include('admin.includes.script')
     @stack('after-script')
-    
-    @endauth
-    {{-- end main manager --}}
 
 
 

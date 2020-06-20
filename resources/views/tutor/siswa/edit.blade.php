@@ -11,6 +11,10 @@
             @csrf
             @method('PUT')
 
+            @if (Auth::check())
+            <input type="hidden" name="id_tutor" value="{{ Auth::user()->id }}" contextmenu="">
+            @endif
+
             <div class="form-group ">
                 <label for="nama_siswa">Nama Siswa</label>
                 <input type="text" class="form-control {{ $errors->first('nama_siswa') ? 'is-invalid' : '' }}"

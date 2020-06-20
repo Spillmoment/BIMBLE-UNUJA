@@ -2,38 +2,76 @@
 
 @section('title','Bimble - Galeri Kursus')
 @section('content')
-    <div class="orders">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="box-title">Galleri Kursus
-                <span class="badge badge-light badge-pill badge-lg" style="font-size: 15px;">
-                  {{ $kursus->nama_kursus }}
-                </span>
-              </h4>
-            </div>
-            <div class="card-body--">
-            
-              <div class="row">
-                @forelse ($items as $gallery)
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <a href="{{  Storage::url($gallery->image)  }}" target="_blank">
-                        <img class="card-img-top" height="150px" src="{{  Storage::url($gallery->image)  }}" alt="Card image cap">
-                      </a>
-                      </div>
-                  </div>
-                </div>
-                @empty
-                @endforelse
-             
 
-              </div>
+
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Galeri Kursus</h1>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="{{ route('kursus.index') }}">Data Kursus</a></li>
+                            <li class="active">Galeri Kursus </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
+</div>
+<div class="content">
+
+    <div class="orders">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="box-title">Galeri Kursus
+                            <span class="badge badge-primary badge-pill badge-lg" style="font-size: 15px;">
+                                {{ $kursus->nama_kursus }}
+                            </span>
+                        </h4>
+                    </div>
+                    <div class="card-body--">
+
+                        <div class="row">
+                            @forelse ($items as $gallery)
+                            <div class="col-sm-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <img class="card-img-top img-fluid img-thumbail"
+                                            src="{{  Storage::url($gallery->image)  }}" alt="Card image cap">
+                                    </div>
+                                </div>
+                            </div>
+                            @empty
+
+                            <div class="col">
+                                <div
+                                    class="my-4 alert alert-warning col-lg-12 col-sm-12 col-md-12 text-center text-black font-weight-bold">
+                                    Galeri Kursus Kosong <a href="{{ route('kursus.index') }}"
+                                        class="btn btn-warning text-light btn-md">Kembali Ke Kursus</a>
+
+                                </div>
+                            </div>
+
+                            @endforelse
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection

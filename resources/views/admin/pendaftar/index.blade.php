@@ -2,53 +2,60 @@
 
 @section('title','Bimble - Data Pendaftar')
 @section('content')
-<div class="orders">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="box-title">List Pendaftar</h4>
 
-                    @if(session('status'))
-                    @push('after-script')
-                    <script>
-                        swal({
-                            title: "Success",
-                            text: "{{session('status')}}",
-                            icon: "success",
-                            button: false,
-                            timer: 2000
-                        });
 
-                    </script>
-                    @endpush
-                    @endif
-
-                    <form action="{{route('pendaftar.index')}}">
-
-                        <div class="row mt-2">
-
-                            <div class="col-md-5 col-xs-5">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" {{ Request::get('keyword') }} name="keyword"
-                                        placeholder="Masukkan Nama" autofocus>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-secondary"> <i class="fa fa-search"
-                                        aria-hidden="true"></i> </button>
-                                <a href="{{ route('pendaftar.index') }}" class="btn btn-warning text-light ml-2"> <i
-                                        class="fa fa-refresh" aria-hidden="true"></i> </a>
-                            </div>
-
-                        </div>
-                    </form>
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Data Pendaftar</h1>
+                    </div>
                 </div>
-                <div class="card-body--">
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="{{ route('pendaftar.index') }}">Data Pendaftar</a></li>
+                            <li class="active">List Pendaftar </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if(session('status'))
+@push('after-script')
+<script>
+    swal({
+        title: "Success",
+        text: "{{session('status')}}",
+        icon: "success",
+        button: false,
+        timer: 2000
+    });
+
+</script>
+@endpush
+@endif
+
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Table Pendaftar</strong>
 
 
-                    <div class="table-stats order-table ov-h">
-                        <table class="table table-hover">
+                    </div>
+                    <div class="card-body">
+                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -104,7 +111,8 @@
                                             method="POST">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="submit" value="Delete" class="btn btn-danger btn-sm">
+                                            <button type="submit" id="deleteButton"
+                                                data-name="{{ $regis->nama_pendaftar }}" class="btn btn-danger btn-sm">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </form>
@@ -120,18 +128,40 @@
                                 </tr>
                                 @endif
                             </tbody>
-
                         </table>
-
-                        <div class="text-center">
-                            {{ $pendaftar->links() }}
-                        </div>
-
                     </div>
                 </div>
             </div>
+
+
         </div>
-    </div>
+    </div><!-- .animated -->
 </div>
 
 @endsection
+
+@push('after-script')
+@include('admin.includes.datatable')
+<script>
+    $('button#deleteButton').on('click', function (e) {
+        var name = $(this).data('name');
+        e.preventDefault();
+        swal({
+                title: "Yakin!",
+                text: "menghapus Pendaftar  " + name + "?",
+                icon: "warning",
+                dangerMode: true,
+                buttons: {
+                    cancel: "Cancel",
+                    confirm: "OK",
+                },
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $(this).closest("form").submit();
+                }
+            });
+    });
+
+</script>
+@endpush
