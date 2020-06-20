@@ -1,4 +1,5 @@
-<script src="{{ asset('assets/js/lib/data-table/datatables.min.js') }}"></script>
+<script src="{{ asset('assets/js/lib/data-table/jquery.dataTables.min.js') }}"></script>
+{{-- <script src="{{ asset('assets/js/lib/data-table/datatables.min.js') }}"></script> --}}
 <script src="{{ asset('assets/js/lib/data-table/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/js/lib/data-table/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('assets/js/lib/data-table/buttons.bootstrap.min.js') }}"></script>
