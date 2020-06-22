@@ -12,6 +12,11 @@
     @endforeach
 
     <tr>
+        <th>Tanggal Order</th>
+        <td>{{ $item->created_at->format('d -m-Y') }}</td>
+    </tr>
+
+    <tr>
         <th>Total Order</th>
         <td>@currency($item->total_tagihan).00</td>
     </tr>
