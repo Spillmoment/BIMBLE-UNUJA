@@ -80,7 +80,7 @@
                                     <td>
                                         <a class="btn btn-warning text-white btn-sm" href="{{route('gallery.edit',
        [$gallery->id])}}"> <i class="fa fa-edit"></i></a>
-                                        <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')"
+                                        <form  
                                             class="d-inline" action="{{route('gallery.destroy', [$gallery->id])}}"
                                             method="POST">
                                             @method('DELETE')
