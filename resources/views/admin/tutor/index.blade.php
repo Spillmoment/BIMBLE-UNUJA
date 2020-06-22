@@ -90,8 +90,7 @@
                                        [$sensei->id])}}"> <i class="fa fa-eye"></i></a>
                                         <a class="btn btn-warning text-white btn-sm" href="{{route('tutor.edit',
                                           [$sensei->id])}}"> <i class="fa fa-edit"></i> </a>
-                                        <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')"
-                                            class="d-inline" action="{{route('tutor.destroy', [$sensei->id])}}"
+                                        <form class="d-inline" action="{{route('tutor.destroy', [$sensei->id])}}"
                                             method="POST">
                                             @method('DELETE')
                                             @csrf

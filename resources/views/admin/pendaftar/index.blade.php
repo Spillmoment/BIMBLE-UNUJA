@@ -106,8 +106,7 @@
                                         <a class="btn btn-info text-white btn-sm" href="{{route('pendaftar.show',
                                        [$regis->id])}}"> <i class="fa fa-eye"></i></a>
 
-                                        <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')"
-                                            class="d-inline" action="{{route('pendaftar.destroy', [$regis->id])}}"
+                                        <form class="d-inline" action="{{route('pendaftar.destroy', [$regis->id])}}"
                                             method="POST">
                                             @method('DELETE')
                                             @csrf
