@@ -46,8 +46,7 @@
                     </div>
                     <div class="pb-4">
                         <div class="mb-4">
-                            <button type="submit" class="btn btn-primary"> <i class="far fa-paper-plane mr-1"></i>Send
-                                Now
+                            <button type="submit" class="btn btn-primary btn-upload btn-sm"> <i class="far fa-paper-plane mr-1"></i>Kirim 
                             </button>
                         </div>
                     </div>
@@ -213,8 +212,7 @@
             $.ajax({
                 type: "GET",
                 dataType: "json",
-                url: '{{ route('
-                order.update.cancel ') }}',
+                url: '{{ route('order.update.cancel') }}',
                 data: {
                     'status': status,
                     'order_id': orderId,
@@ -322,6 +320,21 @@
 
             return false;
         });
+
+        $('.btn-upload').on('click', function () {
+            var $this = $(this);
+            $('button').css("opacity", 0.4);
+            var loadingText =
+                '<button class="spinner-grow spinner-grow-sm"></button> Sedang Diproses...';
+            if ($(this).html() !== loadingText) {
+                $this.data('original-text', $(this).html());
+                $this.html(loadingText);
+            }
+            setTimeout(function () {
+                $this.html($this.data('original-text'));
+            }, 3000);
+        });
+    })
 
     });
 
