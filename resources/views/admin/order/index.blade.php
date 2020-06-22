@@ -27,6 +27,7 @@
     </div>
 </div>
 
+
 @if(session('status'))
 @push('after-script')
 <script>
@@ -42,24 +43,66 @@
 @endpush
 @endif
 
-
 <div class="content">
     <div class="animated fadeIn">
+
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <strong class="card-title">Table Order</strong>
 
+                        <form action="{{ route('order.index') }}" method="get">
+                            <div class="row">
+                                <div class="col">
+
+                                    <label class="mt-3">Pencarian Tanggal Order</label>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input type="date" name="start_date" placeholder="Start Date"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <input type="date" name="end_date" placeholder="End Date"
+                                                    class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="submit" class="btn btn-primary mt-1"> <i
+                                                    class="fa fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
 
                     </div>
                     <div class="card-body">
+
+                        @if (Request::get('start_date') != "" && Request::get('end_date') != "")
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            Hasil pencarian order masuk dari tanggal : <strong> {{ $start_date }} s/d {{ $end_date }}
+                            </strong>
+                        </div>
+                        @endif
+
                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>ID</th>
                                     <th>Nama</th>
                                     <th>Email</th>
+                                    <th>Tanggal Order</th>
                                     <th>Total Order</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -77,7 +120,9 @@
                                     <td>{{ $user->nama_pendaftar }}</td>
                                     <td>{{ $user->email }}</td>
                                     @endforeach
-                                    <td>@currency($item->total_tagihan).00</td>
+                                    <td> {{ $item->created_at->format('d F Y') }}</td>
+                                    <td>
+                                        @currency($item->total_tagihan).00</td>
                                     <td>
                                         @if($item->status_kursus == 'PENDING')
                                         <span class="badge badge-info">
@@ -93,7 +138,7 @@
                                                             {{ $item->status_kursus }}
                                                         </span>
                                     </td>
-                                    <td>
+                                    <td  style="width: 18%">
                                         @if($item->status_kursus == 'PENDING')
                                         <a href="{{ route('order.status', $item->id) }}?status=SUCCESS"
                                             class="btn btn-success btn-sm">
@@ -125,15 +170,26 @@
                                 @endif
 
                                 @empty
-                                <tr>
-                                    <td colspan="6" class="text-center p-5">
-                                        Data tidak tersedia
-                                    </td>
-                                </tr>
+                                @push('after-script')
+                                <script>
+                                    swal({
+                                    title: "Maaf",
+                                    text: "Data order kosong!",
+                                    icon: "warning",
+                                    button: "OK!",
+                                    }).then(function() {
+                                        window.location = "{{ route('order.index') }}";
+                                    }, 3000);
+                                </script>
+                                    @endpush
                                 @endforelse
                             </tbody>
 
                         </table>
+
+                        <div class="float-right">
+                            {{ $items->appends(Request::all())->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
