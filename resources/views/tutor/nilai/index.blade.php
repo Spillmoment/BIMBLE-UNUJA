@@ -100,6 +100,18 @@
 
                         </table>
                     </div>
+
+                    <h3>Kursus Anda</h3>
+                    @foreach ($kursus_tutor as $kursus)
+                      <div class="card" style="width: 18rem;">
+                        <img src="https://via.placeholder.com/50x30" class="card-img-top" alt="{{ $kursus->nama_kursus }}">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ $kursus->nama_kursus }}</h5>
+                          <p class="card-text">{{ $kursus->keterangan }}</p>
+                          <a href="/tutor/kursus/{{ $kursus->slug }}/nilai/" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                      </div>
+                    @endforeach
                 </div>
             </div>
         </div>

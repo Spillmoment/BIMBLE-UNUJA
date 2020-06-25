@@ -47,6 +47,20 @@ class ResetPasswordController extends Controller
     }
 
     /**
+     * Get the password reset validation rules.
+     *
+     * @return array
+     */
+    protected function rules()
+    {
+        return [
+            'token' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|confirmed|min:6',
+        ];
+    }
+
+    /**
      * Display the password reset view for the given token.
      *
      * If no token is present, display the link request form.

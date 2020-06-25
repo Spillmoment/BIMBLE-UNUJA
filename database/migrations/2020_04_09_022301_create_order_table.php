@@ -20,6 +20,7 @@ class CreateOrderTable extends Migration
             $table->foreign('id_pendaftar')->references('id')->on('pendaftar')->onDelete('cascade');
 
             $table->integer('total_tagihan');
+            $table->string('upload_bukti', 100)->nullable();
             $table->enum('status_kursus', ['PENDING', 'SUCCESS' , 'PROCESS', 'CANCEL' ,'FAILED']);
             $table->timestamps();
             $table->softDeletes();

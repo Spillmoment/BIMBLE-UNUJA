@@ -50,8 +50,10 @@ Route::prefix('tutor')
         Route::get('/', 'Tutor\DashboardController@index')->name('tutor.home');
         Route::put('siswa/nilai', 'Tutor\SiswaController@add_nilai')->name('siswa.add');
         Route::get('siswa/nilai/{id}', 'Tutor\SiswaController@nilai')->name('siswa.nilai');
+        Route::get('kursus/{slug}/nilai/', 'Tutor\NilaiController@kursus_nilai')->name('kursus.nilai');
         Route::resource('siswa', 'Tutor\SiswaController');
         Route::resource('nilai', 'Tutor\NilaiController');
+        Route::patch('nilai/{id}/edit', 'Tutor\NilaiController@edit_nilai_pendaftar');
     });
 
 // Route Manager
@@ -98,8 +100,7 @@ Route::get('/kursus/{slug}', 'Web\FrontController@show')->name('front.detail');
 
 
 // Route Order
-Route::post('/order/post', 'Web\OrderController@orderPost')->name('order.post');
-Route::get('/order/success', 'Web\OrderController@success')->name('order.success');
+Route::post('/order/post/{slug}', 'Web\OrderController@orderPost')->name('order.post');
 Route::get('/order/cart', 'Web\OrderController@view')->name('order.view');
 Route::get('/order/cart/pending', 'Web\OrderController@updateToPending')->name('order.update.cancel');
 Route::delete('/order/cart/{id}', 'Web\OrderController@updateToDelete')->name('order.delete.pesanan');

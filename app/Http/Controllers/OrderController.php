@@ -138,6 +138,16 @@ class OrderController extends Controller
         $item = Order::findOrFail($id);
         $item->status_kursus = $request->status;
 
+        if ($request->status == 'SUCCESS') {
+            OrderDetail::where('id_order', $item->id)
+                        ->update(['status' => 'SUCCESS']);
+        } elseif ($request->status == 'PENDING') {
+            OrderDetail::where('id_order', $item->id)
+                        ->update(['status' => 'PENDING']);
+        } else{
+            OrderDetail::where('id_order', $item->id)
+                        ->update(['status' => 'FAILED']);
+        }
         $item->save();
 
         return redirect()->route('order.index')
