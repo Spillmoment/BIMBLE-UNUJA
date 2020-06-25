@@ -29,7 +29,9 @@ class OrderController extends Controller
             'biaya_kursus' => 'required|integer',
             'diskon_kursus' => 'required|integer',
         ]);
+
         $pendaftarId = Auth::id();
+
         $harga_kursus = $request->biaya_kursus;
         $diskon_kursus = $request->diskon_kursus;
         $diskon = $harga_kursus * ($diskon_kursus / 100);
@@ -61,7 +63,15 @@ class OrderController extends Controller
             'status' => 'PROCESS',
         ]);
 
-        return redirect()->back();
+        $order_k = OrderDetail::with('kursus')
+            ->where('id_pendaftar', $pendaftarId)
+            ->orderBy('created_at', 'desc')
+            ->take(1)
+            ->get();
+
+        return redirect()->route('order.success')->with([
+            'order' => $order_k
+        ]);
     }
 
     public function view()
@@ -73,6 +83,7 @@ class OrderController extends Controller
                 $query->where('status', 'PROCESS')
                     ->orWhere('status', 'CANCEL');
             })
+            ->withCount('kursus')
             ->orderBy('created_at', 'ASC')
             ->get();
 
@@ -196,5 +207,11 @@ class OrderController extends Controller
         return response()->json([
             'message' => 'Konfirmasi berhasil dibatalkan.'
         ]);
+    }
+
+    public function success()
+    {
+        $data = "Bimble | Halaman Sukses";
+        return view('web.web_success', ['title' => $data]);
     }
 }
