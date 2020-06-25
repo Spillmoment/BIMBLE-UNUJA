@@ -50,8 +50,10 @@ Route::prefix('tutor')
         Route::get('/', 'Tutor\DashboardController@index')->name('tutor.home');
         Route::post('siswa/nilai', 'Tutor\SiswaController@add_nilai')->name('siswa.add');
         Route::get('siswa/nilai/{id}', 'Tutor\SiswaController@nilai')->name('siswa.nilai');
+        Route::get('kursus/{slug}/nilai/', 'Tutor\NilaiController@kursus_nilai')->name('kursus.nilai');
         Route::resource('siswa', 'Tutor\SiswaController');
         Route::resource('nilai', 'Tutor\NilaiController');
+        Route::patch('nilai/{id}/edit', 'Tutor\NilaiController@edit_nilai_pendaftar');
     });
 
 // Route Manager
