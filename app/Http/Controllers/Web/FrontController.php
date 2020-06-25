@@ -16,25 +16,27 @@ class FrontController extends Controller
         $kursus = Kursus::with(['kategori', 'tutor'])
             ->withCount('order_detail')
             ->orderBy('created_at', 'DESC')->paginate(4);
-        $kategori = Kategori::latest()->get();
+        $kategori = Kategori::all();
 
         $keyword = $request->get('keyword');
-        $filter_kategori = $request->get('nama_kategori');
-        $nama_kategori = '';
+        if ($keyword) {
+            $kursus = Kursus::where('nama_kursus', 'like', "%$keyword%")
+                ->withCount('order_detail')
+                ->orderBy('created_at', 'desc')->paginate(4);
+        }
 
-        if ($filter_kategori != '' || $keyword != '') {
-
+        $filter_kategori = $request->get('kategori');
+        if ($filter_kategori) {
             $kursus = Kursus::with('kategori')
-                ->whereHas('kategori', function ($query) use ($keyword) {
-                    $query->where('nama_kursus', 'LIKE', "%$keyword%");
-                })
-                ->where('id_kategori', 'LIKE', "%$filter_kategori%")
+                ->where('id_kategori', $filter_kategori)
+                ->withCount('order_detail')
                 ->orderBy('created_at', 'DESC')
                 ->paginate(4);
 
             $data_kategori = Kategori::findOrFail($filter_kategori);
             $nama_kategori = $data_kategori->nama_kategori;
         }
+
 
         return view('web.web_home', compact('kursus', 'kategori', 'nama_kategori'));
     }
@@ -48,11 +50,12 @@ class FrontController extends Controller
         $kategori = Kategori::latest()->get();
 
         $keyword = $request->get('keyword');
-        $filter_kategori = $request->get('nama_kategori');
+        $filter_kategori = $request->get('kategori');
 
         if ($keyword) {
             $kursus = Kursus::with(['kategori', 'tutor'])
                 ->where('nama_kursus', 'LIKE', "%$keyword%")
+                ->withCount('order_detail')
                 ->orderBy('created_at', 'DESC')
                 ->paginate(9);
         }
@@ -60,6 +63,7 @@ class FrontController extends Controller
         if ($filter_kategori) {
             $kursus = Kursus::with('kategori')
                 ->where('id_kategori', 'LIKE', "%$filter_kategori%")
+                ->withCount('order_detail')
                 ->orderBy('created_at', 'DESC')
                 ->paginate(3);
 
@@ -67,7 +71,7 @@ class FrontController extends Controller
             $nama_kategori = $data_kategori->nama_kategori;
         }
 
-        return view('web.web_kursus', compact('kursus', 'kategori'));
+        return view('web.web_kursus', compact('kursus', 'kategori', 'nama_kategori'));
     }
 
     public function show($slug)
@@ -90,6 +94,7 @@ class FrontController extends Controller
             ->where('id_kursus', $kursus->id)
             ->where('status', 'SUCCESS')
             ->first();
+
         return view('web.web_detail_kursus', [
             'kursus' => $kursus,
             'kategori' => $kategori,
