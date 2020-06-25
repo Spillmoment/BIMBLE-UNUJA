@@ -6,6 +6,7 @@
     <title>@yield('title')</title>
     <meta name="description" content="ShaynaAdmin - HTML5 Admin Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="{{ asset('assets/frontend/img/favicon.png') }}" type="image/x-icon">
 
     {{-- Style --}}
     @stack('before-style')
