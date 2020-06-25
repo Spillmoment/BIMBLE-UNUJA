@@ -92,7 +92,7 @@
                          [$item->id])}}"> <i class="fa fa-eye"></i></a>
                                         <a class="btn btn-warning text-white btn-sm" href="{{route('siswa.edit',
                             [$item->id])}}"> <i class="fa fa-edit"></i> </a>
-                                        <form onsubmit="return confirm('yakin untuk memasukkan ke Trash!')"
+                                        <form  
                                             class="d-inline" action="{{route('siswa.destroy', [$item->id])}}"
                                             method="POST">
                                             @method('DELETE')

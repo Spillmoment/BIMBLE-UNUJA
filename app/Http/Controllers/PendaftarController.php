@@ -106,7 +106,7 @@ class PendaftarController extends Controller
      */
     public function destroy($id)
     {
-        $user = Pendaftar::findOrfFail($id);
+        $user = Pendaftar::findOrfail($id);
         $user->delete();
         return redirect()->route('pendaftar.index')
             ->with(['status' => 'Data pendaftar berhasil dihapus']);

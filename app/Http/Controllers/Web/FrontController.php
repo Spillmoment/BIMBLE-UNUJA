@@ -13,7 +13,9 @@ class FrontController extends Controller
 {
     public function index(Request $request)
     {
-        $kursus = Kursus::with(['kategori', 'tutor'])->withCount('order_detail')->orderBy('created_at', 'DESC')->paginate(4);
+        $kursus = Kursus::with(['kategori', 'tutor'])
+            ->withCount('order_detail')
+            ->orderBy('created_at', 'DESC')->paginate(4);
         $kategori = Kategori::latest()->get();
 
         $keyword = $request->get('keyword');
@@ -40,7 +42,9 @@ class FrontController extends Controller
 
     public function kursus(Request $request)
     {
-        $kursus = Kursus::with(['kategori', 'tutor'])->orderBy('created_at', 'DESC')->paginate(9);
+        $kursus = Kursus::with(['kategori', 'tutor'])
+            ->withCount('order_detail')
+            ->orderBy('created_at', 'DESC')->paginate(4);
         $kategori = Kategori::latest()->get();
 
         $keyword = $request->get('keyword');

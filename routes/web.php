@@ -48,7 +48,7 @@ Route::prefix('tutor')
     ->group(function () {
 
         Route::get('/', 'Tutor\DashboardController@index')->name('tutor.home');
-        Route::post('siswa/nilai', 'Tutor\SiswaController@add_nilai')->name('siswa.add');
+        Route::put('siswa/nilai', 'Tutor\SiswaController@add_nilai')->name('siswa.add');
         Route::get('siswa/nilai/{id}', 'Tutor\SiswaController@nilai')->name('siswa.nilai');
         Route::get('kursus/{slug}/nilai/', 'Tutor\NilaiController@kursus_nilai')->name('kursus.nilai');
         Route::resource('siswa', 'Tutor\SiswaController');
@@ -91,7 +91,6 @@ Route::prefix('manager')
             ->name('order.status');
         Route::resource('order', 'OrderController');
     });
-
 
 
 // Route Front

@@ -16,13 +16,26 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $items = Order::with(['pendaftar', 'order_detail'])
             ->orderBy('created_at', 'DESC')
             ->paginate(10);
+        $start_date = $request->get('start_date');
+        $end_date = $request->get('end_date');
+
+        if ($start_date != "" && $end_date != "") {
+            $items = Order::whereBetween('created_at', [$start_date, $end_date])
+                ->orderBy('created_at', 'ASC')
+                ->paginate(10);
+            $start_date = \Carbon\Carbon::parse($start_date)->format('d-F-Y');
+            $end_date = \Carbon\Carbon::parse($end_date)->format('d-F-Y');
+        }
+
         return view('admin.order.index', [
-            'items' => $items
+            'items' => $items,
+            'start_date' => $start_date,
+            'end_date' => $end_date
         ]);
     }
 
@@ -137,6 +150,7 @@ class OrderController extends Controller
         }
         $item->save();
 
-        return redirect()->route('order.index');
+        return redirect()->route('order.index')
+            ->with(['status' => 'Status order berhasil dDiubah ke  ' . $item->status_kursus]);
     }
 }
