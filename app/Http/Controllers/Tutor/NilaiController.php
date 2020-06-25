@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Tutor;
 
 use App\Http\Controllers\Controller;
+use App\Kursus;
 use Illuminate\Http\Request;
 use App\Nilai;
+use App\OrderDetail;
+use App\Pendaftar;
+use App\Siswa;
 use Illuminate\Support\Facades\Auth;
 
 class NilaiController extends Controller
@@ -21,9 +25,11 @@ class NilaiController extends Controller
             ->where('id_tutor', $id_tutor)
             ->orderBy('created_at', 'DESC')
             ->paginate(12);
+        $list_kursus = Kursus::where('id_tutor', $id_tutor)->get();
 
         return view('tutor.nilai.index', [
-            'nilai' => $nilai
+            'nilai' => $nilai,
+            'kursus_tutor' => $list_kursus
         ]);
     }
 
@@ -45,6 +51,25 @@ class NilaiController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+        $request->validate([
+            'nilai' => 'required|numeric|between:0,100',
+            'keterangan' => 'required'
+        ]);
+        $cek_data = Nilai::where('id_kursus', $request->idKursus)->where('id_pendaftar', $request->idPendaftar)->first();
+        if ($cek_data == null){
+            $nilai = new Nilai();
+            $nilai->id_tutor = Auth::id();
+            $nilai->id_kursus = $request->idKursus;
+            $nilai->id_pendaftar = $request->idPendaftar;
+            $nilai->nilai = $request->nilai;
+            $nilai->keterangan = $request->keterangan;
+            $nilai->save();
+            return redirect()->back()->with(['success' => 'Ok, data berhasil disimpan.']);
+        } else {
+            return redirect()->back()->with(['failed' => 'Maaf, Pendaftar ini sudah memiliki nilai.']);
+        }
+         
     }
 
     /**
@@ -66,9 +91,24 @@ class NilaiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $nilai = Nilai::findOrFail($id);
+        return view('tutor.nilai.edit_nilai_pendaftar', compact('nilai'));
     }
 
+    public function edit_nilai_pendaftar(Request $request)
+    { 
+        $request->validate([
+            'nilai' => 'required|numeric|between:0,100',
+            'keterangan' => 'required'
+        ]);
+
+        Nilai::where('id',$request->id)
+                ->update([
+                    'nilai' => $request->nilai,
+                    'keterangan' => $request->keterangan
+                  ]);
+        return redirect()->back()->with(['success' => 'Ok, data berhasil diubah.']);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -77,8 +117,11 @@ class NilaiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        $siswa = Siswa::find($id);
+        $siswa->nilai = $request->nilai;
+        $siswa->save();
+        return redirect()->back();
     }
 
     /**
@@ -90,5 +133,15 @@ class NilaiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function kursus_nilai($slug)
+    {
+        $id_tutor = Auth::id();
+        $kursus = Kursus::where('slug', $slug)->first();
+        $siswa = Siswa::where('id_tutor', $id_tutor)->get();
+        $order_detail = OrderDetail::with(['pendaftar', 'pendaftar.nilai'])->where('id_kursus', $kursus->id)->where('status', 'SUCCESS')->get();
+        // dd($order_detail);
+        return view('tutor.nilai.kursus', compact('kursus','siswa','order_detail'));
     }
 }
