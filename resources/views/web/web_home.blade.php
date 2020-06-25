@@ -1,14 +1,11 @@
 @extends('web.layouts.main')
 
 @section('title','Bimble Home')
+
 @push('style')
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
     <!-- Make sure you put this AFTER Leaflet's CSS -->
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     
     <style>
         #mapid { min-height: 500px; }
@@ -18,11 +15,59 @@
 
 @include('web.layouts.header')
 
+<section class="d-flex align-items-center dark-overlay bg-cover header-utama">
+    <div class="container py-6 py-lg-7 text-white overlay-content text-center">
+        <div class="row">
+            <div class="col-xl-10 mx-auto">
+                <h1 class="display-3 font-weight-bold text-shadow">EH - BIMBEL</h1>
+                <p class="text-lg text-shadow">Pilihlah bimbel favoritmu.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="search-bar rounded p-3 p-lg-4 position-relative mt-n5 z-index-20">
+
+        <div class="row">
+            <div class="col-lg-4 d-flex align-items-center form-group">
+                <form action="{{ route('front.index') }}">
+                        <input type="text" name="keyword" placeholder="Mau cari Bimbel?"
+                        class="form-control border-0 shadow-0" value="{{ Request::get('keyword') }}">
+                </div>
+
+                <div class="col-lg-2 form-group mb-0">
+                    <button type="submit" class="btn btn-primary btn-block h-100">Cari</button>
+                </div>
+            </form>
+
+                <div class="col-md-4 col-lg-3 d-flex align-items-center form-group no-divider">
+                    <form action="{{ route('front.index') }}">
+                        <select id="nama_kategori" name="kategori" data-style="btn-form-control"
+                            class="selectpicker" value="Kategori">
+                            @foreach ($kategori as $row)
+                            <option value="{{$row->id}}">{{ $row->nama_kategori }}</option>
+                            @endforeach
+                           
+                        </select>
+
+                </div>
+                <div class="col-lg-2 form-group mb-0">
+                    <button type="submit" class="btn btn-primary btn-block h-100">Cari</button>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+
+
 <section class="py-6 bg-gray-100">
     <div class="container">
         <div class="row mb-5">
             <div class="col-md-8">
-                <h4>Rekomendasi Bimble</h4>
+                <h4>Daftar Bimble</h4>
             </div>
 
         </div>
@@ -31,21 +76,26 @@
         <div class="row">
             <div class="col-md-12">
 
-                @if (Request::get('nama_kategori'))
-                    <div class="alert alert-success" role="alert">
+         
+                @if (Request::get('kategori'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
                         <strong>Hasil Pencarian Kategori :<b> {{ $nama_kategori }} </b> </strong>
                     </div>
                     @endif
-                  
-
-                <div class="owl-carousel">
-
-                    @foreach ($kursus as $krs)
+                
+                        
+                    @if ($kursus->count() > 0)
+                    <div class="owl-carousel">
+                    @forelse ($kursus as $krs)
                     <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
                                 <img src="{{asset('uploads/kursus/'.$krs->gambar_kursus) }}" style="height: 10em;"
-                                    alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
+                                    alt="{{ $krs->nama_kursus }}" class="img-fluid" /><a
                                     href="{{ route('front.detail', [$krs->slug]) }}" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
@@ -65,13 +115,12 @@
                                     <div class="d-flex card-subtitle mb-3">
                                         <p class="flex-grow-1 mb-0 text-muted text-sm">
                                             @foreach ($krs->kategori as $item)
-                                               
                                             {{$item->nama_kategori}}</p>
                                             @endforeach
                                         <p class="flex-shrink-1 mb-0 card-stars text-xs text-right">
                                             @php
-                                                $minat_kursus = $krs->order_detail_count/10;
-                                                $rating = round($minat_kursus*2)/2;
+                                                $minat_kursus = $krs->order_detail_count / 10;
+                                                $rating = round($minat_kursus * 2 ) / 2;
                                             @endphp
 
                                             @for($x = 5; $x > 0; $x--)
@@ -110,8 +159,20 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    @empty
+                    @endforelse
                 </div>
+                @else
+                  <div class="col text-center mb-5">
+                        <img width="200px" src="https://i.pinimg.com/originals/ea/66/cd/ea66cdf309ec3341db8d38bb298afa0f.gif" >
+                        <p class="font-weight-bold mt-3" style="color: #071C4D;"> Pencarian tidak ditemukan
+                        </p>
+                        <a href="{{ route('front.index') }}" class="btn btn-primary btn-md" style="background: #071C4D">
+                            <i class="fas fa-caret-left"></i> Kembali
+                        </a>
+                      </div>
+                    
+                @endif
             </div>
         </div>
         <div class="row">

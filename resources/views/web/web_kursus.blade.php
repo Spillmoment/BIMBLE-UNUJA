@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('web.layouts.main')
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bimble | Halaman Kursus</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-    <!-- Price Slider Stylesheets -->
-    @include('web.layouts.style')
-</head>
+@section('title','Bimble | List Kursus')
+@section('content')
 
-<body style="padding-top: 72px;">
-
-    @include('web.layouts.header-simple')
-
-
-    <div class="container-fluid py-5 px-lg-5">
+<div class="container-fluid py-5 px-lg-5">
 
         <div class="row">
             <div class="col-lg-3 pt-3">
@@ -35,7 +21,7 @@
                 <form action="{{ route('front.kursus') }}">
                     <div class="mb-4">
                         <label for="form_category" class="form-label">Kategori</label>
-                        <select name="nama_kategori" id="form_category" data-style="btn-selectpicker"
+                        <select name="kategori" id="form_category" data-style="btn-selectpicker"
                             data-selected-text-format="count &gt; 1" title="" class="selectpicker form-control">
                             @if ($kategori->count() > 0)
                             @foreach ($kategori as $row)
@@ -55,8 +41,9 @@
             <div class="col-lg-9">
                 <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
                     <div class="mr-3">
-                        @if (Request::get('nama_kategori') != null)
-                        <strong>Kategori: <span class="text-primary">{{ $nama_kategori }}</span> </strong>
+                        
+                        @if (Request::get('kategori') != null)
+                        <strong>Kategori: <span class="text-item">{{ $nama_kategori }}</span> </strong>
                         @else
                         <strong>Semua Kategori</strong>
                         @endif
@@ -72,7 +59,6 @@
                 <div class="row">
                     <!-- venue item-->
                     @forelse ($kursus as $krs)
-
                     <div data-marker-id="59c0c8e322f3375db4d89128" class="col-sm-6 col-xl-4 mb-5 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
@@ -105,15 +91,21 @@
                                             $minat_kursus = $krs->order_detail_count/10;
                                             $rating = round($minat_kursus*2)/2;
                                             @endphp
-
+    
                                             @for($x = 5; $x > 0; $x--)
                                             @php
                                             if($rating > 0.5) {
                                             echo '<i class="fa fa-star text-warning"></i>';
+                                            } elseif($rating <= 0 ) { 
+                                                echo '<i class="fa fa-star text-gray-300"></i>' ; 
                                             }
-                                            elseif($rating <= 0 ) { echo '<i class="fa fa-star text-gray-300"></i>' ; }
-                                                else { echo '<i class="fa fa-star-half text-warning"></i>' ; }
-                                                $rating--; @endphp @endfor </p> </div> @if ($krs->diskon_kursus == 0)
+                                            else { 
+                                                echo '<i class="fa fa-star-half text-warning"></i>'; 
+                                            }
+                                                $rating--; 
+                                                @endphp 
+                                                @endfor    
+                                        </div> @if ($krs->diskon_kursus == 0)
                                                 <p class="card-text text-muted"><span class="h4 text-primary">
                                                         @currency($krs->biaya_kursus)</span>
                                                     per Bulan</p>
@@ -137,17 +129,18 @@
                             </div>
                         </div>
                         @empty
+                        <div class="col text-center mb-5">
+                            <img width="200px" src="https://i.pinimg.com/originals/ea/66/cd/ea66cdf309ec3341db8d38bb298afa0f.gif" >
+                            <p class="font-weight-bold mt-3" style="color: #071C4D;"> Pencarian tidak ditemukan
+                            </p>
+                            <a href="{{ route('front.index') }}" class="btn btn-primary btn-md" style="background: #071C4D">
+                            <i class="fas fa-caret-left"></i> Kembali
+                            </a>
+                          </div>
                         @endforelse
                     </div>
                 </div>
+        </div>
+    </div>
 
-                <!-- Footer-->
-                @include('web.layouts.footer')
-                <!-- /Footer end-->
-                <!-- JavaScript files-->
-
-
-                @include('web.layouts.script')
-</body>
-
-</html>
+    @endsection

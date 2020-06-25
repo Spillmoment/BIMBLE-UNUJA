@@ -54,7 +54,7 @@
 <body style="padding-top: 72px;">
 
 
-    @include('web.layouts.header-simple')
+    @include('web.layouts.header')
 
     <div class="container-fluid py-5 px-lg-5">
         <h4>Kursus {{ $kursus->nama_kursus }}</h4>

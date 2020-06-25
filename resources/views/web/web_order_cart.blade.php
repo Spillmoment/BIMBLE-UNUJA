@@ -1,31 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('web.layouts.main')
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Eh-Bimble</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-    @include('web.layouts.style')
-    {{-- CDN untuk switch button + cdn jquery --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
-
-    {{-- CDN untuk tost --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+@section('title','Bimble | Halaman Order')
+@section('content')
 
     {{-- crsf-token Meta --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
-</head>
+    {{-- CDN untuk switch button + cdn jquery --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css">
+    {{-- CDN untuk tost --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
-<body style="padding-top: 72px;">
-
-
-    @include('web.layouts.header-simple')
 
     <div class="container-fluid py-5 px-lg-5">
         <!-- <div class="row border-bottom mb-4">
@@ -65,7 +49,7 @@
                     <div class="card card-kelas h-100 border-0 shadow">
                         <div class="card-img-top overflow-hidden gradient-overlay">
                             <img src="{{ asset('uploads/kursus/'.$cours->gambar_kursus) }}"
-                                alt="Cute Quirky Garden apt, NYC adjacent" class="img-fluid" /><a
+                                alt="{{ $cours->nama_kursus }}" class="img-fluid" /><a
                                 href="detail-kursus.html" class="tile-link"></a>
                             <div class="card-img-overlay-bottom z-index-20">
                                 <div class="media text-white text-sm align-items-center">
@@ -85,7 +69,7 @@
                                 <h6 class="card-title"><a href="detail-kursus.html"
                                         class="text-decoration-none text-dark">{{ $cours->nama_kursus }}</a></h6>
                                 <div class="d-flex card-subtitle mb-3">
-                                    <p class="flex-grow-1 mb-0 text-muted text-sm">Untuk SMA sederajat</p>
+                                    <p class="flex-grow-1 mb-0 text-muted text-sm">{{ $cours->keterangan }}</p>
                                     <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i
                                             class="fa fa-star text-warning"></i><i
                                             class="fa fa-star text-warning"></i><i
@@ -188,12 +172,12 @@
     </div>
     </div>
 
-    @include('web.layouts.footer')
+@endsection
 
-    @include('web.layouts.script')
-
-</body>
-
+@push('scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
     elems.forEach(function (html) {
@@ -321,26 +305,10 @@
             return false;
         });
 
-        $('.btn-upload').on('click', function () {
-            var $this = $(this);
-            $('button').css("opacity", 0.4);
-            var loadingText =
-                '<button class="spinner-grow spinner-grow-sm"></button> Sedang Diproses...';
-            if ($(this).html() !== loadingText) {
-                $this.data('original-text', $(this).html());
-                $this.html(loadingText);
-            }
-            setTimeout(function () {
-                $this.html($this.data('original-text'));
-            }, 3000);
-        });
+       
     })
 
     });
 
 </script>
-
-
-
-
-</html>
+@endpush

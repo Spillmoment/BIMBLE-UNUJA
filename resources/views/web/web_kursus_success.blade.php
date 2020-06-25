@@ -1,20 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('web.layouts.main')
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Eh-Bimble</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-    @include('web.layouts.style')
-</head>
-
-<body style="padding-top: 72px;">
-
-
-    @include('web.layouts.header-simple')
+@section('title','Kursus - ' . Auth::user()->nama_pendaftar )
+@section('content')
 
     <div class="container-fluid py-5 px-lg-5">
         <h4 class="text-info mb-3"> List Kursus {{ Auth::user()->nama_pendaftar }}</h4>
@@ -170,10 +157,4 @@
     </div>
     </div>
 
-    @include('web.layouts.footer')
-
-    @include('web.layouts.script')
-
-</body>
-
-</html>
+@endsection

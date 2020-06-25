@@ -1,10 +1,7 @@
 @extends('web.layouts.main')
 
-<title>Detail Kursus - {{ $kursus->nama_kursus }}</title>
-
+@section('title', $kursus->nama_kursus )
 @section('content')
-
-@include('web.layouts.header-simple')
 
 
 <section
