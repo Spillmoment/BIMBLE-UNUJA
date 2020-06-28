@@ -41,7 +41,7 @@
             </div>
             <div class="col-lg-9">
                 <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
-                    <div class="mr-3">
+                    <div class="mr-3" style="color: #322F56">
                         
                         @if (Request::get('kategori') != null)
                         <strong>Kategori: <span class="text-item">{{ $nama_kategori }}</span> </strong>

@@ -44,7 +44,7 @@
                     <li class="nav-item"><a href="{{ route('user.kursus.success') }}" class="nav-link active">Kursus
                             ku</a></li>
                     <li class="nav-item"><a href="{{ route('order.view') }}" class="nav-link active">Cart</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">{{ Auth::user()->nama_pendaftar }}</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link" style="color: #322F56">{{ Auth::user()->nama_pendaftar }}</a></li>
                     <li class="nav-item">
                         <a href="{{ route('user.logout') }}" class="btn btn-primary btn-md" style="border-radius: 20px">
                             Keluar 

@@ -13,6 +13,8 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $kursus = Kursus::all()->count();
+        $tutor = Tutor::all()->count();
         $total_order = Order::where('status_kursus', 'SUCCESS')
             ->sum('total_tagihan');
 
@@ -30,6 +32,8 @@ class DashboardController extends Controller
         return view(
             'admin.dashboard.index',
             [
+                'kursus' => $kursus,
+                'tutor' => $tutor,
                 'pie' => $pie,
                 'total' => $total_order,
                 'order' => $jumlah_order,

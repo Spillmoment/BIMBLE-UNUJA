@@ -22,14 +22,15 @@
                 <li class="menu-title text-capitalize">Manage Nilai</li>
                 <li class="{{ 
                               (Request::route()->getName() == 'nilai.index') ? 'active' : ''
-                          
-
                           }}">
-                    <a href="{{ route('nilai.index') }}"> <i class="menu-icon fa fa-amazon"></i> Data Nilai</a>
+                    <a href="{{ route('nilai.index') }}"> <i class="menu-icon fa fa-amazon"></i> List Nilai</a>
                 </li>
-
-
-
+                <li class="{{ 
+                              (Request::route()->getName() == 'tutor.kursus') ? 'active' : ''
+                          }}">
+                    <a href="{{ route('tutor.kursus') }}"> <i class="menu-icon fa fa-github"></i> Kursus Tutor</a>
+                </li>
+             
             </ul>
         </div><!-- /.navbar-collapse -->
     </nav>

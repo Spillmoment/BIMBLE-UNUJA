@@ -1,7 +1,6 @@
 @extends('admin.layouts.manager')
 @section('title','Bimble - Data Kategori')
 
-
 @section('content')
 
 <div class="breadcrumbs">

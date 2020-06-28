@@ -25,10 +25,9 @@
         {{-- Navbar --}}
         @include('admin.includes.navbar-tutor')
         
-        <div class="content">
             {{-- Content --}}
             @yield('content')
-        </div>
+  
         <div class="clearfix"></div>
     </div>
     

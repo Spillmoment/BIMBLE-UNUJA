@@ -3,11 +3,51 @@
 @section('title','Bimble - Dashboard')
     
 @section('content')
-  <!-- Animated -->
+<div class="content">
+<!-- Animated -->
   <div class="animated fadeIn">
     <!-- Widgets  -->
     <div class="row">
-        <div class="col-lg-6 col-md-6">
+
+ 
+
+        <div class="col-lg-3 col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-2">
+                            <i class="pe-7s-browser"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count">{{ $kursus }}</span></div>
+                                <div class="stat-heading">Kursus</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-2">
+                            <i class="pe-7s-user"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count">{{ $tutor }}</span></div>
+                                <div class="stat-heading">Tutor</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-3">
             <div class="card">
                 <div class="card-body">
                     <div class="stat-widget-five">
@@ -25,7 +65,7 @@
             </div>
         </div>
 
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-3 col-md-3">
             <div class="card">
                 <div class="card-body">
                     <div class="stat-widget-five">
@@ -42,6 +82,7 @@
                 </div>
             </div>
         </div>
+
     </div>
     <!-- /Widgets -->
     <!--  /Traffic -->
@@ -125,7 +166,8 @@
   <!-- /#add-category -->
   </div>
   <!-- .animated -->
-@endsection
+</div>
+  @endsection
 
 @push('after-script')
     <!--Local Stuff-->

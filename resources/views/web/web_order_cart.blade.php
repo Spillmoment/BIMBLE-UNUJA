@@ -96,7 +96,7 @@
                 @endforeach
             </div>
             <!-- Pagination -->
-            <h5>Total tagihan Anda : Rp. <span id="total">{{ $total_tagihan }}</span></h5>
+            <h5 style="color: #322F56">Total tagihan Anda : Rp. <span id="total">{{ $total_tagihan }}</span></h5>
 
             @foreach ($order as $pesan)
             <div class="card mb-3" style="max-width: 540px;">

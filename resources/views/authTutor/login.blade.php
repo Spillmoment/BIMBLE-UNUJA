@@ -14,7 +14,7 @@
                             <img src="{{ asset('assets/frontend/img/logo.png') }}" alt="" class="w-50 mb-2 mt-2" />
                         </div>
                         <div class="text-center auth-logo-text">
-                            <h5 class="text-muted mb-4 mt-2">Tutor| Silahkan Login</h5>  
+                            <h5 class="text-muted mb-4 mt-2">Tutor | Silahkan Login</h5>  
                         </div> <!--end auth-logo-text-->  
                       
                         <form method="post" action="{{ route('tutor.login.submit') }}">

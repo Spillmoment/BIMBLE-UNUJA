@@ -1,121 +1,71 @@
 @extends('admin.layouts.tutor')
+@section('title','Bimble - Kursus Tutor')
 
-@section('title','Bimble - Data Nilai')
 @section('content')
-<div class="orders">
-    <div class="row">
-        <div class="col-12">
 
-            <div class="card">
+<div class="breadcrumbs">
+  <div class="breadcrumbs-inner">
+      <div class="row m-0">
+          <div class="col-sm-4">
+              <div class="page-header float-left">
+                  <div class="page-title">
+                      <h1>Data Kursus </h1>
+                  </div>
+              </div>
+          </div>
+          <div class="col-sm-8">
+              <div class="page-header float-right">
+                  <div class="page-title">
+                      <ol class="breadcrumb text-right">
+                          <li><a href="{{ route('nilai.index') }}">Data Kursus</a></li>
+                          <li class="active">List Kursus </li>
+                      </ol>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 
-                <div class="card-body">
+<div class="content">
+  <div class="animated fadeIn">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header">
+                      @foreach ($tutor as $item)
+                      <h3> List Kursus {{ $item->nama_tutor }} </h3>
+                      @endforeach
+                  </div>
+                  <div class="card-body">
 
-                    <h4 class="box-title">Daftar Nilai</h4>
+                    <div class="row">
 
-                    @if(session('status'))
-                    @push('after-script')
-                    <script>
-                        swal({
-                            title: "Success",
-                            text: "{{session('status')}}",
-                            icon: "success",
-                            button: false,
-                            timer: 2000
-                        });
-
-                    </script>
-                    @endpush
-                    @endif
-
-                    <form action="{{route('siswa.index')}}">
-
-                        <div class="row mt-2">
-
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" {{ Request::get('keyword') }} name="keyword"
-                                        placeholder="Masukkan Nama Siswa" autofocus>
+                        @foreach ($kursus_tutor as $kursus)
+                        <div class="col-md-4 col-sm-6 mb-2">
+                            <div class="card card-shadow card-design">
+                                <img src="{{ url('uploads/kursus/' . $kursus->gambar_kursus) }}" class="card-img-top img-thumbnail" 
+                                alt="{{ $kursus->nama_kursus }}" style="height: 200px;">
+                                <div class="card-body">
+                                    <div class="card-title font-weight-bold">
+                                      {{ $kursus->nama_kursus }} 
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="/tutor/kursus/{{ $kursus->slug }}/nilai/" class="btn btn-primary btn-sm float-right"> <i class="fa fa-eye"></i> Lihat Nilai</a>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-secondary"> <i class="fa fa-search"
-                                        aria-hidden="true"></i> </button>
-                                <a href="{{ route('nilai.index') }}" class="btn btn-warning text-light ml-2"> <i
-                                        class="fa fa-refresh" aria-hidden="true"></i> </a>
-                            </div>
-
                         </div>
-                    </form>
-                </div>
-                <div class="card-body--">
-
-                    <a class="btn btn-primary btn-sm ml-3 mb-3" href="{{ route('nilai.create') }}"> <i
-                            class="fa fa-plus" aria-hidden="true"></i> </a>
-                    <div class="table-stats order-table ov-h">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Kursus</th>
-                                    <th>Nilai</th>
-                                    <th>Keterangan</th>
-                                    <th>Option</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @forelse ($nilai as $item)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>
-                                        @foreach ($item->pendaftar as $user)
-                                        {{ $user->nama_pendaftar }}
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        @if ($user->jenis_kelamin == 'L')
-                                        Laki-Laki
-                                        @else
-                                        Perempuan
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @foreach ($item->kursus as $cours)
-                                        {{ $cours->nama_kursus }}
-                                        @endforeach
-                                    </td>
-                                    <td>{{ $item->nilai }}.0</td>
-                                    <td>{{ $item->keterangan }}</td>
-                                    <td>
-                                        TODO: actions
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td>Data Siswa Kosong</td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-
-                        </table>
+                        @endforeach 
                     </div>
+                      
+                  </div>
+              </div>
+          </div>
 
-                    <h3>Kursus Anda</h3>
-                    @foreach ($kursus_tutor as $kursus)
-                      <div class="card" style="width: 18rem;">
-                        <img src="https://via.placeholder.com/50x30" class="card-img-top" alt="{{ $kursus->nama_kursus }}">
-                        <div class="card-body">
-                          <h5 class="card-title">{{ $kursus->nama_kursus }}</h5>
-                          <p class="card-text">{{ $kursus->keterangan }}</p>
-                          <a href="/tutor/kursus/{{ $kursus->slug }}/nilai/" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                      </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div>
+
+      </div>
+  </div><!-- .animated -->
 </div>
 
 

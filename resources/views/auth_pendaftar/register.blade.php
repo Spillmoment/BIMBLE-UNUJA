@@ -103,8 +103,8 @@
                     <button class="btn btn-lg btn-block btn-primary" type="submit">Daftar</button>
                     <hr class="my-4">
                     <p class="text-center"><small class="text-muted text-center">Sudah Punya akun Eh-Bimbel? <a
-                                href="login.html">Login Sekarang </a></small></p>
-                </form><a href="/login" class="close-absolute mr-md-5 mr-xl-6 pt-5">
+                                href="{{ route('login') }}">Login Sekarang </a></small></p>
+                </form><a href="#" class="close-absolute mr-md-5 mr-xl-6 pt-5">
                     <svg class="svg-icon w-3rem h-3rem">
                         <use xlink:href="#close-1"> </use>
                     </svg></a>
