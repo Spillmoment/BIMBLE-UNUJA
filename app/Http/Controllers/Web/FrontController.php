@@ -13,10 +13,13 @@ class FrontController extends Controller
 {
     public function index(Request $request)
     {
+        $idPendaftar = Auth::id();
         $kursus = Kursus::with(['kategori', 'tutor'])
             ->withCount('order_detail')
-            ->orderBy('created_at', 'DESC')->paginate(4);
+            ->orderBy('created_at', 'DESC')
+            ->paginate(4);
         $kategori = Kategori::all();
+
 
         $keyword = $request->get('keyword');
         if ($keyword) {
@@ -37,8 +40,14 @@ class FrontController extends Controller
             $nama_kategori = $data_kategori->nama_kategori;
         }
 
+        $status_kursus = OrderDetail::with('kursus', 'pendaftar')
+            ->where('id_pendaftar', $idPendaftar)
+            ->where('status', 'SUCCESS')
+            ->get();
+        // dd($status_kursus);
 
-        return view('web.web_home', compact('kursus', 'kategori', 'nama_kategori'));
+
+        return view('web.web_home', compact('kursus', 'kategori', 'nama_kategori', 'status_kursus'));
     }
 
 
