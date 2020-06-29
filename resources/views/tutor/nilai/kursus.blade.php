@@ -1,171 +1,223 @@
 @extends('admin.layouts.tutor')
+@section('title','Bimble - Nilai Kursus')
 
-@section('title','Bimble - Data Nilai')
 @section('content')
-<div class="orders">
-    <div class="row">
-        <div class="col-12">
 
-            <div class="card">
-
-                <div class="card-body">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                    @if ($message = Session::get('success'))
-                        <div class="toast" id="myToast" style="position: absolute; top: 0; right: 0;">
-                            <div class="toast-header">
-                                <strong class="mr-auto"><i class="fa fa-warning"></i> Pemberitahuan!</strong>
-                                
-                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="toast-body">
-                                <div>{{ $message }}</div>
-                            </div>
-                        </div>
-                    @endif
-                    
-                    @if ($message = Session::get('failed'))
-                        <div class="toast" id="myToast" style="position: absolute; top: 0; right: 0;">
-                            <div class="toast-header">
-                                <strong class="mr-auto"><i class="fa fa-warning"></i> Pemberitahuan!</strong>
-                                
-                                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="toast-body">
-                                <div>{{ $message }}</div>
-                            </div>
-                        </div>                        
-                    @endif
-
-                    <h4 class="box-title">Daftar Nilai Kursus {{ $kursus->nama_kursus }}</h4>
-                        
-                  
-                </div>
-                <div class="card-body--">
-
-                    <div class="accordion" id="accordionExample">
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Siswa
-                                </button>
-                            </h2>
-                            </div>
-                        
-                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                            <div class="card-body">
-                                <table class="table table-sm">
-                                    <thead>
-                                        <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nama</th>
-                                        <th scope="col">Alamat</th>
-                                        <th scope="col">Nilai</th>
-                                        <th scope="col">Keterangan</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($siswa as $siswa)
-                                        <tr>
-                                        <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{ $siswa->nama_siswa }}</td>
-                                        <td>{{ $siswa->alamat }}</td>
-                                        <td>
-                                            <form id="inputNilai" action="/tutor/nilai/{{ $siswa->id }}" method="post">
-                                                @csrf @method('put')
-                                                <input type="text" name="nilai" id="nilai" onsubmit="submitform()" value="{{ !empty($siswa->nilai)?$siswa->nilai:'' }}" class="text-center col-sm-4 form-control">
-                                            </form>
-                                        </td>
-                                        <td>{{ $siswa->keterangan }}</td>
-                                        </tr>
-                                            
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header" id="headingTwo">
-                            <h2 class="mb-0">
-                                <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Pendaftar
-                                </button>
-                            </h2>
-                            </div>
-                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                            <div class="card-body">
-                                <table class="table table-sm">
-                                    <thead>
-                                        <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nama</th>
-                                        <th scope="col">Alamat</th>
-                                        <th scope="col">Nilai</th>
-                                        <th scope="col">Keterangan</th>
-                                        <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($order_detail as $order_detail)
-                                            @foreach ($order_detail->pendaftar as $pendaftar)
-                                            <tr>
-                                            <th scope="row"></th>
-                                            <td>{{ $pendaftar->nama_pendaftar }}</td>
-                                            <td>{{ $pendaftar->alamat }}</td>
-                                            @if(isset($pendaftar->nilai->nilai))
-                                                <td>{{ $pendaftar->nilai->nilai }}</td>
-                                                <td>{{ $pendaftar->nilai->keterangan }}</td> 
-                                                <td>
-                                                    <a href="/tutor/nilai/{{ $pendaftar->nilai->id }}/edit" class="btn btn-success btn-sm ml-3 mb-3"> <i
-                                                    class="fa fa-pencil" aria-hidden="true"></i> </a>
-                                                </td>
-                                            @else
-                                                <form action="{{ route('nilai.store') }}" method="post">
-                                                    @csrf
-                                                    <input type="hidden" name="idPendaftar" value="{{ $pendaftar->id }}">
-                                                    <input type="hidden" name="idKursus" value="{{ $order_detail->id_kursus }}">
-                                                    <td><input type="text" name="nilai" id="nilai" class="text-center col-sm-4 form-control" placeholder="-"></td>
-                                                    <td><input type="text" name="keterangan" id="keterangan" class="text-center col-sm-4 form-control" placeholder="-"></td> 
-                                                    <td>
-                                                        <button type="submit" id="btn_nilai_pendaftar" class="btn btn-primary btn-sm ml-3 mb-3"> <i
-                                                        class="fa fa-plus" aria-hidden="true"></i> </button>
-                                                    </td>
-                                                </form>
-                                            @endif                                                                                              
-                                            
-                                            </tr>
-                                                
-                                            @endforeach                                            
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                            </div>
-                        </div>
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Data Nilai Kursus </h1>
                     </div>
-
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="{{ route('nilai.index') }}">Data Nilai Kursus</a></li>
+                            <li class="active">List Nilai Kursus </li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-    function submitform()
-    {
-        document.getElementById("inputNilai").submit();
-    }
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-shadow">
+                    <div class="card-body">
 
-    $('.toast').toast({})
-</script>
+
+                        @if ($message = Session::get('success'))
+                        @endif
+
+                        @if ($message = Session::get('failed'))
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <strong>{{ $message }}</strong>
+                        </div>
+                        @endif
+
+                        <div class="card-header bg-primary text-light">
+                            <div class="card-title">
+                                List Nilai Kursus
+                                <span style="font-size: 15px"
+                                    class="badge badge-danger badge-lg badge-pill">{{ $kursus->nama_kursus }}</span>
+                            </div>
+                        </div>
+
+                        <ul class="nav nav-pills my-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+                                    role="tab" aria-controls="pills-home" aria-selected="true">Siswa</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+                                    role="tab" aria-controls="pills-profile" aria-selected="false">Pendaftar</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="pills-tabContent">
+                            {{-- Siswa --}}
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                aria-labelledby="pills-home-tab">
+                                <div class="card-header my-3">
+                                    <strong class="card-title">Table Nilai Siswa</strong>
+                                </div>
+                                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Alamat</th>
+                                            <th scope="col">Nilai</th>
+                                            <th scope="col">Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($siswa as $siswa)
+                                        <tr>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td>{{ $siswa->nama_siswa }}</td>
+                                            <td>{{ $siswa->alamat }}</td>
+                                            <td>
+                                                <form id="inputNilai" action="/tutor/nilai/{{ $siswa->id }}"
+                                                    method="post">
+                                                    @csrf @method('put')
+                                                    <input type="text" name="nilai" id="nilai" onsubmit="submitform()"
+                                                        value="{{ !empty($siswa->nilai)?$siswa->nilai:'' }}"
+                                                        class="text-center col-sm-4 form-control">
+                                                </form>
+                                            </td>
+                                            <td>{{ $siswa->keterangan }}</td>
+                                        </tr>
+
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- Pendaftar --}}
+                            <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                                aria-labelledby="pills-profile-tab">
+                                <div class="card-header my-3">
+                                    <strong class="card-title">Table Nilai Pendaftar</strong>
+                                </div>
+                                <table id="bootstrap-data-table2" class="table table-striped table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nama</th>
+                                            <th scope="col">Alamat</th>
+                                            <th scope="col">Nilai</th>
+                                            <th scope="col">Keterangan</th>
+                                            <th scope="col">Option</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($order_detail as $order_detail)
+                                        <tr>
+                                            <td> {{ $loop->iteration }} </td>
+                                            @foreach ($order_detail->pendaftar as $pendaftar)
+                                            <td>{{ $pendaftar->nama_pendaftar }}</td>
+                                            <td>{{ $pendaftar->alamat }}</td>
+
+                                            @if(isset($pendaftar->nilai->nilai))
+                                            <td>{{ $pendaftar->nilai->nilai }}</td>
+                                            <td>{{ $pendaftar->nilai->keterangan }}</td>
+                                            <td>
+                                                <a href="/tutor/nilai/{{ $pendaftar->nilai->id }}/edit"
+                                                    class="btn btn-success btn-sm ml-3 mb-3">
+                                                    <i class="fa fa-pencil"></i> </a>
+                                            </td>
+                                            @else
+                                            <form action="{{ route('nilai.store') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" name="idPendaftar" value="{{ $pendaftar->id }}">
+                                                <input type="hidden" name="idKursus"
+                                                    value="{{ $order_detail->id_kursus }}">
+                                                <td>
+                                                    <input type="text" name="nilai" id="nilai"
+                                                        class="text-center col-sm-4 form-control {{ $errors->first('nilai') ? 'is-invalid' : '' }}"
+                                                        placeholder="-" required>
+                                                    <div class="invalid-feedback">
+                                                        {{$errors->first('nilai')}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="keterangan" id="keterangan"
+                                                        class="text-center col-sm-4 form-control {{ $errors->first('keterangan') ? 'is-invalid' : '' }}"
+                                                        placeholder="-" required>
+                                                    <div class="invalid-feedback">
+                                                        {{$errors->first('keterangan')}}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button type="submit" id="btn_nilai_pendaftar"
+                                                        class="btn btn-primary btn-sm ml-3 mb-3"> <i class="fa fa-plus"
+                                                            aria-hidden="true"></i> </button>
+                                                </td>
+                                            </form>
+                                            @endif
+
+                                        </tr>
+
+                                        @endforeach
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div><!-- .animated -->
+</div>
+
+
 
 @endsection
+
+
+@push('after-script')
+@include('admin.includes.datatable')
+<script>
+    
+    $('#bootstrap-data-table2').DataTable();
+    $('.toast').toast('show');
+
+    $('button#deleteButton').on('click', function (e) {
+        var name = $(this).data('name');
+        e.preventDefault();
+        swal({
+                title: "Yakin!",
+                text: "menghapus nilai  " + name + "?",
+                icon: "warning",
+                dangerMode: true,
+                buttons: {
+                    cancel: "Cancel",
+                    confirm: "OK",
+                },
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $(this).closest("form").submit();
+                }
+            });
+    });
+
+</script>
+@endpush
