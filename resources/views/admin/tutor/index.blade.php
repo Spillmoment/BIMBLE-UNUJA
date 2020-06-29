@@ -89,7 +89,7 @@
                                         <a class="btn btn-info text-white btn-sm" href="{{route('tutor.show',
                                        [$sensei->id])}}"> <i class="fa fa-eye"></i></a>
                                         <a class="btn btn-warning text-white btn-sm" href="{{route('tutor.edit',
-                                          [$sensei->id])}}"> <i class="fa fa-edit"></i> </a>
+                                          [$sensei->id])}}"> <i class="fa fa-pencil"></i> </a>
                                         <form class="d-inline" action="{{route('tutor.destroy', [$sensei->id])}}"
                                             method="POST">
                                             @method('DELETE')
