@@ -33,8 +33,8 @@
           <div class="col-md-12">
               <div class="card">
                   <div class="card-header">
-                      @foreach ($tutor as $item)
-                      <h3> List Kursus {{ $item->nama_tutor }} </h3>
+                      @foreach ($tutor as $tutor)
+                      <h3> List Kursus {{ $tutor }} </h3>
                       @endforeach
                   </div>
                   <div class="card-body">
