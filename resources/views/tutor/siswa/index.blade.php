@@ -2,115 +2,24 @@
 
 @section('title','Bimble - Data Siswa')
 @section('content')
-<div class="orders">
-    <div class="row">
-        <div class="col-12">
 
-            <div class="card">
-
-                <div class="card-body">
-
-                    <h4 class="box-title">Daftar Siswa</h4>
-
-                    @if(session('status'))
-                    @push('after-script')
-                    <script>
-                        swal({
-                            title: "Success",
-                            text: "{{session('status')}}",
-                            icon: "success",
-                            button: false,
-                            timer: 2000
-                        });
-
-                    </script>
-                    @endpush
-                    @endif
-
-                    <form action="{{route('siswa.index')}}">
-
-                        <div class="row mt-2">
-
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" {{ Request::get('keyword') }} name="keyword"
-                                        placeholder="Masukkan Nama Siswa" autofocus>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-secondary"> <i class="fa fa-search"
-                                        aria-hidden="true"></i> </button>
-                                <a href="{{ route('siswa.index') }}" class="btn btn-warning text-light ml-2"> <i
-                                        class="fa fa-refresh" aria-hidden="true"></i> </a>
-                            </div>
-
-                        </div>
-                    </form>
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Data Siswa</h1>
+                    </div>
                 </div>
-                <div class="card-body--">
-
-                    <a class="btn btn-primary btn-sm ml-3 mb-3" href="{{ route('siswa.create') }}"> <i
-                            class="fa fa-plus" aria-hidden="true"></i> </a>
-                    <div class="table-stats order-table ov-h">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Siswa</th>
-                                    <th>Jenis Kelamin</th>
-                                    <th>Alamat</th>
-                                    <th>Foto</th>
-                                    <th>Option</th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                @forelse ($siswa as $item)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td> {{ $item->nama_siswa }} </td>
-                                    <td>
-                                        @if ($item->jenis_kelamin == 'L')
-                                        Laki-Laki
-                                        @else
-                                        Perempuan
-                                        @endif
-                                    </td>
-                                    <td> {{ $item->alamat }} </td>
-                                    <td>
-                                        @if ($item->foto)
-                                        <img src="{{ asset('uploads/siswa/'.$item->foto) }}"
-                                            alt="{{ $item->nama_siswa }}">
-                                        @else
-                                        N/A
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-success text-white btn-sm" href="{{route('siswa.nilai',
-                         [$item->id])}}"> <i class="fa fa-download"></i></a>
-                                        <a class="btn btn-info text-white btn-sm" href="{{route('siswa.show',
-                         [$item->id])}}"> <i class="fa fa-eye"></i></a>
-                                        <a class="btn btn-warning text-white btn-sm" href="{{route('siswa.edit',
-                            [$item->id])}}"> <i class="fa fa-edit"></i> </a>
-                                        <form  
-                                            class="d-inline" action="{{route('siswa.destroy', [$item->id])}}"
-                                            method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" value="Delete" class="btn btn-danger btn-sm">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td>Data Siswa Kosong</td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-
-                        </table>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="{{ route('siswa.index') }}">Data Siswa</a></li>
+                            <li class="active">List Siswa </li>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -118,5 +27,128 @@
     </div>
 </div>
 
+@if(session('status'))
+@push('after-script')
+<script>
+    swal({
+        title: "Success",
+        text: "{{session('status')}}",
+        icon: "success",
+        button: false,
+        timer: 2000
+    });
+
+</script>
+@endpush
+@endif
+
+<div class="content">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">Table Siswa</strong>
+
+                        <a class="btn btn-primary btn-sm float-right" href="{{ route('siswa.create') }}"> <i
+                                class="fa fa-plus" aria-hidden="true"></i> Add Siswa</a>
+                    </div>
+                    <div class="card-body">
+                        <table id="bootstrap-data-table2" class="table table-striped table-bordered">                       
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Siswa</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Alamat</th>
+                                <th>Foto</th>
+                                <th>Option</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @forelse ($siswa as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td> {{ $item->nama_siswa }} </td>
+                                <td>
+                                    @if ($item->jenis_kelamin == 'L')
+                                    Laki-Laki
+                                    @else
+                                    Perempuan
+                                    @endif
+                                </td>
+                                <td> {{ $item->alamat }} </td>
+                                <td>
+                                    @if ($item->foto)
+                                    <img src="{{ asset('uploads/siswa/'.$item->foto) }}"
+                                        alt="{{ $item->nama_siswa }}" width="100px" height="100px">
+                                    @else
+                                    N/A
+                                    @endif
+                                </td>
+                                <td>
+                                    <a class="btn btn-success text-white btn-sm" href="{{route('siswa.nilai',
+                        [$item->id])}}"> <i class="fa fa-download"></i></a>
+                                    <a class="btn btn-info text-white btn-sm" href="{{route('siswa.show',
+                        [$item->id])}}"> <i class="fa fa-eye"></i></a>
+                                    <a class="btn btn-warning text-white btn-sm" href="{{route('siswa.edit',
+                        [$item->id])}}"> <i class="fa fa-pencil"></i> </a>
+                                    <form  
+                                        class="d-inline" action="{{route('siswa.destroy', [$item->id])}}"
+                                        method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" value="Delete" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @empty
+                            <tr>
+                                <td>Data Siswa Kosong</td>
+                            </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                                </div>
+                            </div>
+            </div>
+
+
+        </div>
+    </div><!-- .animated -->
+</div>
 
 @endsection
+
+
+@push('after-script')
+@include('admin.includes.datatable')
+<script>
+   
+   $('#bootstrap-data-table2').DataTable();
+
+    $('button#deleteButton').on('click', function (e) {
+        var name = $(this).data('name');
+        e.preventDefault();
+        swal({
+                title: "Yakin!",
+                text: "menghapus kategori  " + name + "?",
+                icon: "warning",
+                dangerMode: true,
+                buttons: {
+                    cancel: "Cancel",
+                    confirm: "OK",
+                },
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $(this).closest("form").submit();
+                }
+            });
+    });
+
+</script>
+@endpush
