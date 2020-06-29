@@ -1,5 +1,5 @@
 @extends('admin.layouts.tutor')
-@section('title','Bimble - Data Kategori')
+@section('title','Bimble - Data Nilai')
 
 @section('content')
 
