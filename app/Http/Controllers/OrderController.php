@@ -7,7 +7,6 @@ use App\Order;
 use App\OrderDetail;
 use Illuminate\Http\Request;
 
-
 class OrderController extends Controller
 {
 
@@ -85,6 +84,7 @@ class OrderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * 
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -111,8 +111,9 @@ class OrderController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('order.index')
-            ->with(['status', 'Data Order Berhasil Di Update!']);
+        return redirect()->route('order.index')->with([
+            'status', 'Data Order Berhasil Di Update!'
+        ]);
     }
 
     /**
@@ -125,8 +126,9 @@ class OrderController extends Controller
     {
         $item = Order::findOrFail($id);
         $item->forceDelete();
-        return redirect()->route('order.index')
-            ->with(['status', 'Data Order Berhasil Di Hapus!']);
+        return redirect()->route('order.index')->with([
+            'status', 'Data Order Berhasil Di Hapus!'
+        ]);
     }
 
     public function setStatus(Request $request, $id)
@@ -140,17 +142,19 @@ class OrderController extends Controller
 
         if ($request->status == 'SUCCESS') {
             OrderDetail::where('id_order', $item->id)
-                        ->update(['status' => 'SUCCESS']);
+                ->update(['status' => 'SUCCESS']);
         } elseif ($request->status == 'PENDING') {
             OrderDetail::where('id_order', $item->id)
-                        ->update(['status' => 'PENDING']);
-        } else{
+                ->update(['status' => 'PENDING']);
+        } else {
             OrderDetail::where('id_order', $item->id)
-                        ->update(['status' => 'FAILED']);
+                ->update(['status' => 'FAILED']);
         }
+
         $item->save();
 
-        return redirect()->route('order.index')
-            ->with(['status' => 'Status order berhasil dDiubah ke  ' . $item->status_kursus]);
+        return redirect()->route('order.index')->with([
+            'status' => 'Status order berhasil dDiubah ke  ' . $item->status_kursus
+        ]);
     }
 }
