@@ -94,7 +94,7 @@
                                         <a class="btn btn-primary btn-sm" href="{{route('kursus.show',
                                      [$krs->id])}}"> <i class="fa fa-eye"></i> </a>
                                         <a class="btn btn-warning btn-sm text-light" href="{{route('kursus.edit',
-                                       [$krs->id])}}"> <i class="fa fa-edit"></i></a>
+                                       [$krs->id])}}"> <i class="fa fa-pencil"></i></a>
 
                                         <form class="d-inline" action="{{route('kursus.destroy', [$krs->id])}}"
                                             method="POST">
