@@ -91,7 +91,8 @@
                     @if ($kursus->count() > 0)
                     <div class="owl-carousel">
                     @forelse ($kursus as $krs)
-                    <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
+
+                 <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
                                 <img src="{{asset('uploads/kursus/'.$krs->gambar_kursus) }}" style="height: 10em;"
@@ -104,7 +105,7 @@
                                         <img src="{{asset('uploads/tutor/'.$sensei->foto) }}" alt="John" class="avatar-profile avatar-border-white mr-2" /> 
                                             <div class="media-body">{{ $sensei->nama_tutor }}</div>
                                             @endforeach
-                                    </div>
+                                        </div>
                                 </div>
                             </div>
 
@@ -112,7 +113,7 @@
                                 <div class="w-100">
                                     <h6 class="card-title"><a href="{{ route('front.detail', [$krs->slug]) }}"
                                             class="text-decoration-none text-dark">{{$krs->nama_kursus}}</a></h6>
-                                    <div class="d-flex card-subtitle mb-3">
+                                            <div class="d-flex card-subtitle mb-3">
                                         <p class="flex-grow-1 mb-0 text-muted text-sm">
                                             @foreach ($krs->kategori as $item)
                                             {{$item->nama_kategori}}</p>
@@ -123,7 +124,7 @@
                                                 $rating = round($minat_kursus * 2 ) / 2;
                                             @endphp
 
-                                            @for($x = 5; $x > 0; $x--)
+                                                @for($x = 5; $x > 0; $x--)
                                                 @php 
                                                     if($rating > 0.5){
                                                         echo '<i class="fa fa-star text-warning"></i>';
@@ -133,11 +134,18 @@
                                                         echo '<i class="fa fa-star-half text-warning"></i>';
                                                     }
                                                     $rating--;      
-                                                @endphp
+                                                    @endphp
                                             @endfor
                                         </p>
                                     </div>
-
+                                    
+                                    
+                                    @if ($status_kursus)      
+                                    <span style="width: 45px" class="badge badge-success badge-pill badge-lg float-right">
+                                        <i class="fas fa-check-circle"></i>
+                                    </span>
+                                    @endif    
+                                   
                                     @if ($krs->diskon_kursus == 0)     
                                     <p class="card-text text-muted"><span class="h4 text-primary"> @currency($krs->biaya_kursus)</span>
                                         per Bulan</p>                                        
