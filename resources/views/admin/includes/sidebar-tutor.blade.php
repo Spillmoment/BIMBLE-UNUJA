@@ -23,12 +23,12 @@
                 <li class="{{ 
                               (Request::route()->getName() == 'nilai.index') ? 'active' : ''
                           }}">
-                    <a href="{{ route('nilai.index') }}"> <i class="menu-icon fa fa-amazon"></i> List Nilai</a>
+                    <a href="{{ route('nilai.index') }}"> <i class="menu-icon fa fa-list-alt"></i> List Nilai</a>
                 </li>
                 <li class="{{ 
                               (Request::route()->getName() == 'tutor.kursus') ? 'active' : ''
                           }}">
-                    <a href="{{ route('tutor.kursus') }}"> <i class="menu-icon fa fa-github"></i> Kursus Tutor</a>
+                    <a href="{{ route('tutor.kursus') }}"> <i class="menu-icon fa fa-user-md"></i> Kursus Tutor</a>
                 </li>
              
             </ul>
