@@ -79,7 +79,7 @@
 
                                     <td>
                                         <a class="btn btn-warning text-white btn-sm" href="{{route('gallery.edit',
-       [$gallery->id])}}"> <i class="fa fa-edit"></i></a>
+       [$gallery->id])}}"> <i class="fa fa-pencil"></i></a>
                                         <form  
                                             class="d-inline" action="{{route('gallery.destroy', [$gallery->id])}}"
                                             method="POST">
