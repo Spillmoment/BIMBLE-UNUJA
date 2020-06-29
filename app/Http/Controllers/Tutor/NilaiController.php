@@ -35,7 +35,7 @@ class NilaiController extends Controller
     public function tutor_kursus()
     {
         $id_tutor = Auth::id();
-        $tutor = Tutor::where('id', $id_tutor)->get();
+        $tutor = Tutor::where('id', $id_tutor)->pluck('nama_tutor');
         $list_kursus = Kursus::where('id_tutor', $id_tutor)->get();
 
         return view('tutor.nilai.index', [
@@ -62,7 +62,6 @@ class NilaiController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'nilai' => 'required|numeric|between:0,100',
             'keterangan' => 'required'
