@@ -62,36 +62,22 @@
         <hr>
         <div class="row">
 
-            {{-- <div class="col-lg-9">
+        <div class="col-md-12">
             <div class="row">
-                <form>
+                <form action="/user/kursus/{{ $kursus->slug }}" method="POST">
+                    @csrf
                     <div class="form-group">
-                        <label for="exampleInputEmail1">Komentar</label>
-                        <textarea class="form-control" id="textkomen" rows="3"></textarea>
+                        <label for="komentar">Komentar</label>
+                        <textarea class="form-control @error('textkomen') is-invalid @enderror" name="textkomen"
+                            id="textkomen" rows="3"></textarea>
+                        @error('textkomen')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <button type="button" data-slug="{{ $kursus->slug }}" id="komen" class="btn
-            btn-primary">Submit</button>
-            </form>
-            <a href="{{ route('front.index') }}">kehome</a>
+                    <button type="submit" data-slug="{{ $kursus->slug }}" id="komen" class="btn btn-primary">Kirim</button>
+                </form>
+            </div>
         </div>
-    </div> --}}
-
-    <div class="col-md-12">
-        <div class="row">
-            <form action="/user/kursus/{{ $kursus->slug }}" method="POST">
-                @csrf
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Komentar</label>
-                    <textarea class="form-control @error('textkomen') is-invalid @enderror" name="textkomen"
-                        id="textkomen" rows="3"></textarea>
-                    @error('textkomen')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                <button type="submit" data-slug="{{ $kursus->slug }}" id="komen" class="btn btn-primary">Kirim</button>
-            </form>
-        </div>
-    </div>
 
     </div>
     </div>
