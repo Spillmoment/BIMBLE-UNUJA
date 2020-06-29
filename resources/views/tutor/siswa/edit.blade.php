@@ -2,6 +2,32 @@
 
 @section('title','Bimble - Edit Data Siswa')
 @section('content')
+
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>Edit Data Siswa</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="page-header float-right">
+                    <div class="page-title">
+                        <ol class="breadcrumb text-right">
+                            <li><a href="{{ route('siswa.index') }}">Data Siswa</a></li>
+                            <li class="active">Edit Data Siswa </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
 <div class="card">
     <div class="card-header">
         <strong>Edit Siswa</strong>
@@ -113,5 +139,6 @@
             </div>
         </form>
     </div>
+</div>
 </div>
 @endsection
