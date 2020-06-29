@@ -24,9 +24,7 @@ class KursusUserController extends Controller
 
     public function kursus_success()
     {
-
         $users_id = Auth::id();
-
         $kursus_success = OrderDetail::with(['pendaftar', 'kursus', 'order'])
             ->where('id_pendaftar', $users_id)
             ->where(function ($query) {
@@ -43,7 +41,10 @@ class KursusUserController extends Controller
     public function kursusKelas($slug)
     {
         $kursus = Kursus::where('slug', $slug)->first();
-        $komentar = Komentar::with(['pendaftar', 'kursus'])->where('id_kursus', $kursus->id)->orderBy('created_at', 'DESC')->get();
+        $komentar = Komentar::with(['pendaftar', 'kursus'])
+            ->where('id_kursus', $kursus->id)
+            ->orderBy('created_at', 'DESC')
+            ->get();
         return view('web.web_kursus_user', compact('kursus', 'komentar'));
     }
 
