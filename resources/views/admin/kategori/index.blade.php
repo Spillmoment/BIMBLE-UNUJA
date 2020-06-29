@@ -79,7 +79,7 @@
 
                                     <td>
                                         <a class="btn btn-info text-white btn-sm" href="{{route('kategori.edit',
-                                            [$item->id])}}"> <i class="fa fa-edit"></i></a>
+                                            [$item->id])}}"> <i class="fa fa-pencil"></i></a>
                                         <form class="d-inline" action="{{route('kategori.destroy', [$item->id])}}"
                                             method="POST">
                                             @method('DELETE')
