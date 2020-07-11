@@ -59,7 +59,7 @@
                             alt="{{ Auth::user()->nama_pendaftar }}" class="avatar avatar-sm avatar-border-white mr-2">
                         </a>
                     <div class="d-flex">
-                        <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-menu dropdown-menu-right z-index-1;">
                             <a class="dropdown-item" href="#">Profile</a>
                             <a class="dropdown-item" href="{{ route('user.kursus.success') }}">My Kursus</a>
                             <a class="dropdown-item" href="{{ route('user.logout') }}">
