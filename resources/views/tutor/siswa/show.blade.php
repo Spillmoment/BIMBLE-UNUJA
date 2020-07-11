@@ -41,7 +41,6 @@
                             <td>{{ $siswa->alamat }}</td>
                         </tr>
 
-
                         <tr>
                             <th>Foto</th>
                             <td>
@@ -61,7 +60,7 @@
                                 {{ $siswa->nilai }}
                             </td>
                             @else
-                            <td>Nilai belum ada</td>
+                            <td><span class="badge badge-warning text-light">Nilai belum ada</span></td>
                             @endif
                         </tr>
 
@@ -86,7 +85,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"><span class="badge badge-light badge-pill badge-lg" style="font-size: 15px;">
-                        Foto Wiswa {{ $siswa->nama_siswa }}
+                        Foto Siswa {{ $siswa->nama_siswa }}
                     </span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
