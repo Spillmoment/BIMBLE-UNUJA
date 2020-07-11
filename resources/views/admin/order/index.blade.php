@@ -61,21 +61,28 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <input type="date" name="start_date" placeholder="Start Date"
-                                                    class="form-control">
+                                                <input width="256" name="start_date" placeholder="Start Date"
+                                                    class="form-control datepicker1">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <input type="date" name="end_date" placeholder="End Date"
-                                                    class="form-control">
+                                                <input width="256" name="end_date" placeholder="End Date"
+                                                    class="form-control datepicker2">
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <button type="submit" class="btn btn-primary mt-1"> <i
                                                     class="fa fa-search"></i>
                                             </button>
+                                            @if (Request::get('start_date') != "" && Request::get('end_date') != "") 
+                                                <a class="btn btn-success mt-1 text-light" href="{{ route('order.index') }}"> <i
+                                                    class="fa fa-refresh"></i>
+                                                </a>
+                                            @endif
                                         </div>
+
+
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +127,7 @@
                                     <td>{{ $user->nama_pendaftar }}</td>
                                     <td>{{ $user->email }}</td>
                                     @endforeach
-                                    <td> {{ $item->created_at->format('d F Y') }}</td>
+                                    <td> {{ $item->tgl_order }}</td>
                                     <td>
                                         @currency($item->total_tagihan).00</td>
                                     <td>
@@ -198,14 +205,33 @@
         </div>
     </div><!-- .animated -->
 </div>
-
-
 @endsection
 
-@push('after-script')
+@push('after-style')
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+@endpush
 
-<script>
-    $('button#deleteButton').on('click', function (e) {
+@push('after-script')
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+<script>  
+    $(document).ready(function() {
+     
+        $('.datepicker1').datepicker({
+        format: 'yyyy-mm-dd',
+        uilibrary: 'bootstrap4',
+        size: 'default',
+        iconsLibrary: 'fontawesome',
+      });
+
+        $('.datepicker2').datepicker({
+        format: 'yyyy-mm-dd',
+        uilibrary: 'bootstrap4',
+        size: 'default',
+        iconsLibrary: 'fontawesome'
+      });
+
+      $('button#deleteButton').on('click', function (e) {
         var name = $(this).data('name');
         e.preventDefault();
         swal({
@@ -225,5 +251,8 @@
             });
     });
 
+    });
+
+  
 </script>
 @endpush
