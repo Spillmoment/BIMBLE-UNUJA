@@ -11,7 +11,7 @@ class Order extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['id_pendaftar', 'total_tagihan', 'tanggal_order', 'status_kursus', 'upload_bukti'];
+    protected $fillable = ['id_pendaftar', 'total_tagihan', 'tanggal_order', 'status_kursus', 'upload_bukti', 'tgl_order'];
 
     public function pendaftar()
     {
