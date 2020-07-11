@@ -136,8 +136,8 @@
                                             <td>{{ $pendaftar->nilai->nilai }}</td>
                                             <td>{{ $pendaftar->nilai->keterangan }}</td>
                                             <td>
-                                                <a href="/tutor/nilai/{{ $pendaftar->nilai->id }}/edit"
-                                                    class="btn btn-success btn-sm ml-3 mb-3">
+                                                <a data-id="{{ $pendaftar->nilai->id }}" data-toggle="modal" data-target="#editNilai"
+                                                    class="btn btn-warning btn-sm ml-3 mb-3">
                                                     <i class="fa fa-pencil"></i> </a>
                                             </td>
                                             @else
@@ -187,17 +187,74 @@
     </div><!-- .animated -->
 </div>
 
-
-
 @endsection
 
-
 @push('after-script')
+<!-- Button trigger modal -->
+  <!-- Modal -->
+  <div class="modal fade" id="editNilai" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" id="modal-edit">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Nilai {{ $pendaftar->nama_pendaftar }}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="/tutor/nilai/{{ $pendaftar->nilai->id }}/edit" method="post" id="form-edit">
+                @csrf
+                @method('patch')
+                <input type="hidden" name="id" value="{{ $pendaftar->nilai->id }}" id="id_data">
+                <div class="form-group">
+                  <label for="nilai">Nilai</label>
+                  <input type="text" class="form-control {{ $errors->first('nilai') ? 'is-invalid' : '' }}" name="nilai" id="nilai" value="{{ old('nilai', $pendaftar->nilai->nilai) }}">
+                  <div class="invalid-feedback">
+                    {{ $errors->first('nilai') }}
+                  </div>
+                </div>
+               <div class="form-group">
+                 <label for="keterangan">Keterangan</label>
+                 <input type="text" class="form-control {{ $errors->first('keterangan') ? 'is-invalid' : '' }}" name="keterangan" id="keterangan" value="{{ old('keterangan', $pendaftar->nilai->keterangan) }}">
+                 <div class="invalid-feedback">
+                  {{ $errors->first('keterangan') }}
+                </div>
+                </div>
+            
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary btn-update">Simpan</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
 @include('admin.includes.datatable')
 <script>
     
     $('#bootstrap-data-table2').DataTable();
-    $('.toast').toast('show');
+ 
+    $('.btn-update').on('click',function() {
+        let id = $('#form-edit').find('#id_data').val();
+        let formData = $('#form-edit').serialize();
+        console.log(formData);
+        
+        // serialize untuk mengambil semua data di form
+        $.ajax({
+            url: `tutor/nilai/${id}/edit`,
+            method: "PATCH",
+            data: formData,
+            success: function(data) {
+                console.log(data);
+            },
+            error: function(error) {
+                console.log(error);
+                
+            }
+        })
+        
+    });
 
     $('button#deleteButton').on('click', function (e) {
         var name = $(this).data('name');
