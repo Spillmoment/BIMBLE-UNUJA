@@ -37,11 +37,9 @@
             @csrf
             @method('PUT')
 
-            @if (Auth::check())
-            <input type="hidden" name="id_tutor" value="{{ Auth::user()->id }}" contextmenu="">
-            @endif
+            <input type="hidden" value="{{ $siswa->id_tutor }}">
 
-            <div class="form-group ">
+                <div class="form-group ">
                 <label for="nama_siswa">Nama Siswa</label>
                 <input type="text" class="form-control {{ $errors->first('nama_siswa') ? 'is-invalid' : '' }}"
                     name="nama_siswa" id="nama_siswa" value="{{$siswa->nama_siswa }}">
@@ -106,7 +104,7 @@
             <div class="form-group ">
                 <label for="password">Password</label>
                 <input type="password" class="form-control {{ $errors->first('password') ? 'is-invalid' : '' }}"
-                    name="password" id="password" value="{{$siswa->password}}" placeholder="Password">
+                    name="password" id="password" value="" placeholder="Password">
                 <div class="invalid-feedback">
                     {{$errors->first('password')}}
                 </div>
@@ -114,8 +112,8 @@
 
             <div class="form-group ">
                 <label for="password">Konfirmasi Password</label>
-                <input type="password" class="form-control {{ $errors->first('password') ? 'is-invalid' : '' }}"
-                    name="konfirmasi_password" id="password" value="{{$siswa->konfirmasi_password}}"
+                <input type="password" class="form-control {{ $errors->first('konfirmasi_password') ? 'is-invalid' : '' }}"
+                    name="konfirmasi_password" id="password" value=""
                     placeholder="Password">
                 <div class="invalid-feedback">
                     {{$errors->first('konfirmasi_password')}}
@@ -132,11 +130,10 @@
                 </div>
             </div>
 
-            <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit">
                     Edit Siswa
                 </button>
-            </div>
+         
         </form>
     </div>
 </div>
