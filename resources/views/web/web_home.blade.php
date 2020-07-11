@@ -11,9 +11,8 @@
         #mapid { min-height: 500px; }
     </style>
 @endpush
-@section('content')
 
-@include('web.layouts.header')
+@section('content')
 
 <section class="d-flex align-items-center dark-overlay bg-cover header-utama">
     <div class="container py-6 py-lg-7 text-white overlay-content text-center">
@@ -91,7 +90,6 @@
                     @if ($kursus->count() > 0)
                     <div class="owl-carousel">
                     @forelse ($kursus as $krs)
-
                  <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
