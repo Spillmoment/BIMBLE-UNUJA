@@ -48,8 +48,8 @@ Route::prefix('tutor')
     ->group(function () {
 
         Route::get('/', 'Tutor\DashboardController@index')->name('tutor.home');
-        Route::put('siswa/nilai', 'Tutor\SiswaController@add_nilai')->name('siswa.add');
-        Route::get('siswa/nilai/{id}', 'Tutor\SiswaController@nilai')->name('siswa.nilai');
+        Route::put('siswa/nilai/{id}', 'Tutor\SiswaController@add_nilai')->name('siswa.add');
+        Route::get('siswa/nilai/{id}/edit', 'Tutor\SiswaController@nilai')->name('siswa.nilai');
         Route::get('kursus/{slug}/nilai/', 'Tutor\NilaiController@kursus_nilai')->name('kursus.nilai');
         Route::resource('siswa', 'Tutor\SiswaController');
         Route::resource('nilai', 'Tutor\NilaiController');
