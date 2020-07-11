@@ -24,8 +24,8 @@ class OrderController extends Controller
         $end_date = $request->get('end_date');
 
         if ($start_date != "" && $end_date != "") {
-            $items = Order::whereBetween('created_at', [$start_date, $end_date])
-                ->orderBy('created_at', 'ASC')
+            $items = Order::whereBetween('tgl_order', [$start_date, $end_date])
+                ->orderBy('tgl_order', 'ASC')
                 ->paginate(10);
             $start_date = \Carbon\Carbon::parse($start_date)->format('d-F-Y');
             $end_date = \Carbon\Carbon::parse($end_date)->format('d-F-Y');
@@ -146,7 +146,8 @@ class OrderController extends Controller
         } elseif ($request->status == 'PENDING') {
             OrderDetail::where('id_order', $item->id)
                 ->update(['status' => 'PENDING']);
-        } else {
+        }
+        else {
             OrderDetail::where('id_order', $item->id)
                 ->update(['status' => 'FAILED']);
         }
@@ -154,7 +155,7 @@ class OrderController extends Controller
         $item->save();
 
         return redirect()->route('order.index')->with([
-            'status' => 'Status order berhasil dDiubah ke  ' . $item->status_kursus
+            'status' => 'Status order berhasil Diubah ke  ' . $item->status_kursus
         ]);
     }
 }
