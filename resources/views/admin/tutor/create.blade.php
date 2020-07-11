@@ -95,7 +95,7 @@
 
                 <div class="form-group ">
                     <label for="password">Konfirmasi Password</label>
-                    <input type="password" class="form-control {{ $errors->first('password') ? 'is-invalid' : '' }}"
+                    <input type="password" class="form-control {{ $errors->first('konfirmasi_password') ? 'is-invalid' : '' }}"
                         name="konfirmasi_password" id="password" value="{{old('konfirmasi_password')}}"
                         placeholder="Password">
                     <div class="invalid-feedback">
