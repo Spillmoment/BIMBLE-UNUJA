@@ -94,7 +94,7 @@
                 <div class="form-group ">
                     <label for="password">Password</label>
                     <input type="password" class="form-control {{ $errors->first('password') ? 'is-invalid' : '' }}"
-                        name="password" id="password" value="{{$tutor->password}}" placeholder="Password">
+                        name="password" id="password" value="" placeholder="Password">
                     <div class="invalid-feedback">
                         {{$errors->first('password')}}
                     </div>
@@ -102,8 +102,8 @@
 
                 <div class="form-group ">
                     <label for="password">Konfirmasi Password</label>
-                    <input type="password" class="form-control {{ $errors->first('password') ? 'is-invalid' : '' }}"
-                        name="konfirmasi_password" id="password" value="{{ $tutor->konfirmasi_password }}"
+                    <input type="password" class="form-control {{ $errors->first('konfirmasi_password') ? 'is-invalid' : '' }}"
+                        name="konfirmasi_password" id="password" value=""
                         placeholder="Password">
                     <div class="invalid-feedback">
                         {{$errors->first('konfirmasi_password')}}
