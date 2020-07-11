@@ -44,19 +44,32 @@ class SiswaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(SiswaRequest $request)
+    public function store(Request $request)
     {
-        $siswa = $request->all();
-        $siswa['password'] = Hash::make($siswa['password']);
+        $request->validate([
+            'nama_siswa'               => 'required|max:255|min:3',
+            'jenis_kelamin'            => 'required|in:L,P',
+            'alamat'                   => 'required|max:255|min:3',
+            'foto'                     => 'required|image|mimes:jpeg,jpg,png,bmp',
+            'username'                 => 'required|max:255|min:3|unique:siswa',
+            'password'                 => 'required|max:255|min:3',
+            'konfirmasi_password'      => 'required|same:password|max:255|min:3',
+            'keterangan'               => 'required|max:255|min:3'
+        ]);
+
+        $data = $request->all();
+        $data['id_tutor'] = Auth::id();
+        $data['password'] = bcrypt($data['password']);
 
         if ($request->file('foto')) {
             $foto = $request->file('foto');
             $nama_gambar = 'siswa-' . time() . '.' . $foto->getClientOriginalExtension();
             $request->file('foto')->move('uploads/siswa', $nama_gambar);
-            $siswa['foto'] = $nama_gambar;
+            $data['foto'] = $nama_gambar;
         }
 
-        Siswa::create($siswa);
+        Siswa::create($data);
+
         return redirect()->route('siswa.index')
             ->with(['status' => 'Data Siswa Berhasil Ditambahkan']);
     }
@@ -96,12 +109,23 @@ class SiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SiswaRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $siswa = Siswa::findOrFail($id);
+        $request->validate([
+            'nama_siswa'               => 'required|max:255|min:3',
+            'jenis_kelamin'            => 'required|in:L,P',
+            'alamat'                   => 'required|max:255|min:3',
+            'foto'                     => 'sometimes|nullable|image|mimes:jpeg,jpg,png,bmp',
+            'username'                 => 'required|max:255|min:3|unique:siswa,username,' . $id,
+            'password'                 => 'sometimes|nullable|max:255|min:3',
+            'konfirmasi_password'      => 'sometimes|nullable|same:password|max:255|min:3',
+            'keterangan'               => 'required|max:255|min:3'
+        ]);
 
-        $data =  $request->all();
+        $siswa = Siswa::findOrFail($id);
+        $data = $request->all();
         $data['password'] = Hash::make($data['password']);
+
         if ($request->hasFile('foto')) {
             if ($request->file('foto')) {
                 File::delete('uploads/siswa/' . $siswa->foto);
@@ -113,8 +137,9 @@ class SiswaController extends Controller
         }
 
         $siswa->update($data);
-        return redirect()->route('siswa.index')
-            ->with(['status' => 'Data Siswa Berhasil Di Update']);
+        return redirect()->route('siswa.index')->with([
+            'status' => 'Data Siswa Berhasil Di Update'
+        ]);
     }
 
     /**
@@ -141,12 +166,16 @@ class SiswaController extends Controller
         ]);
     }
 
-    public function add_nilai(SiswaRequest $request)
+    public function add_nilai(Request $request, $id)
     {
+        $request->validate([
+            'nilai' => 'required|numeric'
+        ]);
 
-        $siswa = new Siswa();
+        $siswa = Siswa::findOrFail($id);
         $data = $request->all();
 
+        $data['id_tutor'] = Auth::id();
         $siswa->update($data);
 
         return redirect()->route('siswa.index')
