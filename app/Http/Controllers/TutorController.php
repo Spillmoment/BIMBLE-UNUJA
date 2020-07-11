@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TutorRequest;
 use Illuminate\Http\Request;
 use App\Tutor;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Arr;
 
 class TutorController extends Controller
 {
@@ -35,18 +36,28 @@ class TutorController extends Controller
 
     public function store(Request $request)
     {
-        $tutor = $request->all();
-        $tutor['password'] = Hash::make($tutor['password']);
+        $request->validate([
+            'nama_tutor'            => 'required|min:3|max:100',
+            'alamat'                => 'required|min:3|max:200',
+            'email'                 => 'required|email|unique:tutor',
+            'foto'                  => 'required|image|mimes:jpg,jpeg,png,bmp',
+            'username'              => 'required|min:3|max:100|unique:tutor',
+            'password'              => 'required|min:3',
+            'konfirmasi_password'   => 'required|same:password|min:3',
+            'keahlian'              => 'required',
+        ]);
+
+        $data = $request->all();
+        $data['password'] = bcrypt($data['password']);
 
         if ($request->file('foto')) {
             $foto = $request->file('foto');
             $nama_gambar = 'tutor-' . time() . '.' . $foto->getClientOriginalExtension();
             $request->file('foto')->move('uploads/tutor', $nama_gambar);
-            $tutor['foto'] = $nama_gambar;
+            $data['foto'] = $nama_gambar;
         }
 
-        Tutor::create($tutor);
-
+        Tutor::create($data);
         return redirect()->route('tutor.index')
             ->with(['status' => 'Data Tutor Berhasil Ditambahkan']);
     }
@@ -68,9 +79,25 @@ class TutorController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'nama_tutor'            => 'required|min:3|max:100',
+            'alamat'                => 'required|min:3|max:200',
+            'email'                 => 'required|email|unique:tutor,email,' . $id,
+            'foto'                  => 'sometimes|nullable|image|mimes:jpg,jpeg,png,bmp',
+            'username'              => 'required|min:3|max:100|unique:tutor,username,' . $id,
+            'password'              => 'sometimes|nullable|min:3',
+            'konfirmasi_password'   => 'sometimes|same:password|nullable|min:3',
+            'keahlian'              => 'required',
+        ]);
+
         $tutor = Tutor::findOrFail($id);
         $data = $request->all();
-        $data['password'] = Hash::make($data['password']);
+
+        if ($request->input('password')) {
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            $data = Arr::except($data, ['password']);
+        }
 
         if ($request->hasFile('foto')) {
             if ($request->file('foto')) {
@@ -83,8 +110,9 @@ class TutorController extends Controller
         }
 
         $tutor->update($data);
-        return redirect()->route('tutor.index')
-            ->with(['status' => 'Data Tutor Berhasil Di Update']);
+        return redirect()->route('tutor.index')->with([
+            'status' => 'Data Tutor Berhasil Di Update'
+        ]);
     }
 
 
@@ -93,7 +121,6 @@ class TutorController extends Controller
         $tutor = Tutor::findOrFail($id);
         File::delete('uploads/tutor/' . $tutor->foto);
         $tutor->delete();
-
 
         return redirect()->route('tutor.index')
             ->with(['status' => 'Data Tutor Berhasil Dihapus']);
