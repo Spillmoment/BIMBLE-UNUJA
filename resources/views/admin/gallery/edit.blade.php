@@ -54,11 +54,19 @@
                     </select>
                 </div>
 
-                <div class="form-group">
-                    <label for="image">Image</label>
-                    <input type="file" class="form-control-file" name="image" id="image" placeholder=""
-                        aria-describedby="fileHelpId">
-                </div>
+                
+            <div class="form-group">
+                <label for="image">Image</label>
+                <small class="text-muted">Current image</small>
+                <img src="{{ Storage::url($gallery->image) }}" width="96px" />
+                <input type="file" class="form-control-file {{ $errors->first('image') ? 'is-invalid' : '' }}"
+                    name="image" id="image">
+                <small class="text-muted">Kosongkan jika tidak ingin mengubah
+                    image</small>
+            </div>
+            <div class="invalid-feedback">
+                {{$errors->first('image')}}
+            </div
 
 
                 <div class="form-group">
