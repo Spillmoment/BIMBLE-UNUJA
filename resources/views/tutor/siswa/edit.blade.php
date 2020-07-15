@@ -120,16 +120,6 @@
                 </div>
             </div>
 
-
-            <div class="form-group">
-                <label for="keterangan">Keterangan</label>
-                <textarea name="keterangan" class="form-control {{ $errors->first('keterangan') ? 'is-invalid' : '' }}"
-                    id="keterangan" rows="3" placeholder="Keterangan">{{$siswa->keterangan}}</textarea>
-                <div class="invalid-feedback">
-                    {{$errors->first('keterangan')}}
-                </div>
-            </div>
-
                 <button class="btn btn-primary btn-block" type="submit">
                     Edit Siswa
                 </button>
