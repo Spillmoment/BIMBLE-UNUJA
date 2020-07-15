@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Tutor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Siswa;
-use App\Http\Requests\SiswaRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
@@ -54,7 +53,6 @@ class SiswaController extends Controller
             'username'                 => 'required|max:255|min:3|unique:siswa',
             'password'                 => 'required|max:255|min:3',
             'konfirmasi_password'      => 'required|same:password|max:255|min:3',
-            'keterangan'               => 'required|max:255|min:3'
         ]);
 
         $data = $request->all();
@@ -69,7 +67,6 @@ class SiswaController extends Controller
         }
 
         Siswa::create($data);
-
         return redirect()->route('siswa.index')
             ->with(['status' => 'Data Siswa Berhasil Ditambahkan']);
     }
@@ -119,7 +116,6 @@ class SiswaController extends Controller
             'username'                 => 'required|max:255|min:3|unique:siswa,username,' . $id,
             'password'                 => 'sometimes|nullable|max:255|min:3',
             'konfirmasi_password'      => 'sometimes|nullable|same:password|max:255|min:3',
-            'keterangan'               => 'required|max:255|min:3'
         ]);
 
         $siswa = Siswa::findOrFail($id);
@@ -169,7 +165,8 @@ class SiswaController extends Controller
     public function add_nilai(Request $request, $id)
     {
         $request->validate([
-            'nilai' => 'required|numeric'
+            'nilai'      => 'required|numeric',
+            'keterangan' => 'required'
         ]);
 
         $siswa = Siswa::findOrFail($id);
