@@ -36,7 +36,6 @@ class GalleryController extends Controller
     public function create()
     {
         $kursus = Kursus::all();
-
         return view('admin.gallery.create', [
             'kursus' => $kursus
         ]);
@@ -103,10 +102,14 @@ class GalleryController extends Controller
         $gallery = Gallery::findOrFail($id);
         $data = $request->all();
 
-        if ($gallery->image && file_exists(storage_path('app/public/' . $gallery->image))) {
-            Storage::delete('public/' . $gallery->image);
-            $file = $request->file('image')->store('gallery', 'public');
-            $data['image'] = $file;
+        if ($request->hasFile('image')) {
+            if ($request->file('image')) {
+                if ($gallery->image && file_exists(storage_path('app/public/' . $gallery->image))) {
+                    Storage::delete('public/' . $gallery->image);
+                    $file = $request->file('image')->store('gallery', 'public');
+                    $data['image'] = $file;
+                }
+            }
         }
 
         $gallery->update($data);
