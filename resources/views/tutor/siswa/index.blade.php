@@ -82,7 +82,7 @@
                                 <td>
                                     @if ($item->foto)
                                     <img src="{{ asset('uploads/siswa/'.$item->foto) }}"
-                                        alt="{{ $item->nama_siswa }}" width="100px" height="100px">
+                                        alt="{{ $item->nama_siswa }}" width="70px" height="70px">
                                     @else
                                     N/A
                                     @endif
