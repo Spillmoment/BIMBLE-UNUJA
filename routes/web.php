@@ -61,38 +61,23 @@ Route::prefix('tutor')
 Route::prefix('manager')
     ->middleware('auth:manager')
     ->group(function () {
-
         // Route Dashboard
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-        // Route Tutor
-        Route::resource('tutor', 'TutorController');
-
-        // Route Kategori
-        Route::resource('kategori', 'KategoriController');
-
         // Route Kursus
-        Route::delete('kursus/{id}/delete-permanent', 'KursusController@deletePermanent')
-            ->name('kursus.delete-permanent');
-        Route::get('kursus/{id}/restore', 'KursusController@restore')->name('kursus.restore');
-        Route::get('kursus/trash', 'KursusController@trash')->name('kursus.trash');
-        Route::get('kursus/{id}/gallery', 'KursusController@gallery')
-            ->name('kursus.gallery');
-        Route::resource('kursus', 'KursusController');
-
-        // Route Pendaftar
-        Route::get('pendaftar/trash', 'PendaftarController@trash')->name('pendaftar.trash');
-        Route::resource('pendaftar', 'PendaftarController');
-
-        // Route Gallery
-        Route::resource('gallery', 'GalleryController');
-
+        Route::get('kursus/{id}/gallery', 'KursusController@gallery')->name('kursus.gallery');
         // Route Order
-        Route::get('order/{id}/set-status', 'OrderController@setStatus')
-            ->name('order.status');
-        Route::resource('order', 'OrderController');
-    });
+        Route::get('order/{id}/set-status', 'OrderController@setStatus')->name('order.status');
 
+        Route::resources([
+            'kategori'  => 'KategoriController',
+            'kursus'    => 'KursusController',
+            'gallery'   => 'GalleryController',
+            'tutor'     => 'TutorController',
+            'pendaftar' => 'PendaftarController',
+            'order'     => 'OrderController'
+        ]);
+    });
 
 // Route Front
 Route::get('/', 'Web\FrontController@index')->name('front.index');
@@ -109,8 +94,6 @@ Route::delete('/order/cart/{id}', 'Web\OrderController@updateToDelete')->name('o
 Route::post('/order/cart/upload_bukti', 'Web\OrderController@uploadFile')->name('order.post.pembayaran');
 Route::patch('/order/cart/upload_bukti', 'Web\OrderController@updateFile')->name('order.patch.pembayaran');
 Route::delete('/order/checkout/{id}', 'Web\OrderController@deleteCheckout')->name('order.delete.checkout');
-
 Route::get('/user/kursus', 'Web\KursusUserController@kursus_success')->name('user.kursus.success');
 Route::get('/user/kursus/{slug}', 'Web\KursusUserController@kursusKelas')->middleware('user.kursus')->name('user.kursus.kelas');
-// Route::get('/user/kursus/{slug}/komentar', 'Web\KursusUserController@kursusKelasKomentar')->name('user.kursus.komentar');
 Route::post('/user/kursus/{slug}', 'Web\KursusUserController@kursusKelasKomentar')->name('user.kursus.komentar');
