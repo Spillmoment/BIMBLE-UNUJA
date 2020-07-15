@@ -1,41 +1,4 @@
-@extends('admin.layouts.tutor')
 
-@section('title','Bimble - Edit Nilai')
-@section('content')
-
-<div class="breadcrumbs">
-    <div class="breadcrumbs-inner">
-        <div class="row m-0">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>Edit Nilai</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <div class="page-header float-right">
-                    <div class="page-title">
-                        <ol class="breadcrumb text-right">
-                            <li><a href="{{ route('siswa.index') }}">Data Nilai</a></li>
-                            <li class="active">Edit Nilai </li>
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="content">
-
-<div class="card">
-    <div class="card-header">
-        <strong>Edit Nilai @foreach ($nilai->pendaftar as $item)
-          {{ $item->nama_pendaftar }}
-        @endforeach</strong>
-    </div>
-    <div class="card-body card-block">
       <form action="/tutor/nilai/{{ $nilai->id }}/edit" method="post">
         @csrf
         @method('patch')
@@ -56,11 +19,5 @@
         </div>
         
             <button type="submit" class="btn btn-primary btn-block">Edit Nilai</button>
-        
       </form>
-    </div>
-</div>
-</div>
-
-
-@endsection
+    
