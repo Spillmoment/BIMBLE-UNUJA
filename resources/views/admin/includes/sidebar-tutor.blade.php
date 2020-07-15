@@ -13,6 +13,7 @@
                               (Request::route()->getName() == 'siswa.index') ? 'active' : '' ||
                               (Request::route()->getName() == 'siswa.create') ? 'active' : '' ||
                               (Request::route()->getName() == 'siswa.edit') ? 'active' : '' ||
+                              (Request::route()->getName() == 'siswa.nilai') ? 'active' : '' ||
                               (Request::route()->getName() == 'siswa.show') ? 'active' : ''
 
                           }}">
