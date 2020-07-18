@@ -43,11 +43,10 @@
                 <div class="col-md-4 col-lg-3 d-flex align-items-center form-group no-divider">
                     <form action="{{ route('front.index') }}">
                         <select id="nama_kategori" name="kategori" data-style="btn-form-control"
-                            class="selectpicker" value="Kategori">
+                            class="form-control" value="Kategori">
                             @foreach ($kategori as $row)
                             <option value="{{$row->id}}">{{ $row->nama_kategori }}</option>
-                            @endforeach
-                           
+                            @endforeach  
                         </select>
 
                 </div>
@@ -56,7 +55,6 @@
                 </div>
             </div>
         </form>
-
 
     </div>
 </div>

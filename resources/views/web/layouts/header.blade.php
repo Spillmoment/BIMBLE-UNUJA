@@ -53,22 +53,23 @@
                     <li class="nav-item"><a href="{{ route('order.view') }}" class="nav-link 
                         {{ (Request::route()->getName() == 'order.view') ? 'active' : '' }}">Pesanan</a></li>
                     <li class="nav-item dropdown ml-lg-3">
-                        <a id="userDropdownMenuLink" href="#"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                         <img src="{{ Storage::url('uploads/pendaftar/profile/'.Auth::user()->foto ) }}" 
-                            alt="{{ Auth::user()->nama_pendaftar }}" class="avatar avatar-sm avatar-border-white mr-2">
-                        </a>
-                    <div class="d-flex">
-                        <div class="dropdown-menu dropdown-menu-right z-index-1;">
-                            <a class="dropdown-item" href="#">Profile</a>
-                            <a class="dropdown-item" href="{{ route('user.kursus.success') }}">My Kursus</a>
-                            <a class="dropdown-item" href="{{ route('user.logout') }}">
-                                <i class="fas fa-sign-out-alt mr-2 text-muted"></i>
-                                 Keluar
-                                </a>
+                            <a id="userDropdownMenuLink" href="#"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ Storage::url('uploads/pendaftar/profile/'.Auth::user()->foto ) }}" 
+                                alt="{{ Auth::user()->nama_pendaftar }}" class="avatar avatar-sm avatar-border-white mr-2">
+                            </a>
+                        <div class="d-flex">
+                            <div class="dropdown-menu dropdown-menu-right z-index-1;">
+                                <a class="dropdown-item" href="#">Profile</a>
+                                <a class="dropdown-item" href="{{ route('user.kursus.success') }}">My Kursus</a>
+                                <a class="dropdown-item" href="{{ route('user.logout') }}">
+                                    <i class="fas fa-sign-out-alt mr-2 text-muted"></i>
+                                    Keluar
+                                    </a>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                
                 @endauth
                     
                 </ul>

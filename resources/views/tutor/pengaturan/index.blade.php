@@ -101,7 +101,7 @@
                     <div class="col-4">
 
                       <div class="form-group">
-                        <img src="{{asset('uploads/tutor/' . $tutor->foto)}}" width="96px" />
+                        <img src="{{Storage::url('public/' . $tutor->foto)}}" width="96px" />
                       </div>
                       
                     </div>
