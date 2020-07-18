@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TutorRequest;
 use Illuminate\Http\Request;
 use App\Tutor;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 class TutorController extends Controller
 {
@@ -49,13 +48,7 @@ class TutorController extends Controller
 
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
-
-        if ($request->file('foto')) {
-            $foto = $request->file('foto');
-            $nama_gambar = 'tutor-' . time() . '.' . $foto->getClientOriginalExtension();
-            $request->file('foto')->move('uploads/tutor', $nama_gambar);
-            $data['foto'] = $nama_gambar;
-        }
+        $data['foto'] = $request->file('foto')->store('tutor', 'public');
 
         Tutor::create($data);
         return redirect()->route('tutor.index')
@@ -90,6 +83,7 @@ class TutorController extends Controller
             'keahlian'              => 'required',
         ]);
 
+
         $tutor = Tutor::findOrFail($id);
         $data = $request->all();
 
@@ -101,11 +95,11 @@ class TutorController extends Controller
 
         if ($request->hasFile('foto')) {
             if ($request->file('foto')) {
-                File::delete('uploads/tutor/' . $tutor->foto);
-                $foto = $request->file('foto');
-                $nama_gambar = 'tutor-' . time() . '.' . $foto->getClientOriginalExtension();
-                $request->file('foto')->move('uploads/tutor', $nama_gambar);
-                $data['foto'] = $nama_gambar;
+                if ($tutor->foto && file_exists(storage_path('app/public/' . $tutor->foto))) {
+                    Storage::delete('public/' . $tutor->foto);
+                    $file = $request->file('foto')->store('tutor', 'public');
+                    $data['foto'] = $file;
+                }
             }
         }
 
@@ -119,7 +113,7 @@ class TutorController extends Controller
     public function destroy($id)
     {
         $tutor = Tutor::findOrFail($id);
-        File::delete('uploads/tutor/' . $tutor->foto);
+        Storage::delete('public/' . $tutor->foto);
         $tutor->delete();
 
         return redirect()->route('tutor.index')
