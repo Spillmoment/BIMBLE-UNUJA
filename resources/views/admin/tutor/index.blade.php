@@ -77,7 +77,7 @@
                                     <td> {{ $sensei->alamat }} </td>
 
                                     <td> <img class="img-thumbnail rounded-circle"
-                                            src="{{ asset('uploads/tutor/'. $sensei->foto) }}" width="50px"> </td>
+                                            src="{{ Storage::url('public/'. $sensei->foto) }}" width="100px"> </td>
 
                                     @if ($sensei->status == 1)
                                     <td><span class="badge badge-pill badge-success">Aktif</span></td>
