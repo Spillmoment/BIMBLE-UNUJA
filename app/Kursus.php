@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Http\Requests\KursusRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
