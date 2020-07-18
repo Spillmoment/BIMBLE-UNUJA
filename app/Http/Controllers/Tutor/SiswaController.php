@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Tutor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Siswa;
+use Illuminate\Contracts\Cache\Store;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class SiswaController extends Controller
 {
@@ -58,13 +59,7 @@ class SiswaController extends Controller
         $data = $request->all();
         $data['id_tutor'] = Auth::id();
         $data['password'] = bcrypt($data['password']);
-
-        if ($request->file('foto')) {
-            $foto = $request->file('foto');
-            $nama_gambar = 'siswa-' . time() . '.' . $foto->getClientOriginalExtension();
-            $request->file('foto')->move('uploads/siswa', $nama_gambar);
-            $data['foto'] = $nama_gambar;
-        }
+        $data['foto'] =  $request->file('foto')->store('siswa', 'public');
 
         Siswa::create($data);
         return redirect()->route('siswa.index')
@@ -124,11 +119,11 @@ class SiswaController extends Controller
 
         if ($request->hasFile('foto')) {
             if ($request->file('foto')) {
-                File::delete('uploads/siswa/' . $siswa->foto);
-                $foto = $request->file('foto');
-                $nama_gambar = 'siswa-' . time() . '.' . $foto->getClientOriginalExtension();
-                $request->file('foto')->move('uploads/siswa', $nama_gambar);
-                $data['foto'] = $nama_gambar;
+                if ($siswa->foto && file_exists(storage_path('app/public/' . $siswa->foto))) {
+                    Storage::delete('public/' . $siswa->foto);
+                    $file = $request->file('foto')->store('siswa', 'public');
+                    $data['foto'] = $file;
+                }
             }
         }
 
@@ -147,7 +142,7 @@ class SiswaController extends Controller
     public function destroy($id)
     {
         $siswa = Siswa::findOrFail($id);
-        File::delete('uploads/siswa/' . $siswa->foto);
+        Storage::delete('public/' . $siswa->foto);
         $siswa->delete();
 
         return redirect()->route('siswa.index')
