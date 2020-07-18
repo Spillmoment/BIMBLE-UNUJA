@@ -35,17 +35,18 @@
                     <div class="card-body">
 
                         @if ($message = Session::get('success'))
-                        @endif
-
-                        @if ($message = Session::get('failed'))
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                <span class="sr-only">Close</span>
-                            </button>
-                            <strong>{{ $message }}</strong>
-                        </div>
-                        @endif
+                        @push('after-script')
+                        <script>
+                            swal({
+                                title: "Success",
+                                text: $message,
+                                icon: "success",
+                                button: false,
+                                timer: 2000
+                            });
+                        </script>
+                    @endpush
+                       @endif
 
                         <div class="card-header bg-primary text-light">
                             <div class="card-title">
@@ -90,15 +91,19 @@
                                             <td>{{ $siswa->nama_siswa }}</td>
                                             <td>{{ $siswa->alamat }}</td>
                                             <td>
-                                                <form id="inputNilai" action="/tutor/nilai/{{ $siswa->id }}"
-                                                    method="post">
-                                                    @csrf @method('put')
-                                                    <input type="text" name="nilai" id="nilai" onsubmit="submitform()"
-                                                        value="{{ !empty($siswa->nilai)?$siswa->nilai:'' }}"
-                                                        class="text-center col-sm-4 form-control">
-                                                </form>
+                                             @if ($siswa->nilai != null)
+                                             {{ $siswa->nilai }}
+                                             @else
+                                             belum ada
+                                             @endif
                                             </td>
-                                            <td>{{ $siswa->keterangan }}</td>
+                                            <td>
+                                                @if ($siswa->keterangan != null)
+                                                {{ $siswa->keterangan }}
+                                                @else
+                                                belum ada
+                                                @endif
+                                            </td>
                                         </tr>
 
                                         @endforeach

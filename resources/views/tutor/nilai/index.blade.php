@@ -34,13 +34,14 @@
               <div class="card">
                   <div class="card-header">
                       @foreach ($tutor as $tutor)
-                      <h3> List Kursus {{ $tutor }} </h3>
+                      <h3> <span class="badge badge-primary">
+                          List Kursus {{ $tutor }} </h3>
+                        </span>
                       @endforeach
                   </div>
                   <div class="card-body">
 
                     <div class="row">
-
                         @foreach ($kursus_tutor as $kursus)
                         <div class="col-md-4 col-sm-6 mb-2">
                             <div class="card card-shadow card-design">
