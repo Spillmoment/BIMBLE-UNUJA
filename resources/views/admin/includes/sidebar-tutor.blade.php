@@ -4,7 +4,10 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
 
-                <li class="{{ (Request::route()->getName() == 'tutor.home') ? 'active' : '' }}">
+                <li class="{{ 
+                    (Request::route()->getName() == 'tutor.home') ? 'active' : '' ||
+                    (Request::route()->getName() == 'tutor.profile') ? 'active' : ''
+                    }}">
                     <a href="{{ route('tutor.home') }}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                 </li>
 
@@ -20,16 +23,12 @@
                     <a href="{{ route('siswa.index') }}"> <i class="menu-icon fa fa-users"></i>Data Siswa</a>
                 </li>
 
-                <li class="menu-title text-capitalize">Manage Nilai</li>
+                <li class="menu-title text-capitalize">Manage Kursus</li>
                 <li class="{{ 
-                              (Request::route()->getName() == 'nilai.index') ? 'active' : ''
-                          }}">
-                    <a href="{{ route('nilai.index') }}"> <i class="menu-icon fa fa-list-alt"></i> List Nilai</a>
-                </li>
-                <li class="{{ 
-                              (Request::route()->getName() == 'tutor.kursus') ? 'active' : ''
-                          }}">
-                    <a href="{{ route('tutor.kursus') }}"> <i class="menu-icon fa fa-user-md"></i> Kursus Tutor</a>
+                              (Request::route()->getName() == 'tutor.kursus') ? 'active' : '' ||
+                              (Request::route()->getName() == 'kursus.nilai') ? 'active' : ''
+                            }}">
+                    <a href="{{ route('tutor.kursus') }}"> <i class="menu-icon fa fa-user-md"></i>Nilai Kursus</a>
                 </li>
              
             </ul>
