@@ -81,7 +81,7 @@
                                 <td> {{ $item->alamat }} </td>
                                 <td>
                                     @if ($item->foto)
-                                    <img src="{{ asset('uploads/siswa/'.$item->foto) }}"
+                                    <img src="{{ Storage::url('public/'. $item->foto) }}"
                                         alt="{{ $item->nama_siswa }}" width="70px" height="70px">
                                     @else
                                     N/A
@@ -89,7 +89,7 @@
                                 </td>
                                 <td>
                                     <a class="btn btn-success text-white btn-sm" href="{{route('siswa.nilai',
-                        [$item->id])}}"> <i class="fa fa-download"></i></a>
+                        [$item->id])}}"> <i class="fa fa-plus"></i></a>
                                     <a class="btn btn-info text-white btn-sm" href="{{route('siswa.show',
                         [$item->id])}}"> <i class="fa fa-eye"></i></a>
                                     <a class="btn btn-warning text-white btn-sm" href="{{route('siswa.edit',
@@ -107,7 +107,9 @@
                             </tr>
                             @empty
                             <tr>
-                                <td>Data Siswa Kosong</td>
+                               <td>
+                                <h4 class="text-center">Data Siswa Kosong</h4>
+                               </td>
                             </tr>
                             @endforelse
                         </tbody>

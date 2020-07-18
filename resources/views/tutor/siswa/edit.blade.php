@@ -78,18 +78,28 @@
             </div>
 
 
-            <div class="form-group">
-                <label for="foto">Foto</label>
-                <small class="text-muted">Current Foto</small>
-                <img src="{{asset('uploads/siswa/' . $siswa->foto)}}" width="96px" />
-                <input type="file" class="form-control-file {{ $errors->first('foto') ? 'is-invalid' : '' }}"
-                    name="foto" id="foto">
-                <small class="text-muted">Kosongkan jika tidak ingin mengubah
-                    foto</small>
-            </div>
-            <div class="invalid-feedback">
-                {{$errors->first('foto')}}
-            </div>
+            <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                      <label for="foto">Foto</label>
+                      <input type="file" class="form-control-file {{ $errors->first('foto') ? 'is-invalid' : '' }}"
+                      name="foto" id="foto">
+                      <small class="text-muted">Kosongkan jika tidak ingin mengubah
+                        foto</small>
+                        <div class="invalid-feedback">
+                            {{$errors->first('foto')}}
+                        </div>
+                      </div> 
+                      
+                    </div>
+                    <div class="col-4">
+
+                      <div class="form-group">
+                        <img src="{{ Storage::url('public/' . $siswa->foto)}}" width="96px" />
+                      </div>
+                      
+                    </div>
+              </div>
 
             <div class="form-group ">
                 <label for="username">Username</label>
