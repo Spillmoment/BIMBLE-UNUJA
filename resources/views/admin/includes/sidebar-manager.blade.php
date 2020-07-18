@@ -57,7 +57,7 @@
 
                 <li class="menu-title text-capitalize">Manage Order</li><!-- /.menu-title -->
                 <li class="{{ (Request::route()->getName() == 'order.index') ? 'active' : '' }}">
-                    <a href="{{ route('order.index') }}"> <i class="menu-icon fa fa-dollar"></i>Lihat Order</a>
+                    <a href="{{ route('order.index') }}"> <i class="menu-icon fa fa-dollar"></i>Data Order</a>
                 </li>
 
 
