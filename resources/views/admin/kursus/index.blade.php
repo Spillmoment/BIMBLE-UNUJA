@@ -72,7 +72,7 @@
                                     <td scope="row"> {{$loop->iteration}} </td>
                                     <td>{{ $krs->nama_kursus }}</td>
                                     @if($krs->gambar_kursus)
-                                    <td> <img src="{{ asset('uploads/kursus/'.$krs->gambar_kursus) }}" width="50px">
+                                    <td> <img src="{{ Storage::url('public/'.$krs->gambar_kursus) }}" width="50px">
                                     </td>
                                     @else
                                     Tidak Ada Gambar
@@ -88,7 +88,7 @@
                                         @endforeach
                                     </td>
                                     <td>
-                                        <a href="{{ route('kursus.gallery', $krs->id) }}" class="btn btn-info btn-sm">
+                                        <a href="{{ route('kursus.gallery', $krs->id) }}" class="btn btn-success btn-sm">
                                             <i class="fa fa-picture-o"></i>
                                         </a>
                                         <a class="btn btn-primary btn-sm" href="{{route('kursus.show',

@@ -49,11 +49,11 @@
                 <tr>
                     <th>Gambar Kursus</th>
                     <td>
-                        <img src="{{ asset('uploads/kursus/' . $kursus->gambar_kursus) }}" alt=""
+                        <img src="{{ Storage::url('public/' . $kursus->gambar_kursus) }}" alt=""
                             class="img-thumbnail mb-2" width="150px">
                         <br>
-                        <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modelId">
-                            <i class="fa fa-eye    "></i> Show Images</button>
+                        <button type="submit" class="badge badge-primary btn-sm" data-toggle="modal" data-target="#modelId">
+                            <i class="fa fa-eye    "></i> Lihat</button>
                     </td>
                 </tr>
 
@@ -100,10 +100,11 @@
                     <th>Keterangan</th>
                     <td>{{ $kursus->keterangan }}</td>
                 </tr>
-
-
-
             </table>
+
+              
+            <a href="{{ route('kursus.index') }}" class="btn btn-primary btn-sm"> <i class="fa fa-angle-left" aria-hidden="true"></i> Kembali</a>
+
         </div>
     </div>
 </div>
@@ -111,7 +112,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title"><span class="badge badge-light badge-pill badge-lg" style="font-size: 15px;">
@@ -122,7 +123,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <img src="{{ asset('uploads/kursus/' . $kursus->gambar_kursus) }}" alt="" class="img-thumbnail mb-2">
+                <img src="{{ Storage::url('public/' . $kursus->gambar_kursus) }}" alt="" class="img-thumbnail mb-2">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

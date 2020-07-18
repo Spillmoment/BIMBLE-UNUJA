@@ -48,19 +48,29 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="gambar_kursus">Gambar Kursus</label>
-                    <small class="text-muted">Current Gambar</small>
-                    <img src="{{asset('uploads/kursus/' . $kursus->gambar_kursus)}}" width="96px" />
-                    <input type="file"
-                        class="form-control-file {{ $errors->first('gambar_kursus') ? 'is-invalid' : '' }}"
-                        name="gambar_kursus" id="gambar_kursus">
-                    <small class="text-muted">Kosongkan jika tidak ingin mengubah
-                        gambar</small>
-                </div>
-                <div class="invalid-feedback">
-                    {{$errors->first('gambar_kursus')}}
-                </div>
+               
+            <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                      <label for="gambar_kursus">Foto Kursus</label>
+                      <input type="file" class="form-control-file {{ $errors->first('gambar_kursus') ? 'is-invalid' : '' }}"
+                      name="gambar_kursus" id="gambar_kursus">
+                      <small class="text-muted">Kosongkan jika tidak ingin mengubah
+                        Foto</small>
+                        <div class="invalid-feedback">
+                            {{$errors->first('gambar_kursus')}}
+                        </div>
+                      </div> 
+                      
+                    </div>
+                    <div class="col-4">
+
+                      <div class="form-group">
+                        <img src="{{ Storage::url('public/' . $kursus->gambar_kursus)}}" width="200px" />
+                      </div>
+                      
+                    </div>
+              </div>
 
 
                 <div class="form-group">
