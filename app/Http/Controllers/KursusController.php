@@ -72,16 +72,9 @@ class KursusController extends Controller
         $nama_kursus = $kursus['nama_kursus'];
 
         $kursus['slug'] = Str::slug($nama_kursus, '-');
-
-        if ($request->file('gambar_kursus')) {
-            $gambar_kursus = $request->file('gambar_kursus');
-            $nama_gambar = 'kursus-' . time() . '.' . $gambar_kursus->getClientOriginalExtension();
-            $request->file('gambar_kursus')->move('uploads/kursus', $nama_gambar);
-            $kursus['gambar_kursus'] = $nama_gambar;
-        }
+        $kursus['gambar_kursus'] = $request->file('gambar_kursus')->store('kursus', 'public');
 
         Kursus::create($kursus);
-
         return redirect()->route('kursus.index')
             ->with(['status' => 'Data Kursus Berhasil Ditambahkan']);
     }
@@ -127,19 +120,17 @@ class KursusController extends Controller
         $data = $request->all();
 
         $nama_kursus = $data['nama_kursus'];
-
         $data['slug'] = Str::slug($nama_kursus, '-');
 
         if ($request->hasFile('gambar_kursus')) {
             if ($request->file('gambar_kursus')) {
-                File::delete('uploads/kursus/' . $kursus->gambar_kursus);
-                $gambar_kursus = $request->file('gambar_kursus');
-                $nama_gambar = 'kursus-' . time() . '.' . $gambar_kursus->getClientOriginalExtension();
-                $request->file('gambar_kursus')->move('uploads/kursus', $nama_gambar);
-                $data['gambar_kursus'] = $nama_gambar;
+                if ($kursus->gambar_kursus && file_exists(storage_path('app/public/' . $kursus->gambar_kursus))) {
+                    Storage::delete('public/' . $kursus->gambar_kursus);
+                    $file = $request->file('image')->store('gallery', 'public');
+                    $data['image'] = $file;
+                }
             }
         }
-
 
         $kursus->update($data);
         return redirect()->route('kursus.index')->with(['status' => 'Data Kursus Berhasil Di Update']);
