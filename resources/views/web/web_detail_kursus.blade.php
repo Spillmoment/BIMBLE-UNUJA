@@ -65,7 +65,7 @@
             <div class="text-block">
                 <div class="media">
                     @foreach ($kursus->tutor as $tutor)
-                    <img src="{{ asset('uploads/tutor/'.$tutor->foto) }}" alt="{{ $tutor->nama_tutor }}"
+                    <img src="{{ Storage::url('public/'.$tutor->foto) }}" alt="{{ $tutor->nama_tutor }}"
                         class="avatar avatar-lg mr-4">
                     <div class="media-body">
                         <p> <span class="text-muted text-uppercase text-sm">Hosted by </span>
@@ -83,14 +83,18 @@
             <div class="text-block">
                 <h5 class="mb-4">Gallery</h5>
                 <div class="row gallery mb-3 ml-n1 mr-n1">
-                    @foreach ($kursus->galleries as $gallery)
+                    @forelse ($kursus->galleries as $gallery)
                     <div class="col-lg-4 col-6 px-1 mb-2">
                         <a href="{{ Storage::url($gallery->image) }}" data-fancybox="gallery"
                             title="{{ $kursus->nama_kursus }}">
                             <img src="{{ Storage::url($gallery->image) }}" alt="{{ $kursus->nama_kursus }}"
                                 class="img-fluid mt-2"></a>
                     </div>
-                    @endforeach
+                    @empty
+                    <div class="col-lg-4 col-6 px-1 mb-2 alert alert-warning font-weight-bold">
+                        Galeri Kosong
+                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>

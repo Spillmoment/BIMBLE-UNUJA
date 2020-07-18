@@ -93,14 +93,14 @@
                  <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
-                                <img src="{{asset('uploads/kursus/'.$krs->gambar_kursus) }}" style="height: 10em;"
+                                <img src="{{ Storage::url('public/'.$krs->gambar_kursus) }}" style="height: 10em;"
                                     alt="{{ $krs->nama_kursus }}" class="img-fluid" /><a
                                     href="{{ route('front.detail', [$krs->slug]) }}" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
 
                                         @foreach ($krs->tutor as $sensei)
-                                        <img src="{{asset('uploads/tutor/'.$sensei->foto) }}" alt="John" class="avatar-profile avatar-border-white mr-2" /> 
+                                        <img src="{{ Storage::url('public/'.$sensei->foto) }}" alt="John" class="avatar-profile avatar-border-white mr-2" /> 
                                             <div class="media-body">{{ $sensei->nama_tutor }}</div>
                                             @endforeach
                                         </div>
