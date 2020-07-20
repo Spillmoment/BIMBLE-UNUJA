@@ -85,6 +85,7 @@ Route::prefix('manager')
 Route::get('/', 'Web\FrontController@index')->name('front.index');
 Route::get('/kursus', 'Web\FrontController@kursus')->name('front.kursus');
 Route::get('/kursus/{slug}', 'Web\FrontController@show')->name('front.detail');
+Route::get('/kursus/review/{slug}', 'Web\FrontController@review')->name('front.review');
 
 
 // Route Order

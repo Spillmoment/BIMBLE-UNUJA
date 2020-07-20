@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="container-fluid py-5 px-lg-5">
-        <h4 class="text-info mb-3"> List Kursus {{ Auth::user()->nama_pendaftar }}</h4>
+        <h5 class="text-dark mb-3"> Daftar Kursus {{ Auth::user()->nama_pendaftar }}</h5>
         <hr>
         <div class="row">
 
@@ -16,19 +16,17 @@
                     <div data-marker-id="59c0c8e322f3375db4d89128" class="col-sm-6 col-xl-4 mb-5 hover-animate">
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
-                                <img src="{{ asset('uploads/kursus/'.$cours->gambar_kursus) }}"
+                                <img src="{{ Storage::url('public/'.$cours->gambar_kursus) }}"
                                     alt="{{ $cours->nama_kursus }}" class="img-fluid" /><a
                                     href="{{ route('user.kursus.kelas',$cours->slug) }}" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
 
                                         @foreach ($cours->tutor as $tutor)
-
-                                        <img src="{{ asset('uploads/tutor/'.$tutor->foto) }}"
+                                        <img src="{{ Storage::url('public/'.$tutor->foto) }}"
                                             alt="{{ $tutor->nama_tutor }}"
-                                            class="avatar-profile avatar-border-white mr-2" />
+                                            class="avatar-profile avatar-border-white mr-2" height="50px"/>
                                         <div class="media-body">{{ $tutor->nama_tutor }}</div>
-
                                         @endforeach
                                     </div>
                                 </div>

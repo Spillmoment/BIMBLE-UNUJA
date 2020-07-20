@@ -1,6 +1,6 @@
 @extends('web.layouts.main')
 
-@section('title','Bimble | List Kursus')
+@section('title','Bimble | Daftar Kursus')
 @section('content')
 
 <div class="container-fluid py-5 px-lg-5">
@@ -64,13 +64,13 @@
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
                                 <img src="{{ Storage::url('public/'.$krs->gambar_kursus) }}"
-                                    alt="{{ $krs->nama_kursus }}" class="img-fluid" /><a
+                                    alt="{{ $krs->nama_kursus }}" class="img-fluid" style="height: 10em;"/><a
                                     href="{{ route('front.detail', [$krs->slug]) }}" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
                                         @foreach ($krs->tutor as $sensei)
-                                        <img src="{{ Storage::url('public/'.$sensei->foto) }}" alt="John"
-                                            class="avatar-profile avatar-border-white mr-2" />
+                                        <img src="{{ Storage::url('public/'.$sensei->foto) }}" alt="{{ $sensei->nama_tutor }}"
+                                            class="avatar-profile avatar-border-white mr-2" height="50px"/>
                                         <div class="media-body">{{ $sensei->nama_tutor }}</div>
                                         @endforeach
                                     </div>

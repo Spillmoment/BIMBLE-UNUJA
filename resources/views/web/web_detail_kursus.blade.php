@@ -1,8 +1,7 @@
 @extends('web.layouts.main')
 
-@section('title', $kursus->nama_kursus )
+@section('title', 'Detail Kursus - ' . $kursus->nama_kursus )
 @section('content')
-
 
 <section
     style="background-image: url('{{ $kursus->galleries->count() ? Storage::url($kursus->galleries->first()->image) : '' }}');"
@@ -17,8 +16,8 @@
                 <p><i class="fa-map-marker-alt fas mr-2"></i> Paiton, Probolinggo</p>
                 <p class="mb-0 d-flex align-items-center"><i class="fa fa-xs fa-star text-primary"></i><i
                         class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i
-                        class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200 mr-4"> </i>8
-                    Reviews
+                        class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200 mr-4"> </i>
+                        <a href="{{ route('front.review', $kursus->slug) }}" class="text-light">{{  $review->count() }} Reviews</a>
                 </p>
             </div>
         </div>
