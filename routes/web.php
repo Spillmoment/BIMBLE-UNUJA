@@ -87,6 +87,15 @@ Route::get('/kursus', 'Web\FrontController@kursus')->name('front.kursus');
 Route::get('/kursus/{slug}', 'Web\FrontController@show')->name('front.detail');
 Route::get('/kursus/review/{slug}', 'Web\FrontController@review')->name('front.review');
 
+// Route Profil
+Route::group(['prefix' => 'profile'], function () {
+    Route::put('update/{id}/profile', 'Web\ProfileController@update_profile')->name('profile.update');
+    Route::get('/', 'Web\ProfileController@profile')->name('profile.index');
+    Route::get('kursus', 'Web\ProfileController@kursus')->name('profile.kursus');
+    Route::put('update/{id}/pengaturan', 'Web\ProfileController@update_pengaturan')->name('pengaturan.update');
+    Route::get('pengaturan', 'Web\ProfileController@pengaturan')->name('profile.pengaturan');
+});
+
 
 // Route Order
 Route::post('/order/post', 'Web\OrderController@orderPost')->name('order.post');
