@@ -7,27 +7,10 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="all,follow">
-  <!-- Price Slider Stylesheets -->
-  <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/nouislider/nouislider.css') }}">
-  <!-- Google fonts - Playfair Display-->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700">
-  <!-- Google fonts - Poppins-->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,400i,700">
-  <!-- Magnigic Popup-->
-  <link rel="stylesheet" href="{{asset('assets/frontend/vendor/magnific-popup/magnific-popup.css')}}">
-  <!-- theme stylesheet-->
-  <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/bootstrap/style.default.css')}}" id="theme-stylesheet">
-  <!-- Custom stylesheet - for your changes-->
-  <link rel="stylesheet" href="{{asset('assets/frontend/css/custom.css')}}">
-  <!-- Favicon-->
-  <link rel="shortcut icon" href="{{ asset('assets/frontend/img/favicon.png') }}">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-  <!-- Owl carousel -->
-  <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/owl-carousel/dist/assets/owl.carousel.min.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/frontend/vendor/owl-carousel/dist/assets/owl.theme.default.css') }}">
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+  @include('web.layouts.style')
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
 <!-- Make sure you put this AFTER Leaflet's CSS -->
 
 {{-- <style>
@@ -301,25 +284,8 @@
   <!-- /Footer end-->
   <!-- JavaScript files-->
 
-  <!-- jQuery-->
-  <script src="{{ asset('assets/frontend/vendor/jquery/jquery.min.js') }}"></script>
-  <!-- Bootstrap JS bundle - Bootstrap + PopperJS-->
-  <script src="{{ asset('assets/frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-  <!-- Magnific Popup - Lightbox for the gallery-->
-  <script src="{{ asset('assets/frontend/vendor/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
-  <!-- Smooth scroll-->
-  <script src="{{ asset('assets/frontend/vendor/smooth-scroll/smooth-scroll.polyfills.min.js') }}"></script>
-  <!-- Bootstrap Select-->
-  <script src="{{ asset('assets/frontend/vendor/bootstrap-select/js/bootstrap-select.min.js') }}"></script>
-  <!-- Object Fit Images - Fallback for browsers that don't support object-fit-->
-  <script src="{{ asset('assets/frontend/vendor/object-fit-images/ofi.min.js') }}"></script>
-  <script src="{{ asset('assets/frontend/vendor/jquery.cookie/jquery.cookie.js') }}"> </script>
-  <script src="{{ asset('assets/frontend/js/demo.36f8799a.js') }}"></script>
-  <!-- Main Theme JS file    -->
-  <script src="{{ asset('assets/frontend/js/theme.55f8348b.js') }}"></script>
-  <!-- owl carousel -->
-  <script src="{{ asset('assets/frontend/vendor/owl-carousel/dist/owl.carousel.min.js') }}"></script>
-  <script src="{{ asset('assets/frontend/vendor/lib/owlcarousel/owlcarousel-costume.js') }}"></script>
+  @include('web.layouts.script')
+
 {{-- 
 @push('scripts')
 <script src="{{ asset('js/app.js') }}"></script>
