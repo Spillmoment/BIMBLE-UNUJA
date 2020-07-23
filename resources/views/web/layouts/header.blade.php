@@ -68,8 +68,8 @@
                     </a>
                     <div class="d-flex">
                         <div class="dropdown-menu dropdown-menu-right z-index-1;">
-                            <a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a>
-                            <a class="dropdown-item" href="{{ route('user.kursus.success') }}">My Kursus</a>
+                            <a class="dropdown-item {{ Route::currentRouteName() == 'profile.index' ? 'active' : '' }}" href="{{ route('profile.index') }}">Profile</a>
+                            <a class="dropdown-item {{ Route::currentRouteName() == 'user.kursus.success' ? 'active' : '' }}" href="{{ route('user.kursus.success') }}">My Kursus</a>
                             <a class="dropdown-item" href="{{ route('user.logout') }}">
                                 <i class="fas fa-sign-out-alt mr-2 text-muted"></i>
                                 Keluar
