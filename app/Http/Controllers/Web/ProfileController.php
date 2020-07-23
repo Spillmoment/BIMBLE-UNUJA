@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\OrderDetail;
 use App\Pendaftar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Hash;
 use App\Rules\UserOldPassword;
+use App\Kursus;
 
 class ProfileController extends Controller
 {
@@ -25,7 +27,29 @@ class ProfileController extends Controller
 
     public function kursus()
     {
-        return view('web.web_profile');
+        $pendaftarId = Auth::id();
+
+        $data['success'] =  OrderDetail::with('pendaftar', 'kursus')
+            ->where('id_pendaftar', $pendaftarId)
+            ->where('status', 'SUCCESS')
+            ->get();
+
+        $data['pending'] =  OrderDetail::with('pendaftar', 'kursus')
+            ->where('id_pendaftar', $pendaftarId)
+            ->where('status', 'PENDING')
+            ->get();
+
+        $data['process'] =  OrderDetail::with('pendaftar', 'kursus')
+            ->where('id_pendaftar', $pendaftarId)
+            ->where('status', 'PROCESs')
+            ->get();
+
+        $data['total'] = OrderDetail::where('id_pendaftar', $pendaftarId)
+            ->where('status', 'PROCESS')
+            ->sum('biaya_kursus');
+
+        // dd($order);
+        return view('web.web_profile', $data);
     }
 
     public function pengaturan()
