@@ -1,7 +1,27 @@
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #647aff;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #4e66f8;
+}
+
 /* your styles go here */
 
 .header-utama {
-    background-image: url("../img/photo/photo-1426122402199-be02db90eb90.jpg");
+    background-image: url('../img/photo/photo-1426122402199-be02db90eb90.jpg');
     background-size: cover;
 }
 
@@ -33,6 +53,7 @@
     position: absolute;
     top: -3rem;
     right: 0;
+    ;
 }
 
 .owl-nav button {
@@ -46,15 +67,14 @@
     width: 35px;
     height: 35px;
     line-height: 70px;
+
 }
 
 .owl-nav button:hover {
     -webkit-box-shadow: 0px 12px 20px 0px rgba(117, 144, 240, 0.4);
     box-shadow: 0px 12px 20px 0px rgba(117, 137, 240, 0.4);
-    background: linear-gradient(55deg,
-            rgb(117, 152, 240) 0%,
-            rgb(145, 145, 255) 100%);
-    color: #fff;
+    background: linear-gradient(55deg, rgb(117, 152, 240) 0%, rgb(145, 145, 255) 100%);
+    color: #fff
 }
 
 .owl-nav .owl-prev {
@@ -63,6 +83,14 @@
 
 .owl-nav .owl-prev {
     margin-left: 25px;
+}
+
+.scrool {
+    opacity: 0;
+}
+
+.visible {
+    opacity: 1;
 }
 
 @media (min-width: 992px) {
