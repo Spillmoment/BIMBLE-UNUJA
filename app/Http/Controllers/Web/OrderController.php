@@ -90,7 +90,7 @@ class OrderController extends Controller
             })
             ->withCount('kursus')
             ->orderBy('created_at', 'ASC')
-            ->get();
+            ->paginate(6);
 
         $total_tagihan = OrderDetail::where('id_pendaftar', $pendaftarId)
             ->where('status', 'PROCESS')
@@ -102,13 +102,18 @@ class OrderController extends Controller
                     ->orWhere('status_kursus', 'FAILED');
             })
             ->get();
+
         $order_status = Order::where('id_pendaftar', $pendaftarId)
             ->where(function ($query) {
                 $query->where('status_kursus', 'PENDING')
                     ->orWhere('status_kursus', 'FAILED');
             })
             ->count();
-        $kursus_state = OrderDetail::with(['kursus'])->where('status', 'PENDING')->where('id_pendaftar', $pendaftarId)->get();
+
+        $kursus_state = OrderDetail::with(['kursus'])
+            ->where('status', 'PENDING')
+            ->where('id_pendaftar', $pendaftarId)->get();
+
         return view('web.web_order_cart', compact('order_kursus', 'total_tagihan', 'order', 'order_status', 'kursus_state'));
     }
 
@@ -152,7 +157,7 @@ class OrderController extends Controller
     public function uploadFile(Request $request)
     {
         $request->validate([
-            'fileTransfer' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'upload_bukti_transfer' => 'required|image|mimes:jpeg,png,jpg',
         ]);
 
         $pendaftarId = Auth::id();
@@ -161,8 +166,8 @@ class OrderController extends Controller
             ->first();
 
         if ($order->upload_bukti == NULL) {
-            $fileName = "buktibayar-" . time() . '.' . request()->fileTransfer->getClientOriginalExtension();
-            $request->fileTransfer->storeAs('public/uploads/bukti_pembayaran', $fileName);
+            $fileName = "buktibayar-" . time() . '.' . request()->upload_bukti_transfer->getClientOriginalExtension();
+            $request->upload_bukti_transfer->storeAs('public/uploads/bukti_pembayaran', $fileName);
             $order->upload_bukti = $fileName;
             $order->status_kursus = 'PENDING';
             $order->save();
@@ -177,7 +182,7 @@ class OrderController extends Controller
                 ->forceDelete();
         }
 
-        return redirect('order/cart');
+        return redirect()->back()->with(['success' => 'Upload bukti transfer berhasil, silahkan cek konfirmasi di status pesanan']);
     }
 
     public function updateFile(Request $request)
@@ -199,7 +204,7 @@ class OrderController extends Controller
             $data->save();
         }
 
-        return redirect('order/cart');
+        return redirect()->back()->with(['status' => 'Update bukti transfer berhasil, silahkan menunggu konfirmasi berikutnya']);
     }
 
     public function deleteCheckout($id)
