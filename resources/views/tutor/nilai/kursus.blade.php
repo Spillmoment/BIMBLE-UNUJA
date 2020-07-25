@@ -82,6 +82,7 @@
                                             <th scope="col">Alamat</th>
                                             <th scope="col">Nilai</th>
                                             <th scope="col">Keterangan</th>
+                                            <th scope="col">Opsi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -103,6 +104,13 @@
                                                 @else
                                                 belum ada
                                                 @endif
+                                            </td>
+                                            <td>
+                                                <a href="#modal-edit" data-remote="{{ route('siswa.nilai',$siswa->id ) }}"
+                                                    data-toggle="modal" data-target="#modal-edit"
+                                                    data-title="Detail Nilai {{ $siswa->nama_siswa }}"
+                                                    class="btn btn-warning btn-sm ml-3 mb-3">
+                                                    <i class="fa fa-pencil"></i> </a>
                                             </td>
                                         </tr>
 
