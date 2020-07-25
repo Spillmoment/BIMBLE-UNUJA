@@ -1,4 +1,4 @@
-@extends('admin.layouts.tutor')
+{{-- @extends('admin.layouts.tutor')
 
 @section('title','Bimble - Tambah Data Siswa')
 @section('content')
@@ -73,4 +73,25 @@
     </div>
 </div>
 </div>
-@endsection
+@endsection --}}
+<form action="/tutor/siswa/nilai/{{ $siswa->id }}" method="post">
+    @csrf
+    @method('put')
+    <input type="hidden" name="id" value="{{ $siswa->id }}">
+    <div class="form-group">
+      <label for="nilai">Nilai</label>
+      <input type="text" class="form-control {{ $errors->first('nilai') ? 'is-invalid' : '' }}" name="nilai" id="nilai" value="{{ old('nilai', $siswa->nilai) }}">
+      <div class="invalid-feedback">
+        {{ $errors->first('nilai') }}
+      </div>
+    </div>
+   <div class="form-group">
+     <label for="keterangan">Keterangan</label>
+     <input type="text" class="form-control {{ $errors->first('keterangan') ? 'is-invalid' : '' }}" name="keterangan" id="keterangan" value="{{ old('keterangan', $siswa->keterangan) }}">
+     <div class="invalid-feedback">
+      {{ $errors->first('keterangan') }}
+    </div>
+    </div>
+    
+        <button type="submit" class="btn btn-primary btn-block">Edit nilai</button>
+  </form>
