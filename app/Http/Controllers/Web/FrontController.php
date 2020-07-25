@@ -29,6 +29,7 @@ class FrontController extends Controller
         }
 
         $filter_kategori = $request->get('kategori');
+        $nama_kategori = '';
         if ($filter_kategori) {
             $kursus = Kursus::with('kategori')
                 ->where('id_kategori', $filter_kategori)
