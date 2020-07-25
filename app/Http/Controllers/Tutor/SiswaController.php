@@ -160,14 +160,13 @@ class SiswaController extends Controller
     public function add_nilai(Request $request, $id)
     {
         $request->validate([
-            'nilai'      => 'required|numeric',
+            'nilai'      => 'required|numeric|min:0|max:100',
             'keterangan' => 'required'
         ]);
 
         $siswa = Siswa::findOrFail($id);
         $data = $request->all();
-
-        $data['id_tutor'] = Auth::id();
+        // $data['id_tutor'] = Auth::id();
         $siswa->update($data);
 
         return redirect()->route('siswa.index')
