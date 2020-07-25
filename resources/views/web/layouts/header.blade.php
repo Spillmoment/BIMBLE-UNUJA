@@ -39,39 +39,47 @@
                         {{ (Request::route()->getName() == 'register') ? 'active' : '' }}">Daftar</a></li>
                     <li class="nav-item"><a href="{{ route('login') }}" class="nav-link 
                          {{ (Request::route()->getName() == 'login') ? 'active' : '' }}">
-                     Masuk
-                    </a></li>
+                            Masuk
+                        </a></li>
                     @endif
                     @endguest
 
-                    @auth    
+                    @auth
                     <li class="nav-item"><a href="{{ route('front.index') }}" class="nav-link 
-                        {{ (Request::route()->getName() == 'front.index') ? 'active' : '' }}"> Beranda</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link"> Pusat Bantuan</a></li>
+                        {{ (Request::route()->getName() == 'front.index') ? 'active' : '' }}">
+                            Beranda
+                        </a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">
+                            Pusat Bantuan
+                        </a></li>
                     <li class="nav-item"><a href="{{ route('front.kursus') }}" class="nav-link 
-                        {{ (Request::route()->getName() == 'front.kursus') ? 'active' : '' }}">Kursus</a></li>
+                        {{ (Request::route()->getName() == 'front.kursus') ? 'active' : '' }}">
+                            Kursus
+            
                     <li class="nav-item"><a href="{{ route('order.view') }}" class="nav-link 
-                        {{ (Request::route()->getName() == 'order.view') ? 'active' : '' }}">Pesanan</a></li>
+                        {{ (Request::route()->getName() == 'order.view') ? 'active' : '' }}">
+                            Pesanan
+                        </a></li>
                     <li class="nav-item dropdown ml-lg-3">
-                            <a id="userDropdownMenuLink" href="#"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="{{ Storage::url('uploads/pendaftar/profile/'.Auth::user()->foto ) }}" 
-                                alt="{{ Auth::user()->nama_pendaftar }}" class="avatar avatar-sm avatar-border-white mr-2">
+                        <a id="userDropdownMenuLink" href="#" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <img src="{{ Storage::url('uploads/pendaftar/profile/'.Auth::user()->foto ) }}"
+                    class="avatar avatar-sm avatar-border-white mr-2">
+                    </a>
+                    <div class="d-flex">
+                        <div class="dropdown-menu dropdown-menu-right z-index-1;">
+                            <a class="dropdown-item {{ Route::currentRouteName() == 'profile.index' ? 'active' : '' }}" href="{{ route('profile.index') }}">Profile</a>
+                            <a class="dropdown-item {{ Route::currentRouteName() == 'user.kursus.success' ? 'active' : '' }}" href="{{ route('user.kursus.success') }}">My Kursus</a>
+                            <a class="dropdown-item" href="{{ route('user.logout') }}">
+                                <i class="fas fa-sign-out-alt mr-2 text-muted"></i>
+                                Keluar
                             </a>
-                        <div class="d-flex">
-                            <div class="dropdown-menu dropdown-menu-right z-index-1;">
-                                <a class="dropdown-item" href="#">Profile</a>
-                                <a class="dropdown-item" href="{{ route('user.kursus.success') }}">My Kursus</a>
-                                <a class="dropdown-item" href="{{ route('user.logout') }}">
-                                    <i class="fas fa-sign-out-alt mr-2 text-muted"></i>
-                                    Keluar
-                                    </a>
-                            </div>
                         </div>
+                    </div>
                     </li>
-                
-                @endauth
-                    
+
+                    @endauth
+
                 </ul>
             </div>
         </div>

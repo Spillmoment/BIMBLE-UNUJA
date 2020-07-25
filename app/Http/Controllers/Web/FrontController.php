@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Kursus;
 use App\Kategori;
 use App\OrderDetail;
+use App\Komentar;
 use Illuminate\Support\Facades\Auth;
 
 class FrontController extends Controller
@@ -90,6 +91,10 @@ class FrontController extends Controller
         $kursus = Kursus::with(['galleries'])
             ->where('slug', $slug)->firstOrFail();
         $kategori = Kategori::latest()->get();
+        $review = Komentar::with('kursus')
+            ->where('id_kursus', $kursus->id)
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         $check_kursus_status = OrderDetail::where('id_pendaftar', $pendaftarId)
             ->where('id_kursus', $kursus->id)
@@ -110,6 +115,20 @@ class FrontController extends Controller
             'kategori' => $kategori,
             'check_kursus' => $check_kursus_status,
             'check_kursus_sukses' => $check_kursus_sukses,
+            'review' => $review
+        ]);
+    }
+
+    public function review($slug)
+    {
+        $kursus = Kursus::where('slug', $slug)->firstOrFail();
+        $komentar = Komentar::with(['pendaftar', 'kursus'])
+            ->where('id_kursus', $kursus->id)
+            ->orderBy('created_at', 'DESC')
+            ->paginate(6);
+        return view('web.web_review_kursus', [
+            'kursus' => $kursus,
+            'komentar' => $komentar
         ]);
     }
 }

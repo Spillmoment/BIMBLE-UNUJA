@@ -51,7 +51,7 @@
         @forelse($order as $item)
         @foreach ($item->kursus as $cours)
        
-        <img width="100px" src="{{ asset('uploads/kursus/' . $cours->gambar_kursus) }}" class="img-fluid img-thumbail">
+        <img width="100px" src="{{ Storage::url('public/'.$cours->gambar_kursus) }}" class="img-fluid img-thumbail">
         
           <h1>Yayy! Success!</h1>
           

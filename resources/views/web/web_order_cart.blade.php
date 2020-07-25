@@ -1,6 +1,6 @@
 @extends('web.layouts.main')
 
-@section('title','Bimble | Halaman Order')
+@section('title','Bimble | Halaman Pesanan')
 @section('content')
 
 {{-- crsf-token Meta --}}
@@ -10,166 +10,249 @@
 {{-- CDN untuk tost --}}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
+<section class="py-5">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between align-items-center flex-column flex-lg-row mb-5">
+            <div class="mr-3">
+                <p class="mb-3 mb-lg-0 ml-4">Anda memiliki
 
-<div class="container-fluid py-5 px-lg-5">
-    <!-- <div class="row border-bottom mb-4">
-            <div class="col-12">
-                <h1 class="display-4 font-weight-bold text-serif mb-4">Eat in Manhattan, NY</h1>
+                    @if ($order_kursus != null)
+                    <strong>{{ $order_kursus->count() }} Pesanan Kursus</strong>
+                    @else
+                    <strong>0 Pesanan Kursus</strong>
+                    @endif
+
+                </p>
             </div>
-        </div> -->
-    <div class="row">
-        @if ($order_status < 1) <div class="col-lg-3 pt-3">
-            <form action="{{ route('order.post.pembayaran') }}" method="POST" enctype="multipart/form-data"
-                class="pr-xl-3">
-                @csrf
-                <div class="mb-4">
-                    <label for="form_search" class="form-label">Upload Bukti Transfer</label>
-                    <div class="input-label-absolute input-label-absolute-right">
-                        <input type="file" name="fileTransfer" class="form-control pr-4">
-                    </div>
-                </div>
-                <div class="pb-4">
-                    <div class="mb-4">
-                        <button type="submit" class="btn btn-primary btn-upload btn-sm"> <i
-                                class="far fa-paper-plane mr-1"></i>Kirim
+        </div>
+        <div class="container-fluid mb-4">
+            <div class="row">
+
+                <div class="col-9 mb-5">
+
+                    @if (session('status'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
                         </button>
+                        <span>{{ session('status') }} </span>
                     </div>
-                </div>
-            </form>
-    </div>
-    @endif
-    <div class="col-lg-9">
-        <div class="d-flex justify-content-between align-items-center flex-column flex-md-row mb-4">
+                    @endif
 
-        </div>
-        <div class="row">
-            <!-- venue item-->
-            @foreach ($order_kursus as $item)
-            @foreach ( $item->kursus as $cours )
-            <div data-marker-id="59c0c8e322f3375db4d89128" class="col-sm-6 col-xl-4 mb-5 hover-animate">
-                <div class="card card-kelas h-100 border-0 shadow">
-                    <div class="card-img-top overflow-hidden gradient-overlay">
-                        <img src="{{ asset('uploads/kursus/'.$cours->gambar_kursus) }}" alt="{{ $cours->nama_kursus }}"
-                            class="img-fluid" /><a href="detail-kursus.html" class="tile-link"></a>
-                        <div class="card-img-overlay-bottom z-index-20">
-                            <div class="media text-white text-sm align-items-center">
+                    <div class="card">
+                        <ul class="nav nav-pills mb-3 mx-3 my-3" id="pills-tab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+                                    role="tab" aria-controls="pills-home" aria-selected="true">Daftar Pesanan</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+                                    role="tab" aria-controls="pills-profile" aria-selected="false">Status Pesanan</a>
+                            </li>
 
-                                @foreach ($cours->tutor as $tutor)
+                        </ul>
 
-                                <img src="{{ asset('uploads/tutor/'.$tutor->foto) }}" alt="John"
-                                    class="avatar-profile avatar-border-white mr-2" />
-                                <div class="media-body">{{ $tutor->nama_tutor }}</div>
+                        <div class="tab-content" id="pills-tabContent">
+                            {{-- Daftar Pesanan --}}
+                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                aria-labelledby="pills-home-tab">
+                                <div class="table-responsive">
+                                    @forelse($order_kursus as $item)
+                                    @foreach ( $item->kursus as $cours )
+                                    <table class="table table-responsive">
+                                        <thead>
+                                            <tr class="text-sm">
+                                                <th scope="col"> </th>
+                                                <th scope="col" width="400">Kursus</th>
+                                                <th scope="col" width="180">Mentor</th>
+                                                <th scope="col" class="text-right">Harga</th>
+                                                <th> Option</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><img width="100px"
+                                                        src="{{ Storage::url('public/'.$cours->gambar_kursus) }}"
+                                                        alt="{{ $cours->nama_kursus }}" /> </td>
+                                                <td>{{ $cours->nama_kursus }}</td>
+                                                @foreach ($cours->tutor as $mentor)
+                                                <td>{{ $mentor->nama_tutor }}</td>
+                                                @endforeach
+                                                </td>
+                                                <td> @currency($cours->biaya_kursus -
+                                                    ($cours->biaya_kursus * ($cours->diskon_kursus/100))).00</td>
+                                                <td class="text-right"><button class="btn btn-sm btn-danger" id="deleteCart" data-id="{{ $item->id }}"><i class="fa fa-trash"></i> </button> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    @endforeach
+                                    @empty
+                                    <div class="alert alert-warning col text-center mt-2 mb-5" role="alert">
+                                        <strong>Tidak ada pesanan kursus</strong>
+                                    </div>
+                                    @endforelse
+                                </div>
+                                <div class="card-body border-top">
+                                    Total Tagihan:
+                                    @if ($total_tagihan != 0)
+                                    <span class="font-weight-bold">
+                                        @currency($total_tagihan).00
+                                    </span>
+                                    @else
+                                    0
+                                    @endif
+                                </div>
+                            </div>
 
-                                @endforeach
+
+                            {{-- Tab Status Pesanan --}}
+                            <div class="tab-pane fade ml-3" id="pills-profile" role="tabpanel"
+                                aria-labelledby="pills-profile-tab">
+                                
+                                @forelse($order as $pesan)
+                                        @if ($pesan->status_kursus == 'PENDING')
+                                        <div class="card card-shadow mx-3 my-3" style="max-width: 540px;">
+                                            <span id="deleteCheckout" data-id="{{ $pesan->id }}"
+                                                class="badge badge-danger align-self-start"
+                                                style="cursor: pointer">x</span>
+                                            <div class="row no-gutters">
+                                                <div class="col-md-4">
+                                                    <img src="{{ asset('storage/uploads/bukti_pembayaran/'.$pesan->upload_bukti) }}"
+                                                        class="img-fluid img-thumbail card-img" alt="...">
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Menunggu Konfirmasi</h5>
+                                                        <p class="card-text">
+                                                            List kursus
+                                                            <ul>
+                                                                @foreach ($kursus_state as $list_kursus)
+                                                                <li>{{ $list_kursus->kursus->first()->nama_kursus }}
+                                                                </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </p>
+                                                        <p class="card-text"><small class="text-muted">Pesanan
+                                                                {{ $pesan->updated_at->diffForHumans() }}</small></p>
+
+                                                        <div class="progress">
+                                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                                                                role="progressbar" style="width: 100%"
+                                                                aria-valuenow="100" aria-valuemin="0"
+                                                                aria-valuemax="100">Proses...</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        @elseif ($pesan->status_kursus == 'FAILED')
+                                        <div class="col mt-2 progress">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                                                role="progressbar" style="width: 100%" aria-valuenow="100"
+                                                aria-valuemin="0" aria-valuemax="100">Bukti Transfer Gagal...</div>
+                                        </div>
+                                        <div class="alert alert-info mt-3">
+                                            <h4 class="alert-heading">Perhatikan!</h4>
+                                            <hr>
+                                            <p class="mb-0">
+                                                <ol type="1">
+                                                    <li>No. rekening tujuan</li>
+                                                    <li>Jumlah tagihan anda sebesar @currency($pesan->total_tagihan).00
+                                                    </li>
+                                                </ol>
+                                            </p>
+                                        </div>
+                                        <form action="{{ route('order.patch.pembayaran') }}" method="POST"
+                                            enctype="multipart/form-data" class="pr-xl-3">
+                                            @csrf
+                                            @method('patch')
+                                            <div class="mb-4">
+                                                <label for="form_search" class="form-label">Silahkan upload ulang
+                                                    bukti transfer</label>
+                                                <div class="input-label-absolute input-label-absolute-right">
+                                                    <input type="file" name="fileTransfer"
+                                                        class="form-control-file pr-4">
+                                                    <img class="img-target my-3" width="200px">
+                                                </div>
+                                            </div>
+                                            <div class="pb-4">
+                                                <div class="mb-4">
+                                                    <button type="submit" class="btn btn-primary btn-sm"> <i
+                                                            class="far fa-paper-plane mr-1"></i>Update
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        @endif
+                                        @empty
+                                        <div class="alert alert-warning col text-center mb-5 mt-3" role="alert">
+                                           Data pesanan anda kosong, silahkan upload  <strong>bukti transfer</strong>
+                                        </div>
+                                        @endforelse
+
                             </div>
                         </div>
                     </div>
-                    <div class="card-body d-flex align-items-center">
-                        <div class="w-100">
-                            <h6 class="card-title"><a href="detail-kursus.html"
-                                    class="text-decoration-none text-dark">{{ $cours->nama_kursus }}</a></h6>
-                            <div class="d-flex card-subtitle mb-3">
-                                <p class="flex-grow-1 mb-0 text-muted text-sm">{{ $cours->keterangan }}</p>
-                                <p class="flex-shrink-1 mb-0 card-stars text-xs text-right"><i
-                                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
-                                        class="fa fa-star text-warning"></i><i class="fa fa-star text-warning"></i><i
-                                        class="fa fa-star text-gray-300">
-                                    </i>
-                                </p>
-                            </div>
-                            <p class="card-text text-muted"><span class="h5 text-primary">Rp
-                                    {{ $item->biaya_kursus }}</span> per
-                                Bulan</p>
-                            <p class="card-text text-muted">Dipotong diskon <span class="h6 text-danger">Rp
-                                    {{ $cours->diskon_kursus }}% </p>
-                            <input type="checkbox" data-id="{{ $item->id }}" data-order="{{ $item->id_order }}"
-                                data-pendaf="{{ $item->id_pendaftar }}" data-kursus="{{ $cours->nama_kursus }}"
-                                name="status" class="js-switch" {{ $item->status == 'PROCESS' ? 'checked' : '' }}>
-                        </div>
-                        <span id="deleteCart" data-id="{{ $item->id }}" class="badge badge-danger align-self-start"
-                            style="cursor: pointer">x</span>
-                    </div>
                 </div>
-            </div>
-            @endforeach
-            @endforeach
-        </div>
-        <!-- Pagination -->
-        <h5 style="color: #322F56">Total tagihan Anda : Rp. <span id="total">{{ $total_tagihan }}</span></h5>
 
-        @foreach ($order as $pesan)
-        <div class="card mb-3" style="max-width: 540px;">
-            <span id="deleteCheckout" data-id="{{ $pesan->id }}" class="badge badge-danger align-self-start"
-                style="cursor: pointer">x</span>
-            <div class="row no-gutters">
-                <div class="col-md-4">
-                    <img src="{{ asset('storage/uploads/bukti_pembayaran/'.$pesan->upload_bukti) }}" class="card-img"
-                        alt="...">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-title">Menunggu konfirmasi</h5>
-                        <p class="card-text">
-                            List kursus
-                            <ul>
-                                @foreach ($kursus_state as $list_kursus)
-                                <li>{{ $list_kursus->kursus->first()->nama_kursus }}</li>
-                                @endforeach
-                            </ul>
-                        </p>
-                        <p class="card-text"><small class="text-muted">Pesanan
-                                {{ $pesan->updated_at->diffForHumans() }}</small></p>
-                        @if ($pesan->status_kursus == 'FAILED')
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-                                role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
-                                aria-valuemax="100">Gagal...</div>
+                {{-- Upload bukti transfer --}}
+                <div class="col">
+                    @if (session('success'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <strong>{{ session('success') }}</strong>
+                    </div>
+                    @endif
+                    @if ($order_status != null)
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="alert alert-info col" role="alert">
+                                Silahkan menunggu konfirmasi pesanan terlebih dahulu untuk upload <strong>bukti
+                                    transfer</strong>
+                            </div>
                         </div>
-                        <div class="alert alert-danger mt-3">
-                            <h4 class="alert-heading">Perhatikan!</h4>
+                    </div>
+                    @else
+                    <div class="card">
+                        <div class="card-body">
+                            <span>Upload Bukti Transfer :</span>
+                            <span class="float-right h5"></span>
                             <hr>
-                            <p class="mb-0">
-                                <ol type="1">
-                                    <li>No. rekening tujuan</li>
-                                    <li>Jumlah tagihan anda sebesar Rp.{{ $pesan->total_tagihan }}</li>
-                                </ol>
-                            </p>
-                        </div>
-                        <form action="{{ route('order.patch.pembayaran') }}" method="POST" enctype="multipart/form-data"
-                            class="pr-xl-3">
-                            @csrf
-                            @method('patch')
-                            <div class="mb-4">
-                                <label for="form_search" class="form-label">Upload bukti pembayaran</label>
-                                <div class="input-label-absolute input-label-absolute-right">
-                                    <input type="file" name="fileTransfer" class="form-control pr-4">
+                            <form action="{{ route('order.post.pembayaran') }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <input type="file" name="upload_bukti_transfer"
+                                    class="form-control-file pr-4 @error('upload_bukti_transfer') is-invalid @enderror">
+                                @error('upload_bukti_transfer')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
                                 </div>
-                            </div>
-                            <div class="pb-4">
-                                <div class="mb-4">
-                                    <button type="submit" class="btn btn-primary"> <i
-                                            class="far fa-paper-plane mr-1"></i>Update
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                        @else
-                        <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                                role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
-                                aria-valuemax="100">Proses...</div>
-                        </div>
-                        @endif
-                    </div>
+                                @enderror
+                                <img class="img-target my-3" width="200px">
+                                <br>
+                                <button type="submit" class="btn btn-primary float-right btn-md">Kirim</button>
+                            </form>
+                        </div> <!-- card-body.// -->
+                    </div> <!-- card .// -->
+                    @endif
                 </div>
+
             </div>
         </div>
 
-        @endforeach
-
+        <!-- Pagination -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-template d-flex justify-content-center">
+                {{ $order_kursus->links() }}
+            </ul>
+        </nav>
     </div>
-</div>
-</div>
+</section>
 
 @endsection
 
@@ -177,6 +260,26 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var readURL = function (input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.img-target').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $(".form-control-file").on('change', function () {
+            readURL(this);
+        });
+    });
+
+</script>
+
 <script>
     let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
     elems.forEach(function (html) {

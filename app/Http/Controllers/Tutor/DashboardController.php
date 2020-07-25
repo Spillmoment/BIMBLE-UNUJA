@@ -8,6 +8,7 @@ use App\Tutor;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
@@ -48,11 +49,11 @@ class DashboardController extends Controller
 
         if ($request->hasFile('foto')) {
             if ($request->file('foto')) {
-                File::delete('uploads/tutor/' . $user->foto);
-                $foto = $request->file('foto');
-                $nama_gambar = 'tutor-' . time() . '.' . $foto->getClientOriginalExtension();
-                $request->file('foto')->move('uploads/tutor', $nama_gambar);
-                $data['foto'] = $nama_gambar;
+                if ($user->foto && file_exists(storage_path('app/public/' . $user->foto))) {
+                    Storage::delete('public/' . $user->foto);
+                    $file = $request->file('foto')->store('tutor', 'public');
+                    $data['foto'] = $file;
+                }
             }
         }
 
