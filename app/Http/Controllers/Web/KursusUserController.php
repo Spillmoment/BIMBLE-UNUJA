@@ -44,7 +44,7 @@ class KursusUserController extends Controller
         $komentar = Komentar::with(['pendaftar', 'kursus'])
             ->where('id_kursus', $kursus->id)
             ->orderBy('created_at', 'DESC')
-            ->get();
+            ->paginate(5);
         return view('web.web_kursus_user', compact('kursus', 'komentar'));
     }
 
@@ -54,7 +54,7 @@ class KursusUserController extends Controller
         $kursus = Kursus::where('slug', $slug)->first()->id;
         $request->validate([
             'textkomen'  => 'required',
-        ], ['textkomen.required' => 'Isikan komentar anda.']);
+        ], ['textkomen.required' => 'Isikan review anda.']);
 
         $komen = new Komentar();
         $komen->id_kursus = $kursus;
@@ -63,6 +63,6 @@ class KursusUserController extends Controller
         $komen->tanggal_komentar = date('Y-m-d');
         $komen->save();
 
-        return redirect()->back();
+        return redirect()->back()->with(['flash' => 'Review Berhasil dikirim']);
     }
 }
