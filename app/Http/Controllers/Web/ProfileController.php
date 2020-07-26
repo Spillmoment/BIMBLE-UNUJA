@@ -82,7 +82,7 @@ class ProfileController extends Controller
         }
 
         $user->update($data);
-        return redirect()->back()->with(['success' => 'Data profil berhasil diupdate!']);
+        return redirect()->back()->with(['success' => 'Profil']);
     }
 
     public function update_pengaturan(Request $request, $id)
