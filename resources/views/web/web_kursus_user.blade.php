@@ -4,14 +4,25 @@
 @section('content')
 
 <div class="container-fluid py-5 px-lg-5">
- <div class="row bootstrap snippets">
+ <div class="rows">
     <div class="col-md-6 col-md-offset-2 col-sm-12">
+
+        @if (session('flash'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <strong>{{ session('flash') }}</strong> 
+            </div>
+        @endif
+
         <div class="comment-wrapper">
             <div class="panel panel-info">
                 <div class="panel-heading">
                    <h5 class="text-dark mb-2">Review Kursus {{ $kursus->nama_kursus }}</h5>
                 </div>
-                <div class="panel-body">
+                <div class="">
                     <form action="/user/kursus/{{ $kursus->slug }}" method="POST">
                         @csrf
                         <div class="form-group">
@@ -49,7 +60,13 @@
                         </li>
                       
                     </ul>
+
                     @endforeach
+                        <nav aria-label="Page navigation">
+                          <ul class="pagination justify-content-center">
+                            {{ $komentar->links() }}
+                          </ul>
+                        </nav>
                 </div>
             </div>
         </div>
