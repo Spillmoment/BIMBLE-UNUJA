@@ -134,8 +134,8 @@
                             <img width="200px" src="https://i.pinimg.com/originals/ea/66/cd/ea66cdf309ec3341db8d38bb298afa0f.gif" >
                             <p class="font-weight-bold mt-3" style="color: #071C4D;"> Pencarian tidak ditemukan
                             </p>
-                            <a href="{{ route('front.index') }}" class="btn btn-primary btn-md" style="background: #071C4D">
-                            <i class="fas fa-caret-left"></i> Kembali
+                            <a href="{{ route('front.kursus') }}" class="btn btn-primary btn-md">
+                            <i class="fas fa-caret-left fa-1x"></i> Kembali
                             </a>
                           </div>
                         @endforelse
