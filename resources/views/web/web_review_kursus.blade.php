@@ -5,7 +5,7 @@
 
 <div class="container py-5">
 
-	<h3 class="text-center">Review Kursus {{ $kursus->nama_kursus }}</h3>
+	<h5 class="text-center">Daftar Review {{  $kursus->nama_kursus  }}</h5>
 	
 	<div class="card">
 	    <div class="card-body card-shadow">
@@ -13,8 +13,8 @@
         @foreach ($komen->pendaftar as $user)
 	        <div class="row">
         	    <div class="col-md-2">
-        	        <img src="{{ Storage::url('uploads/pendaftar/profile/'.$user->foto) }}" class="rounded-circle img-thumbnail img-fluid"/>
-        	        <p class="text-primary text-center">{{ $komen->updated_at->diffForhumans() }}</p>
+        	        <img src="{{ Storage::url('uploads/pendaftar/profile/'.$user->foto) }}" class="rounded-circle img-thumbnail img-fluid avatar avatar-lg"/>
+        	        <p class="text-sm text-dark">{{ $komen->updated_at->diffForhumans() }}</p>
         	    </div>
         	    <div class="col-md-10">
         	        <p>
@@ -39,12 +39,11 @@
           @endforeach
 	     
       </div>
-      <nav class="mt-5 float-right">
+      <nav class="mt-5 justify-content-center">
         {{ $komentar->links() }}
       </nav>
     </div>
   
 </div>
-
 
 @endsection
