@@ -82,6 +82,7 @@ class OrderController extends Controller
     public function view()
     {
         $pendaftarId = Auth::id();
+
         $order_kursus = OrderDetail::with(['pendaftar', 'kursus'])
             ->where('id_pendaftar', $pendaftarId)
             ->where(function ($query) {
@@ -110,11 +111,14 @@ class OrderController extends Controller
             })
             ->count();
 
+        $order_process = Order::where('id_pendaftar', $pendaftarId)
+            ->where('status_kursus', 'PROCESS')->count();
+
         $kursus_state = OrderDetail::with(['kursus'])
             ->where('status', 'PENDING')
             ->where('id_pendaftar', $pendaftarId)->get();
 
-        return view('web.web_order_cart', compact('order_kursus', 'total_tagihan', 'order', 'order_status', 'kursus_state'));
+        return view('web.web_order_cart', compact('order_kursus', 'total_tagihan', 'order', 'order_status', 'order_process', 'kursus_state'));
     }
 
     public function updateToPending(Request $request)
@@ -137,7 +141,6 @@ class OrderController extends Controller
 
     public function updateToDelete($id)
     {
-
         $order_detail = OrderDetail::findOrFail($id);
         $order_detail->forceDelete();
 
@@ -182,7 +185,7 @@ class OrderController extends Controller
                 ->forceDelete();
         }
 
-        return redirect()->back()->with(['success' => 'Upload bukti transfer berhasil, silahkan cek konfirmasi di status pesanan']);
+        return redirect()->back()->with(['status' => 'Upload bukti transfer berhasil, silahkan cek konfirmasi di status pesanan']);
     }
 
     public function updateFile(Request $request)
@@ -209,7 +212,6 @@ class OrderController extends Controller
 
     public function deleteCheckout($id)
     {
-
         $order = Order::findOrFail($id);
         Storage::disk('local')->delete('public/uploads/bukti_pembayaran/' . $order->upload_bukti);
         $order->forceDelete();
