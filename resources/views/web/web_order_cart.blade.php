@@ -76,9 +76,7 @@
                                                         src="{{ Storage::url('public/'.$cours->gambar_kursus) }}"
                                                         alt="{{ $cours->nama_kursus }}" /> </td>
                                                 <td>{{ $cours->nama_kursus }}</td>
-                                                @foreach ($cours->tutor as $mentor)
-                                                <td>{{ $mentor->nama_tutor }}</td>
-                                                @endforeach
+                                                <td>{{ $cours->tutor->first()->nama_tutor }}</td>
                                                 </td>
                                                 <td> @currency($cours->biaya_kursus -
                                                     ($cours->biaya_kursus * ($cours->diskon_kursus/100))).00</td>
@@ -186,9 +184,10 @@
                                             </div>
                                         </form>
                                         @endif
+                                        
                                         @empty
                                         <div class="alert alert-warning col text-center mb-5 mt-3" role="alert">
-                                           Data pesanan anda kosong, silahkan upload  <strong>bukti transfer</strong>
+                                            Data pesanan anda kosong, silahkan upload  <strong>bukti transfer</strong> jika sudah mengambil kursus
                                         </div>
                                         @endforelse
 
@@ -199,15 +198,7 @@
 
                 {{-- Upload bukti transfer --}}
                 <div class="col">
-                    @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        <strong>{{ session('success') }}</strong>
-                    </div>
-                    @endif
+                               
                     @if ($order_status != null)
                     <div class="card">
                         <div class="card-body">
@@ -217,7 +208,9 @@
                             </div>
                         </div>
                     </div>
-                    @else
+                    @endif
+
+                    @if ($order_process != null)
                     <div class="card">
                         <div class="card-body">
                             <span>Upload Bukti Transfer :</span>
@@ -237,6 +230,7 @@
                                 <br>
                                 <button type="submit" class="btn btn-primary float-right btn-md">Kirim</button>
                             </form>
+                           
                         </div> <!-- card-body.// -->
                     </div> <!-- card .// -->
                     @endif
