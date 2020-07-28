@@ -40,7 +40,7 @@ class KursusUserController extends Controller
 
     public function kursusKelas($slug)
     {
-        $kursus = Kursus::where('slug', $slug)->first();
+        $kursus = Kursus::with('galleries')->where('slug', $slug)->first();
         $komentar = Komentar::with(['pendaftar', 'kursus'])
             ->where('id_kursus', $kursus->id)
             ->orderBy('created_at', 'DESC')
