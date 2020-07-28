@@ -44,7 +44,7 @@
                     <td>{{ $cours->nama_kursus }}</td>
                     <td>{{ $cours->tutor->first()->nama_tutor }}</td>
                     <td>@currency($total).00</td>
-                    <td><span class="badge badge-secondary badge-pill">{{ $item->status }}</span></td>
+                    <td><span class="badge badge-secondary badge-pill">Masih Diproses</span></td>
                 </tr>
                 @endforeach
                 @empty
@@ -126,7 +126,7 @@
                         <td>{{ $cours->nama_kursus }}</td>
                         <td>{{ $cours->tutor->first()->nama_tutor }}</td>
                         <td>@currency($total).00</td>
-                        <td><span class="badge badge-success badge-pill">{{ $item->status }}</span></td>
+                        <td><span class="badge badge-success badge-pill">Aktif</span></td>
                     </tr>
 
                     @endforeach
@@ -142,6 +142,7 @@
                     
                 </tbody>
             </table>
+            
         </div>
       </div>
 
