@@ -103,12 +103,9 @@ class GalleryController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('image')) {
-            if ($request->file('image')) {
-                if ($gallery->image && file_exists(storage_path('app/public/' . $gallery->image))) {
-                    Storage::delete('public/' . $gallery->image);
-                    $file = $request->file('image')->store('gallery', 'public');
-                    $data['image'] = $file;
-                }
+            if ($gallery->image && file_exists(storage_path('app/public/' . $gallery->image))) {
+                Storage::delete('public/' . $gallery->image);
+                $data['image'] =  $request->file('image')->store('gallery', 'public');
             }
         }
 
