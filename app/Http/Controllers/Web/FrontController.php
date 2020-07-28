@@ -9,6 +9,7 @@ use App\Kategori;
 use App\OrderDetail;
 use App\Komentar;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FrontController extends Controller
 {
@@ -71,6 +72,7 @@ class FrontController extends Controller
                 ->paginate(9);
         }
 
+        $nama_kategori = '';
         if ($filter_kategori) {
             $kursus = Kursus::with('kategori')
                 ->where('id_kategori', 'LIKE', "%$filter_kategori%")
@@ -83,6 +85,22 @@ class FrontController extends Controller
         }
 
         return view('web.web_kursus', compact('kursus', 'kategori', 'nama_kategori'));
+    }
+
+    public function kursusSort(Request $request)
+    {
+        $sort = $request->sorted;
+        if ($sort == 'termurah') {
+            $data =  Kursus::select(DB::raw('*, biaya_kursus - ((diskon_kursus/100)*biaya_kursus) as urut'))
+                    ->orderBy('urut', 'asc')
+                    ->get();
+        } else {
+            $data =  Kursus::select(DB::raw('*, biaya_kursus - ((diskon_kursus/100)*biaya_kursus) as urut'))
+                    ->orderBy('urut', 'desc')
+                    ->get();
+        }
+
+        return view('web.web_kursus_card_sorted', ['kursus' => $data]);         
     }
 
     public function show($slug)
