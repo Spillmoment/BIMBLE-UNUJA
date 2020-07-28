@@ -59,11 +59,11 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Kursus</th>
-                                    <th>Gambar Kursus</th>
-                                    <th>Kategori Kursus</th>
-                                    <th>Tutor Kursus</th>
-                                    <th>Option</th>
+                                    <th width="300">Nama Kursus</th>
+                                    <th width="150">Gambar Kursus</th>
+                                    <th width="200">Kategori Kursus</th>
+                                    <th width="200">Tutor Kursus</th>
+                                    <th width="200">Option</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,7 +72,7 @@
                                     <td scope="row"> {{$loop->iteration}} </td>
                                     <td>{{ $krs->nama_kursus }}</td>
                                     @if($krs->gambar_kursus)
-                                    <td> <img src="{{ Storage::url('public/'.$krs->gambar_kursus) }}" width="50px">
+                                    <td> <img src="{{ Storage::url('public/'.$krs->gambar_kursus) }}" width="100px">
                                     </td>
                                     @else
                                     Tidak Ada Gambar
