@@ -32,17 +32,20 @@ class ProfileController extends Controller
         $data['success'] =  OrderDetail::with('pendaftar', 'kursus')
             ->where('id_pendaftar', $pendaftarId)
             ->where('status', 'SUCCESS')
-            ->get();
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         $data['pending'] =  OrderDetail::with('pendaftar', 'kursus')
             ->where('id_pendaftar', $pendaftarId)
             ->where('status', 'PENDING')
-            ->get();
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         $data['process'] =  OrderDetail::with('pendaftar', 'kursus')
             ->where('id_pendaftar', $pendaftarId)
             ->where('status', 'PROCESs')
-            ->get();
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
 
         $data['total'] = OrderDetail::where('id_pendaftar', $pendaftarId)
             ->where('status', 'PROCESS')
