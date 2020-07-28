@@ -84,6 +84,7 @@ Route::prefix('manager')
 // Route Front
 Route::get('/', 'Web\FrontController@index')->name('front.index');
 Route::get('/kursus', 'Web\FrontController@kursus')->name('front.kursus');
+Route::get('/kursus_sort', 'Web\FrontController@kursusSort');
 Route::get('/kursus/{slug}', 'Web\FrontController@show')->name('front.detail');
 Route::get('/kursus/review/{slug}', 'Web\FrontController@review')->name('front.review');
 
@@ -98,7 +99,7 @@ Route::group(['prefix' => 'profile'], function () {
 
 
 // Route Order
-Route::post('/order/post', 'Web\OrderController@orderPost')->name('order.post');
+Route::post('/order/post/{slug}', 'Web\OrderController@orderPost')->name('order.post');
 Route::get('/order/success', 'Web\OrderController@success')->name('order.success');
 Route::get('/order/cart', 'Web\OrderController@view')->name('order.view');
 Route::get('/order/cart/pending', 'Web\OrderController@updateToPending')->name('order.update.cancel');
