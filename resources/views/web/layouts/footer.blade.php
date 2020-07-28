@@ -7,7 +7,7 @@
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <img src="{{asset('assets/frontend/img/logo.png') }}" class="mb-3" alt="Directory logo" style="width: 150px;"></a>
                     <p>Dapatkan "Info Bimbel murah" hanya di EH - BIMBEL App.
-                        Mau "Bimbel Kost Murah"?</p>
+                       </p>
                     <ul class="list-inline">
                         <li class="list-inline-item"><a href="#" target="_blank" title="twitter"
                                 class="text-muted text-hover-primary"><i class="fab fa-twitter"></i></a></li>
@@ -61,24 +61,10 @@
             <div class="row align-items-center">
                 <div class="col-md-6 text-center text-md-left">
                     <p class="text-sm mb-md-0">&copy; 2020
-                        <a href="https://github.com/dzunn86">dzunnurroin</a>
+                        <a href="https://github.com/dzunn86">IT Bimble</a>
                         all right reserved</p>
                 </div>
-                <!-- <div class="col-md-6">
-        <ul class="list-inline mb-0 mt-2 mt-md-0 text-center text-md-right">
-          <li class="list-inline-item"><img src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/visa.svg"
-              alt="..." class="w-2rem"></li>
-          <li class="list-inline-item"><img
-              src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/mastercard.svg" alt="..."
-              class="w-2rem"></li>
-          <li class="list-inline-item"><img
-              src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/paypal.svg" alt="..." class="w-2rem">
-          </li>
-          <li class="list-inline-item"><img
-              src="https://d19m59y37dris4.cloudfront.net/directory/1-4-1/img/western-union.svg" alt="..."
-              class="w-2rem"></li>
-        </ul>
-      </div> -->
+               
             </div>
         </div>
     </div>
