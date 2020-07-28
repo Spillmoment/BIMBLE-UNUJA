@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="container-fluid py-5 px-lg-5">
-        <h5 class="text-dark mb-3"> Daftar Kursus {{ Auth::user()->nama_pendaftar }}</h5>
+        <h5 class="text-dark text-center mb-3"> Daftar Kursus {{ Auth::user()->nama_pendaftar }}</h5>
         <hr>
         <div class="row">
 
@@ -89,9 +89,9 @@
                     @endforeach
               
             @empty
-            <div class="alert alert-light col text-center" role="alert">
-            <h4><strong>Kursus anda kosong</strong></h4>
-             </div>
+                    <div class="alert alert-warning text-center" role="alert">
+                 <strong>Belum ada kursus yang aktif, silahkan pesan dulu dan konfirmasi pembayaran</strong>
+                    </div>
             @endforelse
         </div>
         </div>
