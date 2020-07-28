@@ -47,23 +47,6 @@
             </div>
         </div>
 
-        <div class="col-lg-3 col-md-3">
-            <div class="card">
-                <div class="card-body">
-                    <div class="stat-widget-five">
-                        <div class="stat-icon dib flat-color-1">
-                            <i class="pe-7s-cash"></i>
-                        </div>
-                        <div class="stat-content">
-                            <div class="text-left dib">
-                                <div class="stat-text">Rp .<span class="count">{{ $total }}</span></div>
-                                <div class="stat-heading">Total Order</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <div class="col-lg-3 col-md-3">
             <div class="card">
@@ -76,6 +59,25 @@
                             <div class="text-left dib">
                                 <div class="stat-text"><span class="count">{{ $order }}</span></div>
                                 <div class="stat-heading">Order</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="col-lg-3 col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-1">
+                            <i class="pe-7s-cash"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span style="font-size: 16px">@currency($total).00</span></div>
+                                <div class="stat-heading mt-2">Total Order</div>
                             </div>
                         </div>
                     </div>
