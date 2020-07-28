@@ -50,13 +50,14 @@
                         @endif
                     </div>
                     <div>
-                        <label for="form_sort" class="form-label mr-2">Sort by</label>
-                        <select name="sort" id="form_sort" data-style="btn-selectpicker" title="" class="selectpicker">
-                          <option>Termurah</option>
-                          <option>Termahal</option>
+                        <label for="sort_price" class="form-label mr-2">Sort by</label>
+                        <select name="sort_price" id="sort_price" data-style="btn-selectpicker" title="" class="selectpicker">
+                            <option value="termahal">Termahal</option>
+                            <option value="termurah">Termurah</option>
                         </select>
                     </div>
                 </div>
+                <div id="sortedData">
                 <div class="row">
                     <!-- venue item-->
                     @forelse ($kursus as $krs)
@@ -139,9 +140,34 @@
                             </a>
                           </div>
                         @endforelse
+                        </div>
                     </div>
                 </div>
         </div>
     </div>
 
     @endsection
+
+    @push('scripts')
+    <script>
+        $(document).ready(function () {
+            $(document).on('change','#sort_price',function() {
+                let sort = $(this).val();
+
+                $.ajax({
+                    type:'get',
+                    dataType: 'html',
+                    url:'{{ url('/kursus_sort') }}',
+                    data:'sorted=' + sort,
+                    success:function(res) {
+                        // console.log(res);
+                        $("#sortedData").html(res);
+                    },
+                    error:function() {
+                        
+                    }
+                });
+            });
+        });
+    </script>
+    @endpush
