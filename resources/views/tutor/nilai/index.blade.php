@@ -45,11 +45,13 @@
                         @foreach ($kursus_tutor as $kursus)
                         <div class="col-md-4 col-sm-6 mb-2">
                             <div class="card card-shadow card-design">
-                                <img src="{{ url('uploads/kursus/' . $kursus->gambar_kursus) }}" class="card-img-top img-thumbnail" 
+                                <img src="{{ Storage::url('public/' . $kursus->gambar_kursus) }}" class="card-img-top img-thumbnail" 
                                 alt="{{ $kursus->nama_kursus }}" style="height: 200px;">
                                 <div class="card-body">
                                     <div class="card-title font-weight-bold">
-                                      {{ $kursus->nama_kursus }} 
+                                        <span style="font-size: 15px">
+                                            {{ $kursus->nama_kursus }} 
+                                        </span>
                                     </div>
                                 </div>
                                 <div class="card-footer">
