@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="container-fluid py-5 px-lg-5">
-        <h5 class="text-dark mb-3"> Daftar Kursus {{ Auth::user()->nama_pendaftar }}</h5>
+        <h5 class="text-dark text-center mb-3"> Daftar Kursus {{ Auth::user()->nama_pendaftar }}</h5>
         <hr>
         <div class="row">
 
@@ -17,15 +17,15 @@
                         <div class="card card-kelas h-100 border-0 shadow">
                             <div class="card-img-top overflow-hidden gradient-overlay">
                                 <img src="{{ Storage::url('public/'.$cours->gambar_kursus) }}"
-                                    alt="{{ $cours->nama_kursus }}" class="img-fluid" /><a
-                                    href="{{ route('user.kursus.kelas',$cours->slug) }}" class="tile-link"></a>
+                                    alt="{{ $cours->nama_kursus }}" class="img-fluid" style="height: 10em;" /><a
+                                    href="{{ route('front.detail',$cours->slug) }}" class="tile-link"></a>
                                 <div class="card-img-overlay-bottom z-index-20">
                                     <div class="media text-white text-sm align-items-center">
 
                                         @foreach ($cours->tutor as $tutor)
                                         <img src="{{ Storage::url('public/'.$tutor->foto) }}"
                                             alt="{{ $tutor->nama_tutor }}"
-                                            class="avatar-profile avatar-border-white mr-2" height="50px"/>
+                                            class="avatar-profile avatar-border-white mr-2" height="50px" />
                                         <div class="media-body">{{ $tutor->nama_tutor }}</div>
                                         @endforeach
                                     </div>
@@ -33,11 +33,11 @@
                             </div>
                             <div class="card-body d-flex align-items-center">
                                 <div class="w-100">
-                                    <h6 class="card-title"><a href="{{ route('user.kursus.kelas',$cours->slug) }}"
+                                    <h6 class="card-title"><a href="{{ route('front.detail',$cours->slug) }}"
                                             class="text-decoration-none text-dark">{{ $cours->nama_kursus }}</a></h6>
                                     <div class="d-flex card-subtitle mb-3">
                                         <p class="flex-grow-1 mb-0 text-muted text-sm">{{ $cours->keterangan }}</p>
-                                        <p class="flex-shrink-1 mb-0 card-stars text-xs text-right">
+                                        {{-- <p class="flex-shrink-1 mb-0 card-stars text-xs text-right">
                                             @php
                                                 $minat_kursus = $cours->count() / 10;
                                                 $rating = round($minat_kursus * 2 ) / 2;
@@ -55,13 +55,14 @@
                                                     $rating--;      
                                                     @endphp
                                             @endfor
-                                        </p>
+                                        </p> --}}
                                     </div>
                                     
-                                    <span style="width: 45px" class="badge badge-success badge-pill badge-lg float-right">
-                                        <i class="fas fa-check-circle"></i>
+                                    <span  class="badge badge-success badge-pill badge-lg float-right">
+                                        <a href="{{ route('user.kursus.kelas',$cours->slug) }}"
+                                            class="text-decoration-none text-light"> <i class="fas fa-comment-dots"></i> Review</a>
                                     </span>
-                                  
+{{--                                   
                                     @if ($cours->diskon_kursus == 0)
                                     <p class="card-text text-muted"><span class="h4 text-primary">
                                             @currency($row->biaya_kursus)</span>
@@ -79,7 +80,7 @@
                                         <strong class="ml-2">Diskon</strong> @currency($cours->diskon_kursus)%
                                     </p>
 
-                                    @endif
+                                    @endif --}}
                                 </div>
 
                             </div>
@@ -88,9 +89,9 @@
                     @endforeach
               
             @empty
-            <div>
-                <h1>Data Kosong</h1>
-            </div>
+                    <div class="alert alert-warning text-center" role="alert">
+                 <strong>Belum ada kursus yang aktif, silahkan pesan dulu dan konfirmasi pembayaran</strong>
+                    </div>
             @endforelse
         </div>
         </div>

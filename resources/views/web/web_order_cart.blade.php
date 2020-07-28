@@ -40,7 +40,7 @@
                     </div>
                     @endif
 
-                    <div class="card">
+                    <div class="card shadow">
                         <ul class="nav nav-pills mb-3 mx-3 my-3" id="pills-tab" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
@@ -58,8 +58,6 @@
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                                 aria-labelledby="pills-home-tab">
                                 <div class="table-responsive">
-                                    @forelse($order_kursus as $item)
-                                    @foreach ( $item->kursus as $cours )
                                     <table class="table table-responsive">
                                         <thead>
                                             <tr class="text-sm">
@@ -71,27 +69,35 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @forelse($order_kursus as $item)
+                                            @foreach ( $item->kursus as $cours )
                                             <tr>
                                                 <td><img width="100px"
                                                         src="{{ Storage::url('public/'.$cours->gambar_kursus) }}"
                                                         alt="{{ $cours->nama_kursus }}" /> </td>
                                                 <td>{{ $cours->nama_kursus }}</td>
-                                                @foreach ($cours->tutor as $mentor)
-                                                <td>{{ $mentor->nama_tutor }}</td>
-                                                @endforeach
+                                                <td>{{ $cours->tutor->first()->nama_tutor }}</td>
                                                 </td>
                                                 <td> @currency($cours->biaya_kursus -
                                                     ($cours->biaya_kursus * ($cours->diskon_kursus/100))).00</td>
-                                                <td class="text-right"><button class="btn btn-sm btn-danger" id="deleteCart" data-id="{{ $item->id }}"><i class="fa fa-trash"></i> </button> </td>
+                                                <td class="text-right"><button class="btn btn-sm btn-danger"
+                                                        id="deleteCart" data-id="{{ $item->id }}"><i
+                                                            class="fa fa-trash"></i> </button> </td>
                                             </tr>
+                                            @endforeach
+                                            @empty
+                                          <table>
+                                              <tbody>
+                                                <div class="alert alert-warning text-sm mb-3 mt-3 col">
+                                                    <div class="media align-items-center">
+                                                      <div class="media-body text-center ">Pesanan <strong>kursus</strong> anda kosong </div>
+                                                    </div>
+                                                  </div>
+                                              </tbody>
+                                          </table>
+                                            @endforelse
                                         </tbody>
                                     </table>
-                                    @endforeach
-                                    @empty
-                                    <div class="alert alert-warning col text-center mt-2 mb-5" role="alert">
-                                        <strong>Tidak ada pesanan kursus</strong>
-                                    </div>
-                                    @endforelse
                                 </div>
                                 <div class="card-body border-top">
                                     Total Tagihan:
@@ -109,88 +115,87 @@
                             {{-- Tab Status Pesanan --}}
                             <div class="tab-pane fade ml-3" id="pills-profile" role="tabpanel"
                                 aria-labelledby="pills-profile-tab">
-                                
-                                @forelse($order as $pesan)
-                                        @if ($pesan->status_kursus == 'PENDING')
-                                        <div class="card card-shadow mx-3 my-3" style="max-width: 540px;">
-                                            <span id="deleteCheckout" data-id="{{ $pesan->id }}"
-                                                class="badge badge-danger align-self-start"
-                                                style="cursor: pointer">x</span>
-                                            <div class="row no-gutters">
-                                                <div class="col-md-4">
-                                                    <img src="{{ asset('storage/uploads/bukti_pembayaran/'.$pesan->upload_bukti) }}"
-                                                        class="img-fluid img-thumbail card-img" alt="...">
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Menunggu Konfirmasi</h5>
-                                                        <p class="card-text">
-                                                            List kursus
-                                                            <ul>
-                                                                @foreach ($kursus_state as $list_kursus)
-                                                                <li>{{ $list_kursus->kursus->first()->nama_kursus }}
-                                                                </li>
-                                                                @endforeach
-                                                            </ul>
-                                                        </p>
-                                                        <p class="card-text"><small class="text-muted">Pesanan
-                                                                {{ $pesan->updated_at->diffForHumans() }}</small></p>
 
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
-                                                                role="progressbar" style="width: 100%"
-                                                                aria-valuenow="100" aria-valuemin="0"
-                                                                aria-valuemax="100">Proses...</div>
-                                                        </div>
-                                                    </div>
+                                @forelse($order as $pesan)
+                                @if ($pesan->status_kursus == 'PENDING')
+                                <div class="card card-shadow mx-3 my-3" style="max-width: 540px;">
+                                    <span id="deleteCheckout" data-id="{{ $pesan->id }}"
+                                        class="badge badge-danger align-self-start" style="cursor: pointer">x</span>
+                                    <div class="row no-gutters">
+                                        <div class="col-md-4">
+                                            <img src="{{ asset('storage/uploads/bukti_pembayaran/'.$pesan->upload_bukti) }}"
+                                                class="img-fluid img-thumbail card-img" alt="...">
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <h5 class="card-title">Menunggu Konfirmasi</h5>
+                                                <p class="card-text">
+                                                    List kursus
+                                                    <ul>
+                                                        @foreach ($kursus_state as $list_kursus)
+                                                        <li>{{ $list_kursus->kursus->first()->nama_kursus }}
+                                                        </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </p>
+                                                <p class="card-text"><small class="text-muted">Pesanan
+                                                        {{ $pesan->updated_at->diffForHumans() }}</small></p>
+
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                                                        role="progressbar" style="width: 100%" aria-valuenow="100"
+                                                        aria-valuemin="0" aria-valuemax="100">Proses...</div>
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        @elseif ($pesan->status_kursus == 'FAILED')
-                                        <div class="col mt-2 progress">
-                                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-                                                role="progressbar" style="width: 100%" aria-valuenow="100"
-                                                aria-valuemin="0" aria-valuemax="100">Bukti Transfer Gagal...</div>
+                                    </div>
+                                </div>
+
+                                @elseif ($pesan->status_kursus == 'FAILED')
+                                <div class="col mt-2 progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                                        role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                        aria-valuemax="100">Bukti Transfer Gagal...</div>
+                                </div>
+                                <div class="alert alert-info mt-3">
+                                    <h4 class="alert-heading">Perhatikan!</h4>
+                                    <hr>
+                                    <p class="mb-0">
+                                        <ol type="1">
+                                            <li>No. rekening tujuan</li>
+                                            <li>Jumlah tagihan anda sebesar @currency($pesan->total_tagihan).00
+                                            </li>
+                                        </ol>
+                                    </p>
+                                </div>
+                                <form action="{{ route('order.patch.pembayaran') }}" method="POST"
+                                    enctype="multipart/form-data" class="pr-xl-3">
+                                    @csrf
+                                    @method('patch')
+                                    <div class="mb-4">
+                                        <label for="form_search" class="form-label">Silahkan upload ulang
+                                            bukti transfer</label>
+                                        <div class="input-label-absolute input-label-absolute-right">
+                                            <input type="file" name="fileTransfer" class="form-control-file pr-4">
+                                            <img class="img-target my-3" width="200px">
                                         </div>
-                                        <div class="alert alert-info mt-3">
-                                            <h4 class="alert-heading">Perhatikan!</h4>
-                                            <hr>
-                                            <p class="mb-0">
-                                                <ol type="1">
-                                                    <li>No. rekening tujuan</li>
-                                                    <li>Jumlah tagihan anda sebesar @currency($pesan->total_tagihan).00
-                                                    </li>
-                                                </ol>
-                                            </p>
+                                    </div>
+                                    <div class="pb-4">
+                                        <div class="mb-4">
+                                            <button type="submit" class="btn btn-primary btn-sm"> <i
+                                                    class="far fa-paper-plane mr-1"></i>Update
+                                            </button>
                                         </div>
-                                        <form action="{{ route('order.patch.pembayaran') }}" method="POST"
-                                            enctype="multipart/form-data" class="pr-xl-3">
-                                            @csrf
-                                            @method('patch')
-                                            <div class="mb-4">
-                                                <label for="form_search" class="form-label">Silahkan upload ulang
-                                                    bukti transfer</label>
-                                                <div class="input-label-absolute input-label-absolute-right">
-                                                    <input type="file" name="fileTransfer"
-                                                        class="form-control-file pr-4">
-                                                    <img class="img-target my-3" width="200px">
-                                                </div>
-                                            </div>
-                                            <div class="pb-4">
-                                                <div class="mb-4">
-                                                    <button type="submit" class="btn btn-primary btn-sm"> <i
-                                                            class="far fa-paper-plane mr-1"></i>Update
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        @endif
-                                        @empty
-                                        <div class="alert alert-warning col text-center mb-5 mt-3" role="alert">
-                                           Data pesanan anda kosong, silahkan upload  <strong>bukti transfer</strong>
-                                        </div>
-                                        @endforelse
+                                    </div>
+                                </form>
+                                @endif
+
+                                @empty
+                                <div class="alert alert-warning col text-center mb-5 mt-3" role="alert">
+                                    Data pesanan anda kosong, silahkan upload <strong>bukti transfer</strong> jika sudah
+                                    mengambil kursus
+                                </div>
+                                @endforelse
 
                             </div>
                         </div>
@@ -199,16 +204,8 @@
 
                 {{-- Upload bukti transfer --}}
                 <div class="col">
-                    @if (session('success'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        <strong>{{ session('success') }}</strong>
-                    </div>
-                    @endif
-                    @if ($order_status != null)
+
+                    {{-- @if ($order_status != null)
                     <div class="card">
                         <div class="card-body">
                             <div class="alert alert-info col" role="alert">
@@ -217,8 +214,10 @@
                             </div>
                         </div>
                     </div>
-                    @else
-                    <div class="card">
+                    @endif --}}
+
+                    @if ($order_process != null && $order_status != null)
+                    <div class="card shadow">
                         <div class="card-body">
                             <span>Upload Bukti Transfer :</span>
                             <span class="float-right h5"></span>
@@ -237,6 +236,7 @@
                                 <br>
                                 <button type="submit" class="btn btn-primary float-right btn-md">Kirim</button>
                             </form>
+
                         </div> <!-- card-body.// -->
                     </div> <!-- card .// -->
                     @endif

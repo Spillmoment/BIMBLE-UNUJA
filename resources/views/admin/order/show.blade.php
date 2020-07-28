@@ -31,7 +31,7 @@
             <br>
 
             @else
-            <span class="alert alert-warning font-weight-bold">Bukti upload belum di proses</span>
+            <span class="alert alert-warning font-weight-700 col">Bukti upload belum di proses</span>
             @endif
 
         </td>

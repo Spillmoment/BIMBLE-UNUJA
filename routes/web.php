@@ -83,6 +83,7 @@ Route::prefix('manager')
 
 // Route Front
 Route::get('/', 'Web\FrontController@index')->name('front.index');
+Route::get('/pusat_bantuan', 'Web\FrontController@pusat_bantuan')->name('front.pusat');
 Route::get('/kursus', 'Web\FrontController@kursus')->name('front.kursus');
 Route::get('/kursus_sort', 'Web\FrontController@kursusSort');
 Route::get('/kursus/{slug}', 'Web\FrontController@show')->name('front.detail');

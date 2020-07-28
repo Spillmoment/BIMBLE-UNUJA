@@ -106,11 +106,7 @@
                                 </td>
                             </tr>
                             @empty
-                            <tr>
-                               <td>
-                                <h4 class="text-center">Data Siswa Kosong</h4>
-                               </td>
-                            </tr>
+                            
                             @endforelse
                         </tbody>
                     </table>

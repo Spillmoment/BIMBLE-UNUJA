@@ -21,31 +21,33 @@ class KursusController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(Request $request)
+    public function index()
     {
-        $kursus = Kursus::orderBy('created_at', 'DESC')->paginate(10);
-        $kategori = Kategori::orderBy('created_at', 'DESC')->paginate(10);
 
-        $keyword = $request->get('keyword');
-        $filter_kategori = $request->get('nama_kategori');
+        // $kategori = Kategori::orderBy('created_at', 'DESC')->paginate(10);
 
-        if ($keyword) {
-            $kursus = Kursus::with(['kategori', 'tutor'])
-                ->where('nama_kursus', 'LIKE', "%$keyword%")
-                ->paginate(10);
-        } else {
-            $kursus = Kursus::orderBy('created_at', 'DESC')->paginate(10);
-        }
+        // $keyword = $request->get('keyword');
+        // $filter_kategori = $request->get('nama_kategori');
 
-        if ($filter_kategori) {
-            $kursus = Kursus::with(['kategori', 'tutor'])
-                ->where('id_kategori', 'LIKE', "%$filter_kategori%")
-                ->orderBy('created_at', 'DESC')
-                ->paginate(10);
-        }
+        // if ($keyword) {
+        //     $kursus = Kursus::with(['kategori', 'tutor'])
+        //         ->where('nama_kursus', 'LIKE', "%$keyword%")
+        //         ->paginate(10);
+        // } else {
+        //     $kursus = Kursus::orderBy('created_at', 'DESC')->paginate(10);
+        // }
 
+        // if ($filter_kategori) {
+        //     $kursus = Kursus::with(['kategori', 'tutor'])
+        //         ->where('id_kategori', 'LIKE', "%$filter_kategori%")
+        //         ->orderBy('created_at', 'DESC')
+        //         ->paginate(10);
+        // }
 
-        return view('admin.kursus.index', compact('kursus', 'kategori'));
+        $kursus = Kursus::with('kategori')
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
+        return view('admin.kursus.index', compact('kursus'));
     }
 
     /**
@@ -53,11 +55,12 @@ class KursusController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Kategori $kategori, Tutor $tutor)
     {
-        $kategori = Kategori::all();
-        $tutor = Tutor::all();
-        return view('admin.kursus.create', compact('kategori', 'tutor'));
+        return view('admin.kursus.create', [
+            'kategori' => $kategori->all(),
+            'tutor'    => $tutor->all()
+        ]);
     }
 
     /**
@@ -86,9 +89,8 @@ class KursusController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function show($id)
+    public function show(Kursus $kursus)
     {
-        $kursus = Kursus::findOrFail($id);
         return view('admin.kursus.show', compact('kursus'));
     }
 
@@ -98,12 +100,13 @@ class KursusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Kursus $kursus, Kategori $kategori, Tutor $tutor)
     {
-        $kursus = Kursus::findOrFail($id);
-        $kategori = Kategori::all();
-        $tutor = Tutor::all();
-        return view('admin.kursus.edit', compact('kursus', 'kategori', 'tutor'));
+        return view('admin.kursus.edit', [
+            'kursus'   => $kursus,
+            'tutor'    => $tutor->all(),
+            'kategori' => $kategori->all()
+        ]);
     }
 
     /**
@@ -114,21 +117,16 @@ class KursusController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function update(KursusRequest $request, $id)
+    public function update(KursusRequest $request, Kursus $kursus)
     {
-        $kursus = Kursus::findOrFail($id);
         $data = $request->all();
-
         $nama_kursus = $data['nama_kursus'];
         $data['slug'] = Str::slug($nama_kursus, '-');
 
         if ($request->hasFile('gambar_kursus')) {
-            if ($request->file('gambar_kursus')) {
-                if ($kursus->gambar_kursus && file_exists(storage_path('app/public/' . $kursus->gambar_kursus))) {
-                    Storage::delete('public/' . $kursus->gambar_kursus);
-                    $file = $request->file('image')->store('gallery', 'public');
-                    $data['image'] = $file;
-                }
+            if ($kursus->gambar_kursus && file_exists(storage_path('app/public/' . $kursus->gambar_kursus))) {
+                Storage::delete('public/' . $kursus->gambar_kursus);
+                $data['gambar_kursus'] = $request->file('gambar_kursus')->store('kursus', 'public');
             }
         }
 
@@ -142,13 +140,10 @@ class KursusController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Kursus $kursus)
     {
-        $kursus = Kursus::findOrFail($id);
         File::delete('uploads/kursus/' . $kursus->gambar_kursus);
         $kursus->delete();
-
-
         return redirect()->route('kursus.index')
             ->with(['status' => 'Data Kursus Berhasil Dihapus']);
     }

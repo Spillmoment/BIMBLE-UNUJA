@@ -45,8 +45,6 @@
 
 <div class="content">
     <div class="animated fadeIn">
-
-
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -61,14 +59,12 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <input width="256" name="start_date" placeholder="Start Date"
-                                                    class="form-control datepicker1">
-                                            </div>
+                                                <input type="text" class="form-control datepicker1" name="start_date" placeholder="Start Date" autocomplete="off">
+                                                </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <input width="256" name="end_date" placeholder="End Date"
-                                                    class="form-control datepicker2">
+                                                <input type="text" class="form-control datepicker2" name="end_date" placeholder="End Date" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
@@ -107,10 +103,10 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>Email</th>
-                                    <th>Tanggal Order</th>
-                                    <th>Total Order</th>
+                                    <th width="400">Nama</th>
+                                    <th width="200">Email</th>
+                                    <th width="200">Tanggal Order</th>
+                                    <th width="200">Total Order</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -221,14 +217,18 @@
         format: 'yyyy-mm-dd',
         uilibrary: 'bootstrap4',
         size: 'default',
-        iconsLibrary: 'fontawesome',
+        icons: {
+          rightIcon: '<i class="fa fa-calendar-check-o"></i>'
+        }
       });
 
         $('.datepicker2').datepicker({
         format: 'yyyy-mm-dd',
         uilibrary: 'bootstrap4',
         size: 'default',
-        iconsLibrary: 'fontawesome'
+        icons: {
+          rightIcon: '<i class="fa fa-calendar-check-o"></i>'
+        }
       });
 
       $('button#deleteButton').on('click', function (e) {

@@ -85,7 +85,7 @@
                                     <td>
                                         @if($regis->foto)
                                         <img src="{{ Storage::url('uploads/pendaftar/profile/'.$regis->foto) }}"
-                                            width="50px">
+                                            width="100px">
                                         @else
                                         N/A
                                         @endif

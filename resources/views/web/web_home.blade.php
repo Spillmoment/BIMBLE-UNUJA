@@ -21,87 +21,10 @@
 </head>
 
 <body style="padding-top: 72px;">
-  <header class="header">
-    <!-- Navbar-->
-    <nav class="navbar navbar-expand-lg fixed-top shadow navbar-light bg-white">
-      <div class="container-fluid">
-        <div class="d-flex align-items-center"><a href="index.html" class="navbar-brand py-1">
-            <img src="{{ asset('assets/frontend/img/logo.png') }}" alt="Directory logo" style="width: 150px;"></a>
-          <form action="#" id="search" class="form-inline d-none d-sm-flex scroll">
-            <div class="input-label-absolute input-label-absolute-left input-reset input-expand ml-lg-2 ml-xl-3">
-              <label for="search_search" class="label-absolute"><i class="fa fa-search"></i><span class="sr-only">What
-                  are you looking for?</span></label>
-              <input id="search_search" placeholder="Search" aria-label="Search"
-                class="form-control form-control-sm border-0 shadow-0 bg-gray-200">
-              <button type="reset" class="btn btn-reset btn-sm"><i class="fa-times fas"></i></button>
-            </div>
-          </form>
-        </div>
-        <button type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
-          aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right"><i
-            class="fa fa-bars"></i></button>
-        <!-- Navbar Collapse -->
-        <div id="navbarCollapse" class="collapse navbar-collapse">
-          <ul class="navbar-nav ml-auto">
-            
-            @guest
-            <li class="nav-item"><a href="{{ route('front.index') }}" class="nav-link 
-                {{ (Request::route()->getName() == 'front.index') ? 'active' : '' }}">Beranda</a></li>
-            <li class="nav-item"><a href="#" class="nav-link ">Pusat Bantuan</a></li>
-            <li class="nav-item"><a href="{{ route('front.kursus') }}" class="nav-link  
-                {{ (Request::route()->getName() == 'front.kursus') ? 'active' : '' }}">Kursus</a>
-            </li>
+  
 
-            @if (Route::has('register'))
-            <li class="nav-item"><a href="{{ route('register') }}" class="nav-link  
-                {{ (Request::route()->getName() == 'register') ? 'active' : '' }}">Daftar</a></li>
-            <li class="nav-item"><a href="{{ route('login') }}" class="nav-link 
-                 {{ (Request::route()->getName() == 'login') ? 'active' : '' }}">
-                    Masuk
-                </a></li>
-            @endif
-                @endguest
-           
-                @auth
-                <li class="nav-item"><a href="{{ route('front.index') }}" class="nav-link 
-                    {{ (Request::route()->getName() == 'front.index') ? 'active' : '' }}">
-                        Beranda
-                    </a></li>
-                <li class="nav-item"><a href="#" class="nav-link">
-                        Pusat Bantuan
-                    </a></li>
-                <li class="nav-item"><a href="{{ route('front.kursus') }}" class="nav-link 
-                    {{ (Request::route()->getName() == 'front.kursus') ? 'active' : '' }}">
-                      Kursus
-        
-                <li class="nav-item"><a href="{{ route('order.view') }}" class="nav-link 
-                    {{ (Request::route()->getName() == 'order.view') ? 'active' : '' }}">
-                        Pesanan
-                    </a></li>
-                <li class="nav-item dropdown ml-lg-3">
-                    <a id="userDropdownMenuLink" href="#" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <img src="{{ Storage::url('uploads/pendaftar/profile/'.Auth::user()->foto ) }}"
-                class="avatar avatar-sm avatar-border-white mr-2">
-                </a>
-                <div class="d-flex">
-                    <div class="dropdown-menu dropdown-menu-right z-index-1;">
-                        <a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a>
-                        <a class="dropdown-item" href="{{ route('user.kursus.success') }}">My Kursus</a>
-                        <a class="dropdown-item" href="{{ route('user.logout') }}">
-                            <i class="fas fa-sign-out-alt mr-2 text-muted"></i>
-                            Keluar
-                        </a>
-                    </div>
-                </div>
-                </li>
-                @endauth
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- /Navbar -->
-  </header>
+    @include('web.layouts.header')
+
   <section class="d-flex align-items-center dark-overlay bg-cover header-utama">
     <div class="container py-6 py-lg-7 text-white overlay-content text-center">
       <div class="row">
@@ -151,23 +74,22 @@
       <div class="row mb-5">
         <div class="col-md-8">
           <h4>Rekomendasi Bimble</h4>
+        
           @if (Request::get('kategori'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        <span class="sr-only">Close</span>
-                    </button>
-                    <strong>Hasil Pencarian Kategori :<b> {{ $nama_kategori }} </b> </strong>
-                </div>
-                @endif
+        <h6 class="mt-2">Kategori: <i> {{ $nama_kategori }} </i></h6>
+         @elseif(Request::get('keyword'))
+         <h6 class="mt-2">Pencarian: <i> {{ Request::get('keyword')}} </i></h6>
+         @endif
         </div>
-
       </div>
+
       <div class="row">
         <div class="col-md-12">
-            @if ($kursus->count() > 0)
+          
             <div class="owl-carousel">
+                
                 @forelse ($kursus as $krs)
+                              
                 <div data-marker-id="59c0c8e322f3375db4d89128" class="w-100 h-100 hover-animate">
                     <div class="card card-kelas h-100 border-0 shadow">
                         <div class="card-img-top overflow-hidden gradient-overlay">
@@ -183,17 +105,23 @@
                                     @endforeach
                                 </div>
                             </div>
+                           
+                              <div class="card-img-overlay-top d-flex justify-content-between align-items-center">
+                                <div class="badge badge-transparent badge-pill px-3 py-2">
+                                    @foreach ($krs->kategori as $item)
+                                    {{$item->nama_kategori}}
+                                @endforeach    
+                                </div>
+                              </div>
                         </div>
-
+                        
                         <div class="card-body d-flex align-items-center">
                             <div class="w-100">
                                 <h6 class="card-title"><a href="{{ route('front.detail', [$krs->slug]) }}"
                                         class="text-decoration-none text-dark">{{$krs->nama_kursus}}</a></h6>
                                 <div class="d-flex card-subtitle mb-3">
                                     <p class="flex-grow-1 mb-0 text-muted" style="font-size: 12.5px">
-                                        @foreach ($krs->kategori as $item)
-                                        {{$item->nama_kategori}}</p>
-                                    @endforeach
+                                     {{ $krs->keterangan }}
                                     <p class="flex-shrink-1 mb-0 card-stars text-xs text-right">
                                         @php
                                         $minat_kursus = $krs->order_detail_count / 10;
@@ -204,11 +132,12 @@
                                         @php
                                         if($rating > 0.5){
                                         echo '<i class="fa fa-star text-warning"></i>';
-                                        }elseif($rating <= 0 ){ echo '<i class="fa fa-star text-gray-300"></i>' ;
+                                    }elseif($rating <= 0 ){ echo '<i class="fa fa-star text-gray-300"></i>' ;
                                             }else{ echo '<i class="fa fa-star-half text-warning"></i>' ; }
                                             $rating--; @endphp @endfor </p> </div> 
                                            
-                                           {{-- @if ($status_kursus) <span
+                                           {{-- @if($status_kursus != null) 
+                                           <span
                                             style="width: 45px"
                                             class="badge badge-success badge-pill badge-lg float-right">
                                             <i class="fas fa-check-circle"></i>
@@ -219,7 +148,7 @@
                                             <p class="card-text text-muted"><span class="h4 text-primary">
                                                     @currency($krs->biaya_kursus)</span>
                                                 per Bulan</p>
-                                            @else
+                                                @else
                                             <p class="card-text text-muted">
                                                 <span class="h4 text-primary"> @currency($krs->biaya_kursus -
                                                     ($krs->biaya_kursus * ($krs->diskon_kursus/100)))</span>
@@ -228,41 +157,41 @@
                                             <p class="card-text ">
                                                 <strike>
                                                     <span
-                                                        class="h6 text-danger">@currency($krs->biaya_kursus)</span>
+                                                    class="h6 text-danger">@currency($krs->biaya_kursus)</span>
                                                 </strike>
                                                 <strong class="ml-2">Diskon</strong> @currency($krs->diskon_kursus)%
                                             </p>
 
                                             @endif
-
+                                            
                                 </div>
                             </div>
                         </div>
                     </div>
                     @empty
+                    <div class="col text-center mb-5">
+                        <img width="200px"
+                            src="https://i.pinimg.com/originals/ea/66/cd/ea66cdf309ec3341db8d38bb298afa0f.gif">
+                            <p class="font-weight-bold mt-3" style="color: #071C4D;"> Pencarian tidak ditemukan
+                        </p>
+                        <a href="{{ route('front.index') }}" class="btn btn-primary btn-md" style="background: #071C4D">
+                            <i class="fas fa-caret-left"></i> Kembali
+                        </a>
+                    </div>
                     @endforelse
-                </div>
-                @else
-                <div class="col text-center mb-5">
-                    <img width="200px"
-                        src="https://i.pinimg.com/originals/ea/66/cd/ea66cdf309ec3341db8d38bb298afa0f.gif">
-                    <p class="font-weight-bold mt-3" style="color: #071C4D;"> Pencarian tidak ditemukan
-                    </p>
-                    <a href="{{ route('front.index') }}" class="btn btn-primary btn-md" style="background: #071C4D">
-                        <i class="fas fa-caret-left"></i> Kembali
-                    </a>
+                  
+
                 </div>
 
-                @endif
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 d-lg-flex align-items-center justify-content-end">
                 <a href="{{ route('front.kursus') }}" class="text-primary text-sm"> Lihat Semua<i
-                        class="fas fa-angle-double-right ml-2"></i></a>
+                    class="fas fa-angle-double-right ml-2"></i></a>
             </div>
         </div>
-
+        
         <div class="row">
             <div class="col">
                 <div id="mapid"></div>
@@ -270,7 +199,7 @@
         </div>
 
         <div class="row">
-            {{ $kursus->appends(Request::all())->links() }}
+            {{-- {{ $kursus->appends(Request::all())->links() }} --}}
         </div>
 
     </div>
