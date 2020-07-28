@@ -15,12 +15,11 @@ class FrontController extends Controller
     public function index(Request $request)
     {
         $idPendaftar = Auth::id();
-        $kursus = Kursus::with(['kategori', 'tutor'])
+        $kursus = Kursus::with(['kategori', 'tutor',])
             ->withCount('order_detail')
             ->orderBy('created_at', 'DESC')
-            ->paginate(4);
+            ->get();
         $kategori = Kategori::all();
-
 
         $keyword = $request->get('keyword');
         if ($keyword) {
@@ -48,8 +47,12 @@ class FrontController extends Controller
             ->get();
         // dd($status_kursus);
 
-
         return view('web.web_home', compact('kursus', 'kategori', 'nama_kategori', 'status_kursus'));
+    }
+
+    public function pusat_bantuan()
+    {
+        return view('web.web_pusat_bantuan');
     }
 
 
@@ -57,7 +60,7 @@ class FrontController extends Controller
     {
         $kursus = Kursus::with(['kategori', 'tutor'])
             ->withCount('order_detail')
-            ->orderBy('created_at', 'DESC')->paginate(4);
+            ->orderBy('created_at', 'DESC')->paginate(6);
         $kategori = Kategori::latest()->get();
 
         $keyword = $request->get('keyword');
@@ -88,13 +91,16 @@ class FrontController extends Controller
     public function show($slug)
     {
         $pendaftarId = Auth::id();
+
         $kursus = Kursus::with(['galleries'])
             ->where('slug', $slug)->firstOrFail();
+
         $kategori = Kategori::latest()->get();
+
         $review = Komentar::with('kursus')
             ->where('id_kursus', $kursus->id)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(4);
 
         $check_kursus_status = OrderDetail::where('id_pendaftar', $pendaftarId)
             ->where('id_kursus', $kursus->id)
@@ -105,6 +111,7 @@ class FrontController extends Controller
                     ->orWhere('status', 'FAILED');
             })
             ->first();
+
         $check_kursus_sukses = OrderDetail::where('id_pendaftar', $pendaftarId)
             ->where('id_kursus', $kursus->id)
             ->where('status', 'SUCCESS')
