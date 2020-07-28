@@ -24,10 +24,15 @@
             @guest
             <li class="nav-item"><a href="{{ route('front.index') }}" class="nav-link 
                 {{ (Request::route()->getName() == 'front.index') ? 'active' : '' }}">Beranda</a></li>
-            <li class="nav-item"><a href="#" class="nav-link ">Pusat Bantuan</a></li>
-            <li class="nav-item"><a href="{{ route('front.kursus') }}" class="nav-link  
-                {{ (Request::route()->getName() == 'front.kursus') ? 'active' : '' }}">Kursus</a>
-            </li>
+            <li class="nav-item"><a href="{{ route('front.pusat') }}" class="nav-link 
+              {{ (Request::route()->getName() == 'front.pusat') ? 'active' : '' }}">Pusat Bantuan</a></li>
+              <li class="nav-item"><a href="{{ route('front.kursus') }}" class="nav-link 
+                {{ (Request::route()->getName() == 'front.kursus') ? 'active' : '' ||
+                   (Request::route()->getName() == 'front.detail') ? 'active' : '' ||
+                   (Request::route()->getName() == 'front.review') ? 'active' : ''
+                }}">
+                  Kursus
+                  </a></li>
 
             @if (Route::has('register'))
             <li class="nav-item"><a href="{{ route('register') }}" class="nav-link  
@@ -44,12 +49,15 @@
                     {{ (Request::route()->getName() == 'front.index') ? 'active' : '' }}">
                         Beranda
                     </a></li>
-                <li class="nav-item"><a href="#" class="nav-link">
-                        Pusat Bantuan
-                    </a></li>
+                    <li class="nav-item"><a href="{{ route('front.pusat') }}" class="nav-link 
+                      {{ (Request::route()->getName() == 'front.pusat') ? 'active' : '' }}">Pusat Bantuan</a></li>
                 <li class="nav-item"><a href="{{ route('front.kursus') }}" class="nav-link 
-                    {{ (Request::route()->getName() == 'front.kursus') ? 'active' : '' }}">
+                    {{ (Request::route()->getName() == 'front.kursus') ? 'active' : '' ||
+                       (Request::route()->getName() == 'front.detail') ? 'active' : '' ||
+                       (Request::route()->getName() == 'front.review') ? 'active' : ''
+                    }}">
                       Kursus
+                      </a></li>
         
                 <li class="nav-item"><a href="{{ route('order.view') }}" class="nav-link 
                     {{ (Request::route()->getName() == 'order.view') ? 'active' : '' }}">
