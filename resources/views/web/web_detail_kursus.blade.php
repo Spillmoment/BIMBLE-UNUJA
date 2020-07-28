@@ -4,7 +4,11 @@
 @section('content')
 
 <section
+    @if ($kursus->galleries->count() != null)
     style="background-image: url('{{ $kursus->galleries->count() ? Storage::url($kursus->galleries->first()->image) : '' }}');"
+    @else
+    style="background-image: url('{{asset('assets/frontend/img/photo/photo-1426122402199-be02db90eb90.jpg')}}');"
+    @endif
     class="pt-7 pb-5 d-flex align-items-end dark-overlay bg-cover">
     <div class="container overlay-content">
         <div class="d-flex justify-content-between align-items-start flex-column flex-lg-row align-items-lg-end">
@@ -61,6 +65,15 @@
                     </div>
                 </div>
             </div>
+
+            <div class="text-block">
+                <!-- Listing Location-->
+                <h3 class="mb-4">Location</h3>
+                <div class="map-wrapper-300 mb-3">
+                  <div id="detailMap" class="h-100"></div>
+                </div>
+              </div>
+
             <div class="text-block">
                 <div class="media">
                     @foreach ($kursus->tutor as $tutor)
@@ -90,15 +103,84 @@
                                 class="img-fluid mt-2"></a>
                     </div>
                     @empty
-                    <div class="col-lg-4 col-6 px-1 mb-2 alert alert-warning font-weight-bold">
-                        Galeri Kosong
-                    </div>
+                    <div class="alert alert-warning text-sm mb-3 mt-3 col">
+                        <div class="media align-items-center">
+                          <div class="media-body text-center ">Belum ada <strong>Gallery</strong> untuk kursus ini</div>
+                        </div>
+                      </div>
                     @endforelse
                 </div>
             </div>
+
+            <div class="text-block">
+                <p class="subtitle text-sm text-primary">Reviews Kursus  {{  $kursus->nama_kursus  }}</p>
+                @forelse ($review as $komen)
+                @foreach ($komen->pendaftar as $user)
+                <div class="media d-block d-sm-flex review">
+                  <div class="text-md-center mr-4 mr-xl-5"><img src="{{ Storage::url('uploads/pendaftar/profile/'.$user->foto) }}" alt="{{ $user->foto }}" class="d-block avatar avatar-lg p-2 mb-2"><span class="text-uppercase text-muted text-sm">{{ $komen->updated_at->diffForhumans() }}</span></div>
+                  <div class="media-body">
+                    <h6 class="mt-2 mb-1">{{ $user->nama_pendaftar }}</h6>
+                    <div class="mb-2"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i>
+                    </div>
+                    <p class="text-muted text-sm">
+                        {{ $komen->isi_komentar }}
+                     </p>
+                  </div>
+                </div>
+                @endforeach
+                @empty
+                <div class="alert alert-warning text-sm mb-3 mt-3">
+                    <div class="media align-items-center">
+                      <div class="media-body text-center ">Belum ada <strong>Review</strong> untuk kursus ini</div>
+                    </div>
+                  </div>
+                @endforelse
+
+              
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination pagination-template d-flex justify-content-center my-2">
+                        {{ $review->links() }}
+                    </ul>
+                  </nav>
+              
+               
+              </div>
         </div>
 
         <div class="col-lg-4">
+            <div class="pl-xl-4">
+                <!-- Detail Kursus -->
+                <div class="card border-0 shadow mb-5">
+                  <div class="card-header bg-gray-100 py-4 border-0">
+                    <div class="media align-items-center">
+                      <div class="media-body">
+                        <p class="subtitle text-sm text-primary">Detail Kursus</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <table class="table text-sm mb-0">
+                      <tr>
+                        <th class="pl-0 border-0">Nama Kursus</th>
+                        <td class="pr-0 text-right border-0">{{ $kursus->nama_kursus }}</td>
+                      </tr>
+                      <tr>
+                        <th class="pl-0">Kategori</th>
+                        <td class="pr-0 text-right">{{ $kursus->kategori->first()->nama_kategori }}</td>
+                      </tr>
+                      <tr>
+                        <th class="pl-0">Total Harga</th>
+                        <td class="pr-0 text-right text-primary font-weight-bold">@currency($kursus->biaya_kursus -
+                            ($kursus->biaya_kursus * ($kursus->diskon_kursus/100))).00</td>
+                      </tr>
+                      <tr>
+                        <th class="pl-0">Lama Kursus</th>
+                        <td class="pr-0 text-right">{{ $kursus->lama_kursus }} Hari</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
             <div style="top: 100px;" class="p-4 shadow ml-lg-4 rounded sticky-top">
 
                 @if ($kursus->diskon_kursus == 0)
@@ -136,20 +218,20 @@
                     <div class="form-group">
                         @guest
                         @if (Route::has('register'))
-                        <button type="submit" id="orderKursusButton" class="btn btn-block"
-                            style="background-color: rgb(235, 236, 237); color: rgb(169, 170, 171)">Pesan</button>
+                        <button type="submit" id="orderKursusButton" class="btn btn-block btn-outline-primary"
+                        >Pesan</button>
                         @endif
                         @else
                         @if ($check_kursus != null)
-                        <div class="alert alert-warning" role="alert">
-                            <strong>kursus berhasil diambil!</strong> Silahkan lihat pada cart anda
+                        <div class="alert alert-success" role="alert">
+                            <strong>kursus berhasil diambil!</strong> Silahkan lihat di keranjang
                         </div>
                         @elseif ($check_kursus_sukses)
                         <div class="alert alert-success" role="alert">
                             <a href="/user/kursus/{{ $kursus->slug }}" class="btn btn-success btn-block">Buka</a>
                         </div>
                         @else
-                        <button type="submit" id="orderKursusButton" class="btn btn-primary btn-block btn-rounded-md">
+                        <button type="submit" id="orderKursusButton" class="btn btn-primary btn-block btn-rounded-md btn-active">
                             Pesan
                         </button>
                         @endif
@@ -164,10 +246,14 @@
 
 @endsection
 
+@push('style')
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+@endpush
+
 @push('scripts')
 <script>
     $(document).ready(function () {
-        $('.btn-primary').on('click', function () {
+        $('.btn-active').on('click', function () {
             var $this = $(this);
             $('button').css("opacity", 0.4);
             var loadingText =
@@ -182,5 +268,28 @@
         });
     })
 
+</script>
+
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+<!-- Available tile layers-->
+<script>
+var tileLayers = []
+
+tileLayers[1] = { tiles: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>', subdomains: 'abcd' }
+tileLayers[2] = { tiles: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }
+tileLayers[3] = { tiles: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png', attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }
+tileLayers[4] = { tiles: 'https://mapserver.mapy.cz/base-m/{z}-{x}-{y}', attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>, <a href="https://seznam.cz">Seznam.cz, a.s.</a>' }
+tileLayers[5] = { tiles: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>', subdomains: 'abcd' }
+tileLayers[6] = { tiles: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia maps</a>' } // Originally used in the theme, but stopped working. Might be just temporary, though.
+</script>
+<script src="{{ asset('assets/frontend/vendor/lib/js/map-detail.ecc97be1.js') }}"></script>
+<script>
+createDetailMap({
+  mapId: 'detailMap',
+  mapCenter: [40.732346, -74.0014247],
+  markerShow: true,
+  markerPosition: [40.732346, -74.0014247],
+  markerPath: 'img/marker.svg',
+})
 </script>
 @endpush
