@@ -48,6 +48,8 @@ class LoginController extends Controller
 
         if (Auth::guard('manager')->attempt($credential, $request->member)) {
             return redirect()->intended(route('dashboard'));
+        } else {
+            session()->flash('loginError', 'Periksa kembali login anda');
         }
 
         return redirect()->back()->withInput($request->only('email', 'remember'));
