@@ -59,22 +59,24 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <input type="text" class="form-control datepicker1" name="start_date" placeholder="Start Date" autocomplete="off">
-                                                </div>
+                                                <input type="text" class="form-control datepicker1" name="start_date"
+                                                    placeholder="Start Date" autocomplete="off">
+                                            </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <input type="text" class="form-control datepicker2" name="end_date" placeholder="End Date" autocomplete="off">
+                                                <input type="text" class="form-control datepicker2" name="end_date"
+                                                    placeholder="End Date" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <button type="submit" class="btn btn-primary mt-1"> <i
                                                     class="fa fa-search"></i>
                                             </button>
-                                            @if (Request::get('start_date') != "" && Request::get('end_date') != "") 
-                                                <a class="btn btn-success mt-1 text-light" href="{{ route('order.index') }}"> <i
-                                                    class="fa fa-refresh"></i>
-                                                </a>
+                                            @if (Request::get('start_date') != "" && Request::get('end_date') != "")
+                                            <a class="btn btn-success mt-1 text-light"
+                                                href="{{ route('order.index') }}"> <i class="fa fa-refresh"></i>
+                                            </a>
                                             @endif
                                         </div>
 
@@ -117,13 +119,13 @@
                                 @if ($item->status_kursus != "CANCEL")
 
                                 <tr>
-                                    <td>{{ $item->id }}</td>
+                                    <td>{{ $loop->iteration }}</td>
                                     @foreach ($item->pendaftar as $user)
 
                                     <td>{{ $user->nama_pendaftar }}</td>
                                     <td>{{ $user->email }}</td>
                                     @endforeach
-                                    <td> {{ $item->tgl_order }}</td>
+                                    <td> {{ \Carbon\Carbon::parse($item->tgl_order)->format('d F Y') }}</td>
                                     <td>
                                         @currency($item->total_tagihan).00</td>
                                     <td>
@@ -141,7 +143,7 @@
                                                             {{ $item->status_kursus }}
                                                         </span>
                                     </td>
-                                    <td  style="width: 18%">
+                                    <td style="width: 18%">
                                         @if($item->status_kursus == 'PENDING')
                                         <a href="{{ route('order.status', $item->id) }}?status=SUCCESS"
                                             class="btn btn-success btn-sm">
@@ -163,7 +165,7 @@
                                             class="d-inline">
                                             @csrf
                                             @method('delete')
-                                            <button type="submit" class="btn btn-danger btn-sm" id="deleteButton"
+                                            <button type="submit" class="btn btn-danger btn-sm"
                                                 data-name="{{ $user->nama_pendaftar }}">
                                                 <i class="fa fa-trash"></i>
                                             </button>
@@ -176,15 +178,16 @@
                                 @push('after-script')
                                 <script>
                                     swal({
-                                    title: "Maaf",
-                                    text: "Data order kosong!",
-                                    icon: "warning",
-                                    button: "OK!",
-                                    }).then(function() {
+                                        title: "Maaf",
+                                        text: "Data order kosong!",
+                                        icon: "warning",
+                                        button: "OK!",
+                                    }).then(function () {
                                         window.location = "{{ route('order.index') }}";
                                     }, 3000);
+
                                 </script>
-                                    @endpush
+                                @endpush
                                 @endforelse
                             </tbody>
 
@@ -210,49 +213,48 @@
 @push('after-script')
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
-<script>  
-    $(document).ready(function() {
-     
+<script>
+    $(document).ready(function () {
+
         $('.datepicker1').datepicker({
-        format: 'yyyy-mm-dd',
-        uilibrary: 'bootstrap4',
-        size: 'default',
-        icons: {
-          rightIcon: '<i class="fa fa-calendar-check-o"></i>'
-        }
-      });
+            format: 'yyyy-mm-dd',
+            uilibrary: 'bootstrap4',
+            size: 'default',
+            icons: {
+                rightIcon: '<i class="fa fa-calendar-check-o"></i>'
+            }
+        });
 
         $('.datepicker2').datepicker({
-        format: 'yyyy-mm-dd',
-        uilibrary: 'bootstrap4',
-        size: 'default',
-        icons: {
-          rightIcon: '<i class="fa fa-calendar-check-o"></i>'
-        }
-      });
+            format: 'yyyy-mm-dd',
+            uilibrary: 'bootstrap4',
+            size: 'default',
+            icons: {
+                rightIcon: '<i class="fa fa-calendar-check-o"></i>'
+            }
+        });
 
-      $('button#deleteButton').on('click', function (e) {
-        var name = $(this).data('name');
-        e.preventDefault();
-        swal({
-                title: "Yakin!",
-                text: "menghapus Order  " + name + "?",
-                icon: "warning",
-                dangerMode: true,
-                buttons: {
-                    cancel: "Cancel",
-                    confirm: "OK",
-                },
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    $(this).closest("form").submit();
-                }
-            });
+        $('button#deleteButton').on('click', function (e) {
+            var name = $(this).data('name');
+            e.preventDefault();
+            swal({
+                    title: "Yakin!",
+                    text: "menghapus Order  " + name + "?",
+                    icon: "warning",
+                    dangerMode: true,
+                    buttons: {
+                        cancel: "Cancel",
+                        confirm: "OK",
+                    },
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $(this).closest("form").submit();
+                    }
+                });
+        });
+
     });
 
-    });
-
-  
 </script>
 @endpush
