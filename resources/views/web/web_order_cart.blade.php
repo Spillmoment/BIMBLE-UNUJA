@@ -1,14 +1,32 @@
-@extends('web.layouts.main')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Eh-Bimble | Halaman Pesanan</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
 
-@section('title','Bimble | Halaman Pesanan')
-@section('content')
+    @include('web.layouts.style')
 
-{{-- crsf-token Meta --}}
-<meta name="csrf-token" content="{{ csrf_token() }}">
-{{-- CDN untuk switch button + cdn jquery --}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css">
-{{-- CDN untuk tost --}}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    {{-- CDN untuk switch button + cdn jquery --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
+
+    {{-- CDN untuk tost --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    {{-- crsf-token Meta --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
+
+<body style="padding-top: 72px;">
+ 
+
+    @include('web.layouts.header')
 
 <section class="py-5">
     <div class="container-fluid">
@@ -81,7 +99,7 @@
                                                 <td> @currency($cours->biaya_kursus -
                                                     ($cours->biaya_kursus * ($cours->diskon_kursus/100))).00</td>
                                                 <td class="text-right"><button class="btn btn-sm btn-danger"
-                                                        id="deleteCart" data-id="{{ $item->id }}"><i
+                                                        id="deleteCart" data-nama="{{ $cours->nama_kursus }}" data-id="{{ $item->id }}"><i
                                                             class="fa fa-trash"></i> </button> </td>
                                             </tr>
                                             @endforeach
@@ -251,12 +269,11 @@
     </div>
 </section>
 
-@endsection
+@include('web.layouts.footer')
+    
+@include('web.layouts.script')
+</body>
 
-@push('scripts')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
     $(document).ready(function () {
         var readURL = function (input) {
@@ -278,136 +295,129 @@
 </script>
 
 <script>
+
     let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-    elems.forEach(function (html) {
-        let switchery = new Switchery(html, {
-            size: 'small'
-        });
+    elems.forEach(function(html) {
+        let switchery = new Switchery(html,  { size: 'small' });
     });
 
-    $(document).ready(function () {
-    $('.js-switch').change(function () {
-        let status = $(this).prop('checked') === true ? 'PROCESS' : 'CANCEL';
-        let orderId = $(this).data('id');
-        let orderFk = $(this).data('order');
-        let pendaftarId = $(this).data('pendaf');
-        let namaKursus = $(this).data('kursus');
-        $.ajax({
-            type: "GET",
-            dataType: "json",
-            url: '{{ route('order.update.cancel') }}',
-            data: {
-                'status': status,
-                'order_id': orderId,
-                'order_fk': orderFk,
-                'id_pendaftar': pendaftarId,
-                'nama_kursus': namaKursus
-            },
-            success: function (data) {
-                toastr.options.closeButton = true;
-                toastr.options.closeMethod = 'fadeOut';
-                toastr.options.closeDuration = 100;
-                toastr.success(data.message);
+    $(document).ready(function(){
+        $('.js-switch').change(function () {
+            let status = $(this).prop('checked') === true ? 'PROCESS' : 'CANCEL';
+            let orderId = $(this).data('id');
+            let orderFk = $(this).data('order');
+            let pendaftarId = $(this).data('pendaf');
+            let namaKursus = $(this).data('kursus');
+            $.ajax({
+                type: "GET",
+                dataType: "json",
+                url: '{{ route('order.update.cancel') }}',
+                data: {'status': status, 'order_id': orderId, 'order_fk': orderFk, 'id_pendaftar': pendaftarId, 'nama_kursus': namaKursus},
+                success: function (data) {
+                    toastr.options.closeButton = true;
+                    toastr.options.closeMethod = 'fadeOut';
+                    toastr.options.closeDuration = 100;
+                    toastr.success(data.message);
 
-                document.getElementById("total").textContent = data.totalTagihan;
+                    document.getElementById("total").textContent=data.totalTagihan;
+                }
+            });
+        });
+
+        // function delete cart
+        $("#deleteCart").on("click",function(e){
+
+            var nama = $(this).data('nama');
+
+            // sweealert 
+            swal({
+            title: "Yakin ?",
+            text: "mau dihapus order ini dengan kursus " + nama +" ",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+           
+            if (willDelete) {
+            
+            e.preventDefault();
+            var id = $(this).data("id");
+            var token = $("meta[name='csrf-token']").attr("content");
+           
+           
+            $.ajax({
+                url: "/order/cart/"+id,
+                type: 'DELETE',
+                data: {
+                    _token: token,
+                        id: id
+                },
+                success: function (response){
+                    toastr.options.closeButton = true;
+                    toastr.options.closeMethod = 'fadeOut';
+                    toastr.options.closeDuration = 100;
+                    toastr.warning(response.message);
+
+                    document.getElementById("total").textContent=response.totalTagihan;
+                    setTimeout(function(){
+                        location.reload(); 
+                    }, 1500); 
+                }
+            });
+
+            } else {
+                // swal("Your imaginary file is safe!");
+            }
+            });
+
+            return false;
+        });
+
+        // function delete checkout
+        $("#deleteCheckout").on("click",function(e){
+        // sweealert 
+        swal({
+            title: "Yakin ?",
+            text: "Membatalkan konfirmasi.",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+
+        if (willDelete) {
+
+        e.preventDefault();
+        var id = $(this).data("id");
+        var token = $("meta[name='csrf-token']").attr("content");
+
+        $.ajax({
+            url: "/order/checkout/"+id,
+            type: 'DELETE',
+            data: {
+                _token: token,
+            },
+            success: function (response){
+                setTimeout(function(){
+                    location.reload(); 
+                }, 1500); 
             }
         });
-    });
 
-    // function delete cart
-    $("#deleteCart").on("click", function (e) {
-
-        var nama = $(this).data('nama');
-
-        // sweealert 
-        swal({
-                title: "Yakin ?",
-                text: "mau dihapus order ini dengan kursus " + nama + " ",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-
-                if (willDelete) {
-
-                    e.preventDefault();
-                    var id = $(this).data("id");
-                    var token = $("meta[name='csrf-token']").attr("content");
-
-
-                    $.ajax({
-                        url: "/order/cart/" + id,
-                        type: 'DELETE',
-                        data: {
-                            _token: token,
-                            id: id
-                        },
-                        success: function (response) {
-                            toastr.options.closeButton = true;
-                            toastr.options.closeMethod = 'fadeOut';
-                            toastr.options.closeDuration = 100;
-                            toastr.warning(response.message);
-
-                            document.getElementById("total").textContent = response
-                                .totalTagihan;
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1500);
-                        }
-                    });
-
-                } else {
-                    // swal("Your imaginary file is safe!");
-                }
-            });
+        } else {
+            // swal("Your imaginary file is safe!");
+        }
+        });
 
         return false;
+        });
+        
     });
 
-    // function delete checkout
-    $("#deleteCheckout").on("click", function (e) {
-        // sweealert 
-        swal({
-                title: "Yakin ?",
-                text: "Membatalkan konfirmasi.",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
+ 
 
-                if (willDelete) {
-
-                    e.preventDefault();
-                    var id = $(this).data("id");
-                    var token = $("meta[name='csrf-token']").attr("content");
-
-                    $.ajax({
-                        url: "/order/checkout/" + id,
-                        type: 'DELETE',
-                        data: {
-                            _token: token,
-                        },
-                        success: function (response) {
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1500);
-                        }
-                    });
-
-                } else {
-                    // swal("Your imaginary file is safe!");
-                }
-            });
-
-        return false;
-    });
-
-
-    })
-
-    });
-
+    
 </script>
-@endpush
+
+</html>
