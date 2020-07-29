@@ -3,9 +3,9 @@
 @section('title', 'Detail Kursus - ' . $kursus->nama_kursus )
 @section('content')
 
-<section
-    @if ($kursus->galleries->count() != null)
-    style="background-image: url('{{ $kursus->galleries->count() ? Storage::url($kursus->galleries->first()->image) : '' }}');"
+<section @if ($kursus->galleries->count() != null)
+    style="background-image:
+    url('{{ $kursus->galleries->count() ? Storage::url($kursus->galleries->first()->image) : '' }}');"
     @else
     style="background-image: url('{{asset('assets/frontend/img/photo/photo-1426122402199-be02db90eb90.jpg')}}');"
     @endif
@@ -21,7 +21,8 @@
                 <p class="mb-0 d-flex align-items-center"><i class="fa fa-xs fa-star text-primary"></i><i
                         class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i
                         class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200 mr-4"> </i>
-                        <a href="{{ route('front.review', $kursus->slug) }}" class="text-light">{{  $review->count() }} Reviews</a>
+                    <a href="{{ route('front.review', $kursus->slug) }}" class="text-light">{{  $review->count() }}
+                        Reviews</a>
                 </p>
             </div>
         </div>
@@ -70,9 +71,9 @@
                 <!-- Listing Location-->
                 <h3 class="mb-4">Location</h3>
                 <div class="map-wrapper-300 mb-3">
-                  <div id="detailMap" class="h-100"></div>
+                    <div id="detailMap" class="h-100"></div>
                 </div>
-              </div>
+            </div>
 
             <div class="text-block">
                 <div class="media">
@@ -105,82 +106,91 @@
                     @empty
                     <div class="alert alert-warning text-sm mb-3 mt-3 col">
                         <div class="media align-items-center">
-                          <div class="media-body text-center ">Belum ada <strong>Gallery</strong> untuk kursus ini</div>
+                            <div class="media-body text-center ">Belum ada <strong>Gallery</strong> untuk kursus ini
+                            </div>
                         </div>
-                      </div>
+                    </div>
                     @endforelse
                 </div>
             </div>
 
             <div class="text-block">
-                <p class="subtitle text-sm text-primary">Reviews Kursus  {{  $kursus->nama_kursus  }}</p>
+                <p class="subtitle text-sm text-primary">Reviews Kursus {{  $kursus->nama_kursus  }}</p>
                 @forelse ($review as $komen)
                 @foreach ($komen->pendaftar as $user)
                 <div class="media d-block d-sm-flex review">
-                  <div class="text-md-center mr-4 mr-xl-5"><img src="{{ Storage::url('uploads/pendaftar/profile/'.$user->foto) }}" alt="{{ $user->foto }}" class="d-block avatar avatar-lg p-2 mb-2"><span class="text-uppercase text-muted text-sm">{{ $komen->updated_at->diffForhumans() }}</span></div>
-                  <div class="media-body">
-                    <h6 class="mt-2 mb-1">{{ $user->nama_pendaftar }}</h6>
-                    <div class="mb-2"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i>
+                    <div class="text-md-center mr-4 mr-xl-5"><img
+                            src="{{ Storage::url('uploads/pendaftar/profile/'.$user->foto) }}" alt="{{ $user->foto }}"
+                            class="d-block avatar avatar-lg p-2 mb-2"><span
+                            class="text-uppercase text-muted text-xs">{{ $komen->updated_at->diffForhumans() }}</span>
                     </div>
-                    <p class="text-muted text-sm">
-                        {{ $komen->isi_komentar }}
-                     </p>
-                  </div>
+                    <div class="media-body">
+                        <h6 class="mt-2 mb-1">{{ $user->nama_pendaftar }}</h6>
+                        {{-- <div class="mb-2"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i>
+                    </div> --}}
+                        <p class="text-muted text-sm">
+                            {{ $komen->isi_komentar }}
+                        </p>
+                    </div>
                 </div>
                 @endforeach
                 @empty
                 <div class="alert alert-warning text-sm mb-3 mt-3">
                     <div class="media align-items-center">
-                      <div class="media-body text-center ">Belum ada <strong>Review</strong> untuk kursus ini</div>
+                        <div class="media-body text-center ">Belum ada <strong>Review</strong> untuk kursus ini</div>
                     </div>
-                  </div>
+                </div>
                 @endforelse
 
-              
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination pagination-template d-flex justify-content-center my-2">
-                        {{ $review->links() }}
-                    </ul>
-                  </nav>
-              
-               
-              </div>
+
+                @if ($review->count() > 0 || $review->count() > 5)
+                <div class="row">
+                    <div class="col-md-12 d-lg-flex align-items-center justify-content-end">
+                        <a href="{{ route('front.review', $kursus->slug) }}" class="text-primary text-sm"> Lihat Semua<i
+                                class="fas fa-angle-double-right ml-2"></i></a>
+                    </div>
+                </div>
+                @endif
+
+
+            </div>
         </div>
 
         <div class="col-lg-4">
             <div class="pl-xl-4">
                 <!-- Detail Kursus -->
                 <div class="card border-0 shadow mb-5">
-                  <div class="card-header bg-gray-100 py-4 border-0">
-                    <div class="media align-items-center">
-                      <div class="media-body">
-                        <p class="subtitle text-sm text-primary">Detail Kursus</p>
-                      </div>
+                    <div class="card-header bg-gray-100 py-4 border-0">
+                        <div class="media align-items-center">
+                            <div class="media-body">
+                                <p class="subtitle text-sm text-primary">Detail Kursus</p>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="card-body">
-                    <table class="table text-sm mb-0">
-                      <tr>
-                        <th class="pl-0 border-0">Nama Kursus</th>
-                        <td class="pr-0 text-right border-0">{{ $kursus->nama_kursus }}</td>
-                      </tr>
-                      <tr>
-                        <th class="pl-0">Kategori</th>
-                        <td class="pr-0 text-right">{{ $kursus->kategori->first()->nama_kategori }}</td>
-                      </tr>
-                      <tr>
-                        <th class="pl-0">Total Harga</th>
-                        <td class="pr-0 text-right text-primary font-weight-bold">@currency($kursus->biaya_kursus -
-                            ($kursus->biaya_kursus * ($kursus->diskon_kursus/100))).00</td>
-                      </tr>
-                      <tr>
-                        <th class="pl-0">Lama Kursus</th>
-                        <td class="pr-0 text-right">{{ $kursus->lama_kursus }} Hari</td>
-                      </tr>
-                    </table>
-                  </div>
+                    <div class="card-body">
+                        <table class="table text-sm mb-0">
+                            <tr>
+                                <th class="pl-0 border-0">Nama Kursus</th>
+                                <td class="pr-0 text-right border-0">{{ $kursus->nama_kursus }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pl-0">Kategori</th>
+                                <td class="pr-0 text-right">{{ $kursus->kategori->first()->nama_kategori }}</td>
+                            </tr>
+                            <tr>
+                                <th class="pl-0">Total Harga</th>
+                                <td class="pr-0 text-right text-primary font-weight-bold">
+                                    @currency($kursus->biaya_kursus -
+                                    ($kursus->biaya_kursus * ($kursus->diskon_kursus/100))).00</td>
+                            </tr>
+                            <tr>
+                                <th class="pl-0">Lama Kursus</th>
+                                <td class="pr-0 text-right">{{ $kursus->lama_kursus }} Hari</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
-              </div>
+            </div>
             <div style="top: 100px;" class="p-4 shadow ml-lg-4 rounded sticky-top">
 
                 @if ($kursus->diskon_kursus == 0)
@@ -199,8 +209,8 @@
 
 
                 <hr class="my-4">
-                <form id="booking-form" method="post" action="{{ route('order.post', $kursus->slug) }}" autocomplete="off"
-                    class="form">
+                <form id="booking-form" method="post" action="{{ route('order.post', $kursus->slug) }}"
+                    autocomplete="off" class="form">
                     @csrf
 
                     {{-- @if (Auth::check())
@@ -209,7 +219,8 @@
 
                     {{-- <input type="hidden" name="id_kursus" value="{{ $kursus->id }}">
                     <input type="hidden" name="biaya_kursus" value="{{ $kursus->biaya_kursus }}">
-                    <input type="hidden" name="diskon_kursus" value="{{ ($kursus->diskon_kursus > 0) ? $kursus->diskon_kursus : 0 }}"> --}}
+                    <input type="hidden" name="diskon_kursus"
+                        value="{{ ($kursus->diskon_kursus > 0) ? $kursus->diskon_kursus : 0 }}"> --}}
                     <div class="form-group">
                         <label for="diskon" class="form-label">Diskon</label>
                         <h3>{{ $kursus->diskon_kursus }}%</h3>
@@ -217,8 +228,8 @@
                     <div class="form-group">
                         @guest
                         @if (Route::has('register'))
-                        <button type="submit" id="orderKursusButton" class="btn btn-block btn-outline-primary"
-                        >Pesan</button>
+                        <button type="submit" id="orderKursusButton"
+                            class="btn btn-block btn-outline-primary">Pesan</button>
                         @endif
                         @else
                         @if ($check_kursus != null)
@@ -230,7 +241,8 @@
                             <a href="/user/kursus/{{ $kursus->slug }}" class="btn btn-success btn-block">Buka</a>
                         </div>
                         @else
-                        <button type="submit" id="orderKursusButton" class="btn btn-primary btn-block btn-rounded-md btn-active">
+                        <button type="submit" id="orderKursusButton"
+                            class="btn btn-primary btn-block btn-rounded-md btn-active">
                             Pesan
                         </button>
                         @endif
@@ -272,23 +284,45 @@
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 <!-- Available tile layers-->
 <script>
-var tileLayers = []
+    var tileLayers = []
 
-tileLayers[1] = { tiles: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>', subdomains: 'abcd' }
-tileLayers[2] = { tiles: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }
-tileLayers[3] = { tiles: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png', attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }
-tileLayers[4] = { tiles: 'https://mapserver.mapy.cz/base-m/{z}-{x}-{y}', attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>, <a href="https://seznam.cz">Seznam.cz, a.s.</a>' }
-tileLayers[5] = { tiles: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>', subdomains: 'abcd' }
-tileLayers[6] = { tiles: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia maps</a>' } // Originally used in the theme, but stopped working. Might be just temporary, though.
+    tileLayers[1] = {
+        tiles: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd'
+    }
+    tileLayers[2] = {
+        tiles: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }
+    tileLayers[3] = {
+        tiles: 'https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.png',
+        attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }
+    tileLayers[4] = {
+        tiles: 'https://mapserver.mapy.cz/base-m/{z}-{x}-{y}',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>, <a href="https://seznam.cz">Seznam.cz, a.s.</a>'
+    }
+    tileLayers[5] = {
+        tiles: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+        subdomains: 'abcd'
+    }
+    tileLayers[6] = {
+        tiles: 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png',
+        attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia maps</a>'
+    } // Originally used in the theme, but stopped working. Might be just temporary, though.
+
 </script>
 <script src="{{ asset('assets/frontend/vendor/lib/js/map-detail.ecc97be1.js') }}"></script>
 <script>
-createDetailMap({
-  mapId: 'detailMap',
-  mapCenter: [40.732346, -74.0014247],
-  markerShow: true,
-  markerPosition: [40.732346, -74.0014247],
-  markerPath: 'img/marker.svg',
-})
+    createDetailMap({
+        mapId: 'detailMap',
+        mapCenter: [40.732346, -74.0014247],
+        markerShow: true,
+        markerPosition: [40.732346, -74.0014247],
+        markerPath: 'img/marker.svg',
+    })
+
 </script>
 @endpush

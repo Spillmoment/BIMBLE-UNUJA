@@ -168,12 +168,36 @@
                                             </div>
                                         </div>
                                     </div>
-    
-                                    @elseif ($pesan->status_kursus == 'FAILED')
-                                    <div class="col mt-2 progress">
-                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-                                            role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
-                                            aria-valuemax="100">Bukti Transfer Gagal...</div>
+                                </div>
+
+                                @elseif ($pesan->status_kursus == 'FAILED')
+                                <div class="col mt-2 progress">
+                                    <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                                        role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                        aria-valuemax="100">Bukti Transfer Gagal...</div>
+                                </div>
+                                <div class="alert alert-info mt-3">
+                                    <h4 class="alert-heading">Perhatikan!</h4>
+                                    <hr>
+                                    <p class="mb-0">
+                                        <ol type="1">
+                                            <li>No. rekening tujuan</li>
+                                            <li>Jumlah tagihan anda sebesar <strong>@currency($pesan->total_tagihan).00</strong>
+                                            </li>
+                                        </ol>
+                                    </p>
+                                </div>
+                                <form action="{{ route('order.patch.pembayaran') }}" method="POST"
+                                    enctype="multipart/form-data" class="pr-xl-3">
+                                    @csrf
+                                    @method('patch')
+                                    <div class="mb-4">
+                                        <label for="form_search" class="form-label">Silahkan upload ulang
+                                            bukti transfer</label>
+                                        <div class="input-label-absolute input-label-absolute-right">
+                                            <input type="file" name="fileTransfer" class="form-control-file pr-4">
+                                            <img class="img-target my-3" width="200px">
+                                        </div>
                                     </div>
                                     <div class="alert alert-info mt-3">
                                         <h4 class="alert-heading">Perhatikan!</h4>
@@ -219,47 +243,43 @@
                             </div>
                         </div>
                     </div>
-    
-                    {{-- Upload bukti transfer --}}
-                    <div class="col">
-    
-                        {{-- @if ($order_status != null)
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="alert alert-info col" role="alert">
-                                    Silahkan menunggu konfirmasi pesanan terlebih dahulu untuk upload <strong>bukti
-                                        transfer</strong>
-                                </div>
+                </div>
+
+                {{-- Upload bukti transfer --}}
+                <div class="col">
+
+                    @if ($order_process > 0)
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <span>Upload Bukti Transfer :</span>
+                            <span class="float-right h5"></span>
+                            <hr>
+                          @if ($order_status > 0)
+                            <div class="alert alert-warning" role="alert">
+                                <strong>Silahkan menunggu konfirmasi untuk upload</strong>
                             </div>
-                        </div>
-                        @endif --}}
-    
-                        @if ($order_status < 1)
-                        <div class="card shadow">
-                            <div class="card-body">
-                                <span>Upload Bukti Transfer :</span>
-                                <span class="float-right h5"></span>
-                                <hr>
-                                <form action="{{ route('order.post.pembayaran') }}" method="POST"
-                                    enctype="multipart/form-data">
-                                    @csrf
-                                    <input type="file" name="upload_bukti_transfer"
-                                        class="form-control-file pr-4 @error('upload_bukti_transfer') is-invalid @enderror">
-                                    @error('upload_bukti_transfer')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                    @enderror
-                                    <img class="img-target my-3" width="200px">
-                                    <br>
-                                    <button type="submit" class="btn btn-primary float-right btn-md">Kirim</button>
-                                </form>
-    
-                            </div> <!-- card-body.// -->
-                        </div> <!-- card .// -->
-                        @endif
-                    </div>
-    
+                              @else
+                              <form action="{{ route('order.post.pembayaran') }}" method="POST"
+                              enctype="multipart/form-data">
+                              @csrf
+                              <input type="file" name="upload_bukti_transfer"
+                                  class="form-control-file pr-4 @error('upload_bukti_transfer') is-invalid @enderror">
+                              @error('upload_bukti_transfer')
+                              <div class="invalid-feedback">
+                                  {{ $message }}
+                              </div>
+                              @enderror
+                              <img class="img-target my-3" width="200px">
+                              <br>
+                              <button type="submit" class="btn btn-primary float-right btn-md">Kirim</button>
+                          </form>
+                          @endif
+
+                        </div> <!-- card-body.// -->
+                    </div> <!-- card .// -->
+                    @else
+                   
+                    @endif
                 </div>
             </div>
     

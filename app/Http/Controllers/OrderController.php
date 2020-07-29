@@ -126,6 +126,10 @@ class OrderController extends Controller
     {
         $item = Order::findOrFail($id);
         $item->forceDelete();
+
+        OrderDetail::where('id_order', $item->id)
+            ->forceDelete();
+
         return redirect()->route('order.index')->with([
             'status', 'Data Order Berhasil Di Hapus!'
         ]);
@@ -146,8 +150,7 @@ class OrderController extends Controller
         } elseif ($request->status == 'PENDING') {
             OrderDetail::where('id_order', $item->id)
                 ->update(['status' => 'PENDING']);
-        }
-        else {
+        } else {
             OrderDetail::where('id_order', $item->id)
                 ->update(['status' => 'FAILED']);
         }
