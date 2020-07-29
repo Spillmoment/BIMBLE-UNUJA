@@ -95,15 +95,15 @@ class FrontController extends Controller
         $sort = $request->sorted;
         if ($sort == 'termurah') {
             $data =  Kursus::select(DB::raw('*, biaya_kursus - ((diskon_kursus/100)*biaya_kursus) as urut'))
-                    ->orderBy('urut', 'asc')
-                    ->get();
+                ->orderBy('urut', 'asc')
+                ->get();
         } else {
             $data =  Kursus::select(DB::raw('*, biaya_kursus - ((diskon_kursus/100)*biaya_kursus) as urut'))
-                    ->orderBy('urut', 'desc')
-                    ->get();
+                ->orderBy('urut', 'desc')
+                ->get();
         }
 
-        return view('web.web_kursus_card_sorted', ['kursus' => $data]);         
+        return view('web.ajax.web_kursus_card_sorted', ['kursus' => $data]);
     }
 
     public function show($slug)
@@ -118,7 +118,8 @@ class FrontController extends Controller
         $review = Komentar::with('kursus')
             ->where('id_kursus', $kursus->id)
             ->orderBy('created_at', 'desc')
-            ->paginate(4);
+            ->take(5)
+            ->get();
 
         $check_kursus_status = OrderDetail::where('id_pendaftar', $pendaftarId)
             ->where('id_kursus', $kursus->id)
