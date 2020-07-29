@@ -215,7 +215,13 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($id);
         Storage::disk('local')->delete('public/uploads/bukti_pembayaran/' . $order->upload_bukti);
-        $order->forceDelete();
+        $order->upload_bukti = null;
+        $order->status_kursus = 'PROCESS';
+        $order->save();
+
+        $order_detail = OrderDetail::where('id_order', $id)->get();
+        $order_detail->status = 'PROCESS';
+        $order_detail->save();
 
         return response()->json([
             'message' => 'Konfirmasi berhasil dibatalkan.'

@@ -395,7 +395,7 @@
 
                             $.ajax({
                                 url: "/order/checkout/" + id,
-                                type: 'DELETE',
+                                type: 'PATCH',
                                 data: {
                                     _token: token,
                                 },
