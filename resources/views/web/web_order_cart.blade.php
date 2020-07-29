@@ -163,7 +163,7 @@
                                     <p class="mb-0">
                                         <ol type="1">
                                             <li>No. rekening tujuan</li>
-                                            <li>Jumlah tagihan anda sebesar @currency($pesan->total_tagihan).00
+                                            <li>Jumlah tagihan anda sebesar <strong>@currency($pesan->total_tagihan).00</strong>
                                             </li>
                                         </ol>
                                     </p>
@@ -205,40 +205,37 @@
                 {{-- Upload bukti transfer --}}
                 <div class="col">
 
-                    {{-- @if ($order_status != null)
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="alert alert-info col" role="alert">
-                                Silahkan menunggu konfirmasi pesanan terlebih dahulu untuk upload <strong>bukti
-                                    transfer</strong>
-                            </div>
-                        </div>
-                    </div>
-                    @endif --}}
-
-                    @if ($order_process != null && $order_status != null)
+                    @if ($order_process > 0)
                     <div class="card shadow">
                         <div class="card-body">
                             <span>Upload Bukti Transfer :</span>
                             <span class="float-right h5"></span>
                             <hr>
-                            <form action="{{ route('order.post.pembayaran') }}" method="POST"
-                                enctype="multipart/form-data">
-                                @csrf
-                                <input type="file" name="upload_bukti_transfer"
-                                    class="form-control-file pr-4 @error('upload_bukti_transfer') is-invalid @enderror">
-                                @error('upload_bukti_transfer')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                                <img class="img-target my-3" width="200px">
-                                <br>
-                                <button type="submit" class="btn btn-primary float-right btn-md">Kirim</button>
-                            </form>
+                          @if ($order_status > 0)
+                            <div class="alert alert-warning" role="alert">
+                                <strong>Silahkan menunggu konfirmasi untuk upload</strong>
+                            </div>
+                              @else
+                              <form action="{{ route('order.post.pembayaran') }}" method="POST"
+                              enctype="multipart/form-data">
+                              @csrf
+                              <input type="file" name="upload_bukti_transfer"
+                                  class="form-control-file pr-4 @error('upload_bukti_transfer') is-invalid @enderror">
+                              @error('upload_bukti_transfer')
+                              <div class="invalid-feedback">
+                                  {{ $message }}
+                              </div>
+                              @enderror
+                              <img class="img-target my-3" width="200px">
+                              <br>
+                              <button type="submit" class="btn btn-primary float-right btn-md">Kirim</button>
+                          </form>
+                          @endif
 
                         </div> <!-- card-body.// -->
                     </div> <!-- card .// -->
+                    @else
+                   
                     @endif
                 </div>
 
