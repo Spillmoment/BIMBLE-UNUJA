@@ -105,13 +105,11 @@
                                 </div>
                             </div>
                            
-                              <div class="card-img-overlay-top d-flex justify-content-between align-items-center">
+                              {{-- <div class="card-img-overlay-top d-flex justify-content-between align-items-center">
                                 <div class="badge badge-transparent badge-pill px-3 py-2">
-                                    @foreach ($krs->kategori as $item)
-                                    {{$item->nama_kategori}}
-                                @endforeach    
+    
                                 </div>
-                              </div>
+                              </div> --}}
                         </div>
                         
                         <div class="card-body d-flex align-items-center">
@@ -120,7 +118,9 @@
                                         class="text-decoration-none text-dark">{{$krs->nama_kursus}}</a></h6>
                                 <div class="d-flex card-subtitle mb-3">
                                     <p class="flex-grow-1 mb-0 text-muted" style="font-size: 12.5px">
-                                     {{ $krs->keterangan }}
+                                        @foreach ($krs->kategori as $item)
+                                        {{$item->nama_kategori}}
+                                    @endforeach
                                     <p class="flex-shrink-1 mb-0 card-stars text-xs text-right">
                                         @php
                                         $minat_kursus = $krs->order_detail_count / 10;
@@ -134,15 +134,7 @@
                                     }elseif($rating <= 0 ){ echo '<i class="fa fa-star text-gray-300"></i>' ;
                                             }else{ echo '<i class="fa fa-star-half text-warning"></i>' ; }
                                             $rating--; @endphp @endfor </p> </div> 
-                                           
-                                           {{-- @if($status_kursus != null) 
-                                           <span
-                                            style="width: 45px"
-                                            class="badge badge-success badge-pill badge-lg float-right">
-                                            <i class="fas fa-check-circle"></i>
-                                            </span>
-                                            @endif --}}
-
+                                         
                                             @if ($krs->diskon_kursus == 0)
                                             <p class="card-text text-muted"><span class="h4 text-primary">
                                                     @currency($krs->biaya_kursus)</span>
