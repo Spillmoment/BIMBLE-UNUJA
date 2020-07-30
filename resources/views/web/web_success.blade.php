@@ -49,7 +49,7 @@
             $order = Session::get('order')
             @endphp
 
-            @if (session('order'))
+            @if (session('order') != null)
             @forelse($order as $item)
             @foreach ($item->kursus as $cours)
             <h2 class="hero-heading mt-2">Yayy! Kursus berhasil diambil</h2>

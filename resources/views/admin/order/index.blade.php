@@ -166,7 +166,7 @@
                                             @csrf
                                             @method('delete')
                                             <button type="submit" class="btn btn-danger btn-sm"
-                                                data-name="{{ $user->nama_pendaftar }}">
+                                                data-name="{{ $user->nama_pendaftar }}" id="deleteButton">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </form>

@@ -299,7 +299,6 @@
 
     @include('web.layouts.script')
 
-
 </body>
 
 <script>
