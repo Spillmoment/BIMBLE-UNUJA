@@ -299,9 +299,7 @@
 
     @include('web.layouts.script')
 
-@include('web.layouts.footer')
-    
-@include('web.layouts.script')
+
 </body>
 
 <script>

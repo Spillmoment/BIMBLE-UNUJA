@@ -156,7 +156,7 @@
                 $.ajax({
                     type: 'get',
                     dataType: 'html',
-                    url: '{{ url(' / kursus_sort ') }}',
+                    url: '{{ url('/kursus_sort') }}',
                     data: 'sorted=' + sort,
                     success: function (res) {
                         // console.log(res);

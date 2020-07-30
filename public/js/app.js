@@ -37125,4 +37125,4 @@ module.exports = __webpack_require__(/*! F:\Web Progamming\Laravel\larashop\reso
 
 /***/ })
 
-/******/ });
+/******/ })
