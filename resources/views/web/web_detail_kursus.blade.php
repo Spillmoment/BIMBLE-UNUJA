@@ -67,13 +67,13 @@
                 </div>
             </div>
 
-            <div class="text-block">
+            {{-- <div class="text-block">
                 <!-- Listing Location-->
                 <h3 class="mb-4">Location</h3>
                 <div class="map-wrapper-300 mb-3">
                     <div id="detailMap" class="h-100"></div>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="text-block">
                 <div class="media">
@@ -257,9 +257,9 @@
 
 @endsection
 
-@push('style')
+{{-- @push('style')
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
-@endpush
+@endpush --}}
 
 @push('scripts')
 <script>
@@ -281,7 +281,7 @@
 
 </script>
 
-<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+{{-- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
 <!-- Available tile layers-->
 <script>
     var tileLayers = []
@@ -324,5 +324,5 @@
         markerPath: 'img/marker.svg',
     })
 
-</script>
+</script> --}}
 @endpush
