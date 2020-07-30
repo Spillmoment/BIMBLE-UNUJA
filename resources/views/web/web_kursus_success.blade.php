@@ -1,103 +1,54 @@
 @extends('web.layouts.main')
 
-@section('title','Kursus - ' . Auth::user()->nama_pendaftar )
+@section('title','Bimble - Kursus ' . Auth::user()->nama_pendaftar )
 @section('content')
 
-    <div class="container-fluid py-5 px-lg-5">
-        <h5 class="text-dark text-center mb-3"> Daftar Kursus {{ Auth::user()->nama_pendaftar }}</h5>
-        <hr>
-        <div class="row">
+      <section class="py-5 bg-gray-100"> 
+          <div class="container">
+        
+            <ol class="breadcrumb pl-0  justify-content-center">
+              <li class="breadcrumb-item"><a href="{{ route('front.index') }}">Home</a></li>
+              <li class="breadcrumb-item active">Kursus Saya</li>
+            </ol>
 
-            <div class="col-lg-9">
-                <div class="row">
-                    @forelse ($kursus_success as $row)
-                    @foreach ($row->kursus as $cours)
+          <div class="row mb-5">  
+            
+              <div class="col-md-8">
+                <h4 class="mt-2">Daftar Kursus {{ Auth::user()->nama_pendaftar }}</h4>
 
-                    <div data-marker-id="59c0c8e322f3375db4d89128" class="col-sm-6 col-xl-4 mb-5 hover-animate">
-                        <div class="card card-kelas h-100 border-0 shadow">
-                            <div class="card-img-top overflow-hidden gradient-overlay">
-                                <img src="{{ Storage::url('public/'.$cours->gambar_kursus) }}"
-                                    alt="{{ $cours->nama_kursus }}" class="img-fluid" style="height: 10em;" /><a
-                                    href="{{ route('front.detail',$cours->slug) }}" class="tile-link"></a>
-                                <div class="card-img-overlay-bottom z-index-20">
-                                    <div class="media text-white text-sm align-items-center">
-
-                                        @foreach ($cours->tutor as $tutor)
-                                        <img src="{{ Storage::url('public/'.$tutor->foto) }}"
-                                            alt="{{ $tutor->nama_tutor }}"
-                                            class="avatar-profile avatar-border-white mr-2" height="50px" />
-                                        <div class="media-body">{{ $tutor->nama_tutor }}</div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-body d-flex align-items-center">
-                                <div class="w-100">
-                                    <h6 class="card-title"><a href="{{ route('front.detail',$cours->slug) }}"
-                                            class="text-decoration-none text-dark">{{ $cours->nama_kursus }}</a></h6>
-                                    <div class="d-flex card-subtitle mb-3">
-                                        <p class="flex-grow-1 mb-0 text-muted text-sm">{{ $cours->keterangan }}</p>
-                                        {{-- <p class="flex-shrink-1 mb-0 card-stars text-xs text-right">
-                                            @php
-                                                $minat_kursus = $cours->count() / 10;
-                                                $rating = round($minat_kursus * 2 ) / 2;
-                                            @endphp
-
-                                                @for($x = 5; $x > 0; $x--)
-                                                @php 
-                                                    if($rating > 0.5){
-                                                        echo '<i class="fa fa-star text-warning"></i>';
-                                                    }elseif($rating <= 0 ){
-                                                        echo '<i class="fa fa-star text-gray-300"></i>';
-                                                    }else{
-                                                        echo '<i class="fa fa-star-half text-warning"></i>';
-                                                    }
-                                                    $rating--;      
-                                                    @endphp
-                                            @endfor
-                                        </p> --}}
-                                    </div>
-                                    
-                                    <span  class="badge badge-success badge-pill badge-lg float-right">
-                                        <a href="{{ route('user.kursus.kelas',$cours->slug) }}"
-                                            class="text-decoration-none text-light"> <i class="fas fa-comment-dots"></i> Review</a>
-                                    </span>
-{{--                                   
-                                    @if ($cours->diskon_kursus == 0)
-                                    <p class="card-text text-muted"><span class="h4 text-primary">
-                                            @currency($row->biaya_kursus)</span>
-                                        per Bulan</p>
-                                    @else
-                                    <p class="card-text text-muted">
-                                        <span class="h4 text-primary"> @currency($cours->biaya_kursus -
-                                            ($cours->biaya_kursus * ($cours->diskon_kursus/100)))</span>
-                                        per Bulan
-                                    </p>
-                                    <p class="card-text ">
-                                        <strike>
-                                            <span class="h6 text-danger">@currency($cours->biaya_kursus)</span>
-                                        </strike>
-                                        <strong class="ml-2">Diskon</strong> @currency($cours->diskon_kursus)%
-                                    </p>
-
-                                    @endif --}}
-                                </div>
-
-                            </div>
+                @if ($check == null)
+                <div class="col alert alert-info text-md mb-3 mt-5">
+                    <div class="media align-items-center">
+                        <div class="media-body text-center">
+                            <strong>Anda masih belum memiliki kursus</strong>
                         </div>
                     </div>
-                    @endforeach
-              
+                </div>
+                @endif
+
+              </div>
+            
+           <div class="row mt-3">
+               @forelse ($kursus_success as $row)
+               @foreach ($row->kursus as $cours)
+            <div class="col-lg-4 col-sm-6 mb-4 hover-animate">
+              <div class="card shadow border-0 h-100"><a href="{{ route('front.detail',$cours->slug) }}"><img src="{{ Storage::url('public/'.$cours->gambar_kursus) }}" alt="{{ $cours->nama_kursus }}" class="img-fluid card-img-top"/></a>
+                <div class="card-body"><a href="#" class="text-uppercase text-muted text-sm letter-spacing-2">{{ $cours->kategori->first()->nama_kategori }}</a>
+                  <h5 class="my-2"><a href="{{ route('front.detail',$cours->slug) }}" class="text-dark"> {{ $cours->nama_kursus }}</a></h5>
+                  <p class="my-2 text-muted text-sm">{{ $cours->keterangan }}</p>
+                  <a href="{{ route('front.review', $cours->slug) }}" class="btn btn-link pl-0">Review<i class="fa fa-comment-dots ml-2"></i></a>
+                </div>
+              </div>
+            </div>
+            @endforeach
             @empty
-                    <div class="alert alert-warning text-center" role="alert">
-                 <strong>Belum ada kursus yang aktif, silahkan pesan dulu dan konfirmasi pembayaran</strong>
-                    </div>
             @endforelse
+
+            
+
+        </div>          
         </div>
-        </div>
-
-
     </div>
-    </div>
-
+      </section>
+      
 @endsection

@@ -43,7 +43,7 @@
                     <td><img src="{{ Storage::url('public/' . $cours->gambar_kursus) }}" class="img-fluid img-thumbnail" width="200px" height="200px"></td>
                     <td>{{ $cours->nama_kursus }}</td>
                     <td>{{ $cours->tutor->first()->nama_tutor }}</td>
-                    <td>@currency($total).00</td>
+                    <td>@currency($item->biaya_kursus).00</td>
                     <td><span class="badge badge-secondary badge-pill">Masih Diproses</span></td>
                 </tr>
                 @endforeach
@@ -85,7 +85,7 @@
                             <img src="{{ Storage::url('public/' . $cours->gambar_kursus) }}" class="img-fluid img-thumbnail" width="200px" height="200px">
                         </td>
                         <td>{{ $cours->tutor->first()->nama_tutor }}</td>
-                        <td>@currency($total).00</td>
+                        <td>@currency($item->biaya_kursus).00</td>
                         <td><span class="badge badge-warning badge-pill text-light ">Menunggu Konfirmasi</span></td>
                     </tr>
                     @endforeach
@@ -125,7 +125,7 @@
                         <td><img src="{{ Storage::url('public/' . $cours->gambar_kursus) }}" class="img-fluid img-thumbnail" width="200px" height="200px"></td>
                         <td>{{ $cours->nama_kursus }}</td>
                         <td>{{ $cours->tutor->first()->nama_tutor }}</td>
-                        <td>@currency($total).00</td>
+                        <td>@currency($item->biaya_kursus).00</td>
                         <td><span class="badge badge-success badge-pill">Aktif</span></td>
                     </tr>
 

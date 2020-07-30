@@ -140,6 +140,12 @@
                         </div>
                         @endforelse
                     </div>
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination-template d-flex justify-content-center">
+                         {{ $kursus->appends(Request::all())->links() }}
+                      </nav>
+
                 </div>
             </div>
         </div>

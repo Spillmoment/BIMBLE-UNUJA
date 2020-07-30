@@ -47,10 +47,6 @@ class ProfileController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        $data['total'] = OrderDetail::where('id_pendaftar', $pendaftarId)
-            ->where('status', 'PROCESS')
-            ->sum('biaya_kursus');
-
         // dd($order);
         return view('web.web_profile', $data);
     }

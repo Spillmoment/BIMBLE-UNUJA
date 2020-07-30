@@ -238,7 +238,7 @@
                         </div>
                         @elseif ($check_kursus_sukses)
                         <div class="alert alert-success" role="alert">
-                            <a href="/user/kursus/{{ $kursus->slug }}" class="btn btn-success btn-block">Buka</a>
+                            <a href="{{ route('user.kursus.kelas',$kursus->slug) }}" class="btn btn-success btn-block">Buka</a>
                         </div>
                         @else
                         <button type="submit" id="orderKursusButton"

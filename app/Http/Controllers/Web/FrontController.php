@@ -61,7 +61,7 @@ class FrontController extends Controller
     {
         $kursus = Kursus::with(['kategori', 'tutor'])
             ->withCount('order_detail')
-            ->orderBy('created_at', 'DESC')->paginate(6);
+            ->orderBy('created_at', 'DESC')->paginate(9);
         $kategori = Kategori::latest()->get();
 
         $keyword = $request->get('keyword');
@@ -81,7 +81,7 @@ class FrontController extends Controller
                 ->where('id_kategori', 'LIKE', "%$filter_kategori%")
                 ->withCount('order_detail')
                 ->orderBy('created_at', 'DESC')
-                ->paginate(3);
+                ->paginate(9);
 
             $data_kategori = Kategori::findOrFail($filter_kategori);
             $nama_kategori = $data_kategori->nama_kategori;
@@ -93,14 +93,15 @@ class FrontController extends Controller
     public function kursusSort(Request $request)
     {
         $sort = $request->sorted;
+
         if ($sort == 'termurah') {
             $data =  Kursus::select(DB::raw('*, biaya_kursus - ((diskon_kursus/100)*biaya_kursus) as urut'))
                 ->orderBy('urut', 'asc')
-                ->get();
+                ->paginate(9);
         } else {
             $data =  Kursus::select(DB::raw('*, biaya_kursus - ((diskon_kursus/100)*biaya_kursus) as urut'))
                 ->orderBy('urut', 'desc')
-                ->get();
+                ->paginate(9);
         }
 
         return view('web.ajax.web_kursus_card_sorted', ['kursus' => $data]);

@@ -31,10 +31,17 @@ class KursusUserController extends Controller
                 $query->where('status', 'SUCCESS');
             })
             ->orderBy('created_at', 'DESC')
-            ->paginate(12);
+            ->paginate(6);
+
+        $check = OrderDetail::with(['pendaftar', 'kursus', 'order'])
+            ->where('id_pendaftar', $users_id)
+            ->where(function ($query) {
+                $query->where('status', 'SUCCESS');
+            })->count();
 
         return view('web.web_kursus_success', [
             'kursus_success' => $kursus_success,
+            'check' => $check
         ]);
     }
 
