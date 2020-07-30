@@ -15,6 +15,7 @@
       <!-- Breadcrumbs -->
       <ol class="breadcrumb text-white justify-content-center no-border mb-0">
         <li class="breadcrumb-item"><a href="{{ route('front.index') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('user.kursus.success') }}">Kursus Saya</a></li>
         <li class="breadcrumb-item active">Halaman Review Kursus </li>
       </ol>
       <h1 class="hero-heading">Review {{ $kursus->nama_kursus }}</h1>
@@ -69,7 +70,10 @@
               </div>
               <div class="text-block py-3">
                 <ul class="list-unstyled mb-0">
-                  <li class="mb-3"><i class="fas fa-comment-dots fa-fw text-muted mr-2"></i>{{ $komentar->count() }} Review</li>
+                  <li class="mb-3"><i class="fas fa-comment-dots fa-fw text-muted mr-2"></i>
+                    <a href="{{ route('front.review',$kursus->slug) }}">
+                      {{ $komentar->count() }} Review</li>
+                    </a>
                 </ul>
               </div>
               <div class="text-block pt-3 pb-0">
