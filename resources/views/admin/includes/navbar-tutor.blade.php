@@ -23,8 +23,8 @@
                 </a>
 
                 <div class="user-menu dropdown-menu">
-                    <a class="nav-link" href="#"><i class="fa fa-user"></i>{{ Auth::user()->nama_tutor }}</a>
-                    <a class="nav-link" href="{{ route('tutor.profile') }}"><i class="fa fa-cog"></i>Settings</a>
+                    <a class="nav-link" href="{{ route('tutor.profile') }}"><i class="fa fa-user"></i>Profil</a>
+                    <a class="nav-link" href="{{ route('tutor.pengaturan') }}"><i class="fa fa-cog"></i>Pengaturan</a>
                     <a class="nav-link" href="{{ route('tutor.logout') }}"><i class="fa fa-power-off"></i>Logout</a>
                 </div>
 
