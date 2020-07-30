@@ -59,7 +59,7 @@
                         class="img-fluid img-thumbnail">
                     <p class="text-lg text-muted mt-3 mb-3">{{ $cours->nama_kursus }}</p>
                     <p class="mb-0"><a href="{{ route('front.index') }}" class="btn btn-primary mr-4">Home</a><a
-                            href="{{ route('order.view') }}" class="btn btn-outline-primary">Keranjang</a></p>
+                            href="{{ route('order.view') }}" class="btn btn-outline-primary">Pesanan</a></p>
                 </div>
             </div>
             @endforeach
@@ -74,7 +74,7 @@
                         src="https://cdn.dribbble.com/users/1219289/screenshots/4904617/picker_empty_state_icon_.jpg"
                         class="img-fluid img-thumbnail mb-5">
                     <p class="mb-0"><a href="{{ route('front.index') }}" class="btn btn-primary mr-4">Home</a><a
-                            href="{{ route('order.view') }}" class="btn btn-outline-primary">Keranjang</a></p>
+                            href="{{ route('order.view') }}" class="btn btn-outline-primary">Pesanan</a></p>
                 </div>
             </div>
 
