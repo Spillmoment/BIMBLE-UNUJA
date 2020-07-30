@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tutor;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class TutorController extends Controller
@@ -47,7 +48,7 @@ class TutorController extends Controller
         ]);
 
         $data = $request->all();
-        $data['password'] = bcrypt($data['password']);
+        $data['password'] = Hash::make($data['password']);
         $data['foto'] = $request->file('foto')->store('tutor', 'public');
 
         Tutor::create($data);
@@ -88,7 +89,7 @@ class TutorController extends Controller
         $data = $request->all();
 
         if ($request->input('password')) {
-            $data['password'] = bcrypt($data['password']);
+            $data['password'] = Hash::make($data['password']);
         } else {
             $data = Arr::except($data, ['password']);
         }
