@@ -48,8 +48,10 @@ Route::prefix('tutor')
     ->group(function () {
 
         Route::get('/', 'Tutor\DashboardController@index')->name('tutor.home');
-        Route::put('/pengaturan/{id}/update', 'Tutor\DashboardController@update_profile')->name('tutor.update-profil');
-        Route::get('/pengaturan', 'Tutor\DashboardController@profile')->name('tutor.profile');
+        Route::put('/profile/{id}/update', 'Tutor\DashboardController@update_profile')->name('tutor.update-profil');
+        Route::get('/profile', 'Tutor\DashboardController@profile')->name('tutor.profile');
+        Route::put('/pengaturan/{id}/update', 'Tutor\DashboardController@update_pengaturan')->name('tutor.update-pengaturan');
+        Route::get('/pengaturan', 'Tutor\DashboardController@pengaturan')->name('tutor.pengaturan');
         Route::put('siswa/nilai/{id}', 'Tutor\SiswaController@add_nilai')->name('siswa.add');
         Route::get('siswa/nilai/{id}/edit', 'Tutor\SiswaController@nilai')->name('siswa.nilai');
         Route::get('kursus/{slug}/nilai/', 'Tutor\NilaiController@kursus_nilai')->name('kursus.nilai');
@@ -97,8 +99,6 @@ Route::group(['prefix' => 'profile'], function () {
     Route::put('update/{id}/pengaturan', 'Web\ProfileController@update_pengaturan')->name('pengaturan.update');
     Route::get('pengaturan', 'Web\ProfileController@pengaturan')->name('profile.pengaturan');
 });
-
-
 // Route Order
 Route::post('/order/post/{slug}', 'Web\OrderController@orderPost')->name('order.post');
 Route::get('/order/success', 'Web\OrderController@success')->name('order.success');
@@ -108,6 +108,8 @@ Route::delete('/order/cart/{id}', 'Web\OrderController@updateToDelete')->name('o
 Route::post('/order/cart/upload_bukti', 'Web\OrderController@uploadFile')->name('order.post.pembayaran');
 Route::patch('/order/cart/upload_bukti', 'Web\OrderController@updateFile')->name('order.patch.pembayaran');
 Route::patch('/order/checkout/{id}', 'Web\OrderController@deleteCheckout')->name('order.delete.checkout');
-Route::get('/user/kursus', 'Web\KursusUserController@kursus_success')->name('user.kursus.success');
-Route::get('/user/kursus/{slug}', 'Web\KursusUserController@kursusKelas')->middleware('user.kursus')->name('user.kursus.kelas');
+
+// Route Kursus
+Route::get('/user/kursus-saya', 'Web\KursusUserController@kursus_success')->name('user.kursus.success');
+Route::get('/user/kursus-review/{slug}', 'Web\KursusUserController@kursusKelas')->middleware('user.kursus')->name('user.kursus.kelas');
 Route::post('/user/kursus/{slug}', 'Web\KursusUserController@kursusKelasKomentar')->name('user.kursus.komentar');
