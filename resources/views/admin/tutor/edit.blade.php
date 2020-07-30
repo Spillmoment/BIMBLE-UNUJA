@@ -149,7 +149,7 @@
                     </div>
                     <br>
                     <button type="submit" class="btn btn-block btn-primary">
-                        <big> <i class="fa fa-pencil" aria-hidden="true"></i> Edit Tutor</big></button>
+                        <big>  Edit Tutor</big></button>
                 </div>
 
 
