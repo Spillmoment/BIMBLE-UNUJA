@@ -44,7 +44,7 @@ class KursusUserController extends Controller
         $komentar = Komentar::with(['pendaftar', 'kursus'])
             ->where('id_kursus', $kursus->id)
             ->orderBy('created_at', 'DESC')
-            ->paginate(5);
+            ->get();
         return view('web.web_kursus_user', compact('kursus', 'komentar'));
     }
 
