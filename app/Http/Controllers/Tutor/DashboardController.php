@@ -3,24 +3,32 @@
 namespace App\Http\Controllers\Tutor;
 
 use App\Http\Controllers\Controller;
+use App\Kursus;
 use Illuminate\Http\Request;
 use App\Tutor;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Hash;
+use App\Rules\UserOldPassword;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        return view('tutor.dashboard.index');
+        $kursus = Kursus::with('tutor')
+            ->where('id_tutor', Auth::id())->count();
+
+        return view('tutor.dashboard.index', [
+            'kursus' => $kursus
+        ]);
     }
 
     public function profile()
     {
         $user =  Tutor::where('id', Auth::id())->get();
-        return view('tutor.pengaturan.index', [
+        return view('tutor.profile.index', [
             'tutor' => $user
         ]);
     }
@@ -34,18 +42,11 @@ class DashboardController extends Controller
             'email'                 => 'required|email|unique:tutor,email,' . $id,
             'foto'                  => 'sometimes|nullable|image|mimes:jpg,jpeg,png,bmp',
             'username'              => 'required|min:3|max:100|unique:tutor,username,' . $id,
-            'password'              => 'sometimes|nullable|min:3',
-            'konfirmasi_password'   => 'sometimes|same:password|nullable|min:3',
             'keahlian'              => 'required',
         ]);
 
         $data = $request->all();
 
-        if ($request->input('password')) {
-            $data['password'] = bcrypt($data['password']);
-        } else {
-            $data = Arr::except($data, ['password']);
-        }
 
         if ($request->hasFile('foto')) {
             if ($request->file('foto')) {
@@ -59,7 +60,25 @@ class DashboardController extends Controller
 
         $user->update($data);
         return redirect()->back()->with([
-            'status' => 'Data Berhasil Disimpan'
+            'status' => 'Profile Berhasil Disimpan'
         ]);
+    }
+
+    public function pengaturan()
+    {
+        return view('tutor.pengaturan.index');
+    }
+
+    public function update_pengaturan(Request $request, $id)
+    {
+        $request->validate([
+            'current_password' => ['required', new UserOldPassword],
+            'password' => ['required', 'min:3'],
+            'konfirmasi_password' => ['same:password'],
+        ]);
+
+        $user = Tutor::findOrFail($id);
+        $user->update(['password' => Hash::make($request->password)]);;
+        return redirect()->back()->with(['success' => 'Password berhasil diupdate!']);
     }
 }
