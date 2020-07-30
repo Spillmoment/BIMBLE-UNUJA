@@ -175,19 +175,15 @@
                                 @endif
 
                                 @empty
-                                @push('after-script')
-                                <script>
-                                    swal({
-                                        title: "Maaf",
-                                        text: "Data order kosong!",
-                                        icon: "warning",
-                                        button: "OK!",
-                                    }).then(function () {
-                                        window.location = "{{ route('order.index') }}";
-                                    }, 3000);
-
-                                </script>
-                                @endpush
+                               <table>
+                                   <tbody>
+                                    <div class="alert alert-warning text-sm mb-3 mt-3">
+                                        <div class="media align-items-center">
+                                            <div class="media-body text-center"><strong> Tidak ada data order  </strong></div>
+                                        </div>
+                                    </div>
+                                   </tbody>
+                               </table>
                                 @endforelse
                             </tbody>
 
