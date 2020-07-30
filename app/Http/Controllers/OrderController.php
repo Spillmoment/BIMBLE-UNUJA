@@ -106,9 +106,7 @@ class OrderController extends Controller
     public function update(OrderRequest $request, $id)
     {
         $data = $request->all();
-
         $item = Order::findOrFail($id);
-
         $item->update($data);
 
         return redirect()->route('order.index')->with([
@@ -131,7 +129,7 @@ class OrderController extends Controller
             ->forceDelete();
 
         return redirect()->route('order.index')->with([
-            'status', 'Data Order Berhasil Di Hapus!'
+            'status' => 'Data Order Berhasil Di Hapus!'
         ]);
     }
 
