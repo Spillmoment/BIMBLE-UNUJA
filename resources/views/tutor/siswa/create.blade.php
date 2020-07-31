@@ -76,6 +76,18 @@
             </div>
 
             <div class="form-group">
+                <label for="id_kursus">Kursus</label>
+                <select name="id_kursus" class="form-control {{ $errors->first('id_kursus') ? 'is-invalid' : '' }}" id="id_kursus">
+                    @foreach ($kursus as $kursus)
+                        <option value="{{ $kursus->id }}">{{ $kursus->nama_kursus }}</option>                        
+                    @endforeach
+                </select>
+                <div class="invalid-feedback">
+                    {{$errors->first('id_kursus')}}
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label for="foto">Foto</label>
                 <input type="file" class="form-control-file {{ $errors->first('foto') ? 'is-invalid' : '' }}"
                     name="foto" id="foto">
