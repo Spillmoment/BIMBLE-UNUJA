@@ -144,8 +144,16 @@
                                             <div class="card border-0 shadow col-md-8">
                                                 <div class="card-header bg-gray-100 border-0">
                                                     <div class="media align-items-center">
-                                                        <div class="media-body">
-                                                            <p class="subtitle text-sm text-primary">Pembayaran</p> {{ $pesan->updated_at->diffForHumans() }}
+                                                        <div class="col-md-8">
+                                                            <div class="media-body">
+                                                                <p class="subtitle text-sm text-primary">Pembayaran</p> 
+                                                                <small class="text-muted">{{ $pesan->updated_at->diffForHumans() }}</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <button id="deleteCheckout" data-id="{{ $pesan->id }}" type="button" class="close" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -423,28 +431,29 @@
         })
         .then((willDelete) => {
 
-        if (willDelete) {
+            if (willDelete) {
 
-        e.preventDefault();
-        var id = $(this).data("id");
-        var token = $("meta[name='csrf-token']").attr("content");
+                // e.preventDefault();
+                var id = $(this).data("id");
+                var token = $("meta[name='csrf-token']").attr("content");
 
-        $.ajax({
-            url: "/order/checkout/"+id,
-            type: 'DELETE',
-            data: {
-                _token: token,
-            },
-            success: function (response){
-                setTimeout(function(){
-                    location.reload(); 
-                }, 1500); 
+                $.ajax({
+                    dataType: "json",
+                    url: "/order/checkout/"+id,
+                    type: 'patch',
+                    data: {
+                        _token: token
+                    },
+                    success: function (response){
+                        setTimeout(function(){
+                            location.reload(); 
+                        }, 500); 
+                    }
+                });
+
+            } else {
+                // swal("Your imaginary file is safe!");
             }
-        });
-
-        } else {
-            // swal("Your imaginary file is safe!");
-        }
         });
 
         return false;
