@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tutor;
 
 use App\Http\Controllers\Controller;
+use App\Kursus;
 use Illuminate\Http\Request;
 use App\Siswa;
 use Illuminate\Contracts\Cache\Store;
@@ -35,7 +36,11 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        return view('tutor.siswa.create');
+        $id_tutor = Auth::id();
+        $kursus= Kursus::where('id_tutor', $id_tutor)->get();
+        return view('tutor.siswa.create', [
+            'kursus' => $kursus
+        ]);
     }
 
     /**
@@ -50,6 +55,7 @@ class SiswaController extends Controller
             'nama_siswa'               => 'required|max:255|min:3',
             'jenis_kelamin'            => 'required|in:L,P',
             'alamat'                   => 'required|max:255|min:3',
+            'id_kursus'                => 'required|numeric|min:1',
             'foto'                     => 'required|image|mimes:jpeg,jpg,png,bmp',
             'username'                 => 'required|max:255|min:3|unique:siswa',
             'password'                 => 'required|max:255|min:3',
@@ -169,7 +175,7 @@ class SiswaController extends Controller
         // $data['id_tutor'] = Auth::id();
         $siswa->update($data);
 
-        return redirect()->route('siswa.index')
+        return redirect()->back()
             ->with(['status' => 'Data Nilai Siswa Berhasil Ditambah']);
     }
 }
