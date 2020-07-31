@@ -88,8 +88,13 @@
                                     @endif
                                 </td>
                                 <td>
-                                    <a class="btn btn-success text-white btn-sm" href="{{route('siswa.nilai',
-                        [$item->id])}}"> <i class="fa fa-plus"></i></a>
+                                    <a href="#modal-edit" data-remote="{{route('siswa.nilai', [$item->id])}}"
+                                        data-toggle="modal" data-target="#modal-edit"
+                                        data-title="Detail Nilai {{ $item->nama_siswa }}"
+                                        class="btn btn-success text-white btn-sm">
+                                        <i class="fa fa-plus"></i> </a>
+                                    {{-- <a class="btn btn-success text-white btn-sm" href="{{route('siswa.nilai',
+                        [$item->id])}}"> <i class="fa fa-plus"></i></a> --}}
                                     <a class="btn btn-info text-white btn-sm" href="{{route('siswa.show',
                         [$item->id])}}"> <i class="fa fa-eye"></i></a>
                                     <a class="btn btn-warning text-white btn-sm" href="{{route('siswa.edit',
