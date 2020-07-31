@@ -36,7 +36,7 @@
                 <div class="card-body"><a href="#" class="text-uppercase text-muted text-sm letter-spacing-2">{{ $cours->kategori->first()->nama_kategori }}</a>
                   <h5 class="my-2"><a href="{{ route('front.detail',$cours->slug) }}" class="text-dark"> {{ $cours->nama_kursus }}</a></h5>
                   <p class="my-2 text-muted text-sm">{{ $cours->keterangan }}</p>
-                  <a href="{{ route('front.review', $cours->slug) }}" class="btn btn-link pl-0">Review<i class="fa fa-comment-dots ml-2"></i></a>
+                  <a href="{{ route('user.kursus.kelas', $cours->slug) }}" class="btn btn-link pl-0">Review<i class="fa fa-comment-dots ml-2"></i></a>
                 </div>
               </div>
             </div>
@@ -44,9 +44,14 @@
             @empty
             @endforelse
 
-            
-
-        </div>          
+        </div>   
+        
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation example">
+                      <ul class="pagination pagination-template d-flex justify-content-center">
+                          {{ $kursus_success->links() }}
+                      </ul>
+                  </nav>
         </div>
     </div>
       </section>
