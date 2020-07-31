@@ -63,8 +63,7 @@
                   <div class="media-body">
                     <h6> <a href="{{ route('front.detail', $kursus->slug) }}" class="text-reset">{{ $kursus->nama_kursus }}</a></h6>
                     <p class="text-muted text-sm mb-0">{{ $kursus->keterangan }}</p>
-                    {{-- <div class="mt-n1"><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-primary"></i><i class="fa fa-xs fa-star text-gray-200"></i>
-                    </div> --}}
+                   
                   </div><a href="{{ route('front.detail', $kursus->slug) }}"><img src="{{ Storage::url('public/'. $kursus->gambar_kursus) }}" alt="" width="100" class="ml-3 rounded"></a>
                 </div>
               </div>
