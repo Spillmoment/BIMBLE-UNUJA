@@ -153,9 +153,18 @@ class FrontController extends Controller
             ->where('id_kursus', $kursus->id)
             ->orderBy('created_at', 'DESC')
             ->paginate(6);
+        $no_kursus = Komentar::with('kursus')
+            ->first();
+
+        $krs_lainya = Kursus::with(['komentar'])
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
         return view('web.web_review_kursus', [
-            'kursus' => $kursus,
-            'komentar' => $komentar
+            'kursus'   => $kursus,
+            'komentar' => $komentar,
+            'komen'   => $no_kursus,
+            'lain'     => $krs_lainya,
         ]);
     }
 }
