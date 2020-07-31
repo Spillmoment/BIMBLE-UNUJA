@@ -152,7 +152,7 @@ class NilaiController extends Controller
     {
         $id_tutor = Auth::id();
         $kursus = Kursus::where('slug', $slug)->first();
-        $siswa = Siswa::where('id_tutor', $id_tutor)->get();
+        $siswa = Siswa::where('id_kursus', $kursus->id)->get();
         $order_detail = OrderDetail::with(['pendaftar', 'pendaftar.nilai'])
             ->where('id_kursus', $kursus->id)
             ->where('status', 'SUCCESS')
