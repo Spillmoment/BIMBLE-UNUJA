@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Tutor;
 
 use App\Http\Controllers\Controller;
 use App\Kursus;
+use App\OrderDetail;
+use App\Pendaftar;
 use Illuminate\Http\Request;
 use App\Tutor;
 use Illuminate\Support\Facades\File;
@@ -12,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use App\Rules\UserOldPassword;
+use App\Siswa;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -19,9 +23,19 @@ class DashboardController extends Controller
     {
         $kursus = Kursus::with('tutor')
             ->where('id_tutor', Auth::id())->count();
+        $jumlah_siswa = Siswa::with('tutor')
+            ->where('id_tutor', Auth::id())->count();
+        $jumlah_pendaftar = DB::table('order_detail')
+                            ->join('kursus', 'order_detail.id_kursus', '=', 'kursus.id')
+                            ->select('order_detail.*')
+                            ->where('order_detail.status', '=', 'SUCCESS')
+                            ->where('kursus.id_tutor', '=', Auth::id())
+                            ->count();
 
         return view('tutor.dashboard.index', [
-            'kursus' => $kursus
+            'kursus'    => $kursus,
+            'siswa'     => $jumlah_siswa,
+            'pendaftar' => $jumlah_pendaftar
         ]);
     }
 
