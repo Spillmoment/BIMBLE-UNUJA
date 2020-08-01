@@ -126,9 +126,9 @@
                                                     @elseif($item->status_kursus == 'SUCCESS')
                                                     <span class="badge badge-success">
                                                         @elseif($item->status_kursus == 'FAILED')
-                                                        <span class="badge badge-warning">
-                                                            @elseif($item->status_kursus == "CANCEL")
-                                                            <span class="badge badge-danger">
+                                                        <span class="badge badge-danger">
+                                                            {{-- @elseif($item->status_kursus == "CANCEL")
+                                                            <span class="badge badge-danger"> --}}
                                                                 @elseif($item->status_kursus == "PROCESS")
                                                                 <span class="badge badge-secondary">
                                                                     <span>
