@@ -28,8 +28,14 @@
 
     @include('web.layouts.header')
     
-    <section class="py-5">
+    <section class="pt-3 py-5">
         <div class="container-fluid">
+
+            <ol class="breadcrumb pl-0 justify-content-center">
+                <li class="breadcrumb-item"><a href="{{ route('front.index') }}">Home</a></li>
+                <li class="breadcrumb-item active">Pesanan</li>
+              </ol>
+
             <div class="d-flex justify-content-between align-items-center flex-column flex-lg-row mb-5">
                 <div class="mr-3">
                     <p class="mb-3 mb-lg-0 ml-4">Anda memiliki
@@ -125,7 +131,7 @@
                                         Total Tagihan:
                                         @if ($total_tagihan != 0)
                                         <span class="font-weight-bold" id="total">
-                                            @currency($total_tagihan)
+                                            @currency($total_tagihan).00
                                         </span>
                                         @else
                                         0
@@ -150,12 +156,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-body">
-                                                    <table class="table text-sm mb-0">
-                                                        <tr>
-                                                            <th class="pl-0 border-0">Upload Bukti</th>
-                                                            <td class="pr-0 text-right border-0"d><img src="{{ asset('storage/uploads/bukti_pembayaran/'.$pesan->upload_bukti) }}"
-                                                                class="img-fluid img-thumbail card-img" alt="upload_bukti"></td>
-                                                        </tr>
+                                                    <div class="row">
+                                                        <div class="col-sm-8">
+                                                               <table class="table text-sm mb-0">
                                                         <tr>
                                                             <th class="pl-0">Kursus yang diambil</th>
                                                             <td class="pr-0 text-primary font-weight-bold">
@@ -175,8 +178,16 @@
                                                             </td>
                                                         </tr>
                                                     </table>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <img src="{{ asset('storage/uploads/bukti_pembayaran/'.$pesan->upload_bukti) }}" 
+                                                                class="img-fluid img-thumbail card-img" alt="upload_bukti">
+                                                        </div>
+                                                    </div>
+                                                   
                                                 </div>
                                             </div> 
+                                            
                                         @elseif ($pesan->status_kursus == 'FAILED')
                                         <div class="card border-0 shadow col-md-8">
                                                 <div class="card-header bg-gray-100 border-0">
@@ -187,59 +198,65 @@
                                                     </div>
                                                 </div>
                                                 <div class="card-body">
-                                                    <table class="table text-sm mb-0">
-                                                        <tr>
-                                                            <td class="pr-0 text-right border-0"><img src="{{ asset('storage/uploads/bukti_pembayaran/'.$pesan->upload_bukti) }}"
+                                                    <div class="row">
+                                                        <div class="col-sm-8">
+                                                            <table class="table text-sm mb-0">
+                                                               
+                                                                <tr>
+                                                                    <td class="pr-0 text-primary font-weight-bold">
+                                                                        <div class="alert alert-info mt-3">
+                                                                            <h4 class="alert-heading">Perhatikan!</h4>
+                                                                            <hr>
+                                                                            <p class="mb-0">
+                                                                                <ol type="1">
+                                                                                    <li>No. rekening tujuan</li>
+                                                                                    <li>Jumlah tagihan anda sebesar <strong>@currency($pesan->total_tagihan).00</strong>
+                                                                                    </li>
+                                                                                </ol>
+                                                                            </p>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="pr-0 text-right text-primary">
+                                                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                                                                        role="progressbar" style="width: 100%" aria-valuenow="100"
+                                                                        aria-valuemin="0" aria-valuemax="100">Bukti Transfer Gagal...</div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="pr-0 text-right border-0">
+                                                                        <form action="{{ route('order.patch.pembayaran') }}" method="POST"
+                                                                            enctype="multipart/form-data" class="pr-xl-3">
+                                                                            @csrf
+                                                                            @method('patch')
+                                                                            <div class="mb-4">
+                                                                                <label for="form_search" class="form-label">Silahkan upload ulang
+                                                                                    bukti transfer</label>
+                                                                                <div class="input-label-absolute input-label-absolute-right">
+                                                                                    <input type="file" name="fileTransfer" class="form-control-file pr-4">
+                                                                                    <img class="img-target my-3" width="200px">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="pb-4">
+                                                                                <div class="mb-4">
+                                                                                    <button type="submit" class="btn btn-primary btn-sm"> <i
+                                                                                            class="far fa-paper-plane mr-1"></i>Update
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </form> 
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <img src="{{ asset('storage/uploads/bukti_pembayaran/'.$pesan->upload_bukti) }}"
                                                                 class="img-fluid img-thumbail card-img" alt="upload_bukti">
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="pr-0 text-primary font-weight-bold">
-                                                                <div class="alert alert-info mt-3">
-                                                                    <h4 class="alert-heading">Perhatikan!</h4>
-                                                                    <hr>
-                                                                    <p class="mb-0">
-                                                                        <ol type="1">
-                                                                            <li>No. rekening tujuan</li>
-                                                                            <li>Jumlah tagihan anda sebesar <strong>@currency($pesan->total_tagihan).00</strong>
-                                                                            </li>
-                                                                        </ol>
-                                                                    </p>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="pr-0 text-right text-primary">
-                                                                <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
-                                                                role="progressbar" style="width: 100%" aria-valuenow="100"
-                                                                aria-valuemin="0" aria-valuemax="100">Bukti Transfer Gagal...</div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="pr-0 text-right border-0">
-                                                                <form action="{{ route('order.patch.pembayaran') }}" method="POST"
-                                                                    enctype="multipart/form-data" class="pr-xl-3">
-                                                                    @csrf
-                                                                    @method('patch')
-                                                                    <div class="mb-4">
-                                                                        <label for="form_search" class="form-label">Silahkan upload ulang
-                                                                            bukti transfer</label>
-                                                                        <div class="input-label-absolute input-label-absolute-right">
-                                                                            <input type="file" name="fileTransfer" class="form-control-file pr-4">
-                                                                            <img class="img-target my-3" width="200px">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="pb-4">
-                                                                        <div class="mb-4">
-                                                                            <button type="submit" class="btn btn-primary btn-sm"> <i
-                                                                                    class="far fa-paper-plane mr-1"></i>Update
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                </form> 
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                                                        </div>
+                                                    </div>
+
+                                                 
                                                 </div>
                                             </div>                                            
                                                                                       
